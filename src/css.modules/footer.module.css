@@ -1,0 +1,19 @@
+.footerBox{
+
+    background: rgba(244, 245, 247, 1) 0% 0% no-repeat padding-box;
+    opacity: 1;
+
+}
+.footer{
+    width: 1366px;
+    height: 243px;
+ margin: 0 auto;
+}
+
+.text{
+    text-align: left;
+    /*font: normal normal medium 14px/21px Raleway;*/
+    letter-spacing: 0px;
+    color: rgba(89, 61, 61, 1);
+    opacity: 1;
+}

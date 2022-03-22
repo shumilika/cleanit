@@ -1,0 +1,30 @@
+.bookingBox{
+    background: #6882EF 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+.booking{
+    width: 1366px;
+    height: 630px;
+    margin: 0 auto;
+}
+h1{
+    text-align: left;
+    font: normal normal bold 49px/57px Raleway;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+.typesCleaning{
+    width: 304px;
+    height: 57px;
+
+    border: 3px solid #F9D859;
+    opacity: 1;
+}
+.types{
+    text-align: center;
+    font: normal normal bold 20px/24px Raleway;
+    letter-spacing: 0px;
+    color: #F9D859;
+    opacity: 1;
+}
