@@ -10,14 +10,14 @@ const Calendar = () => {
             <div className={style.planner}>
 
                 <div className={` ${style.calendar}`}>
-                    <div className={`${style.calendarHeader}`}>
+                    <div>
 
                         <span className={style.month}>March 2021</span>
                     </div>
                     <div className={'d-flex justify-content-between'}>
-                    <span className={`btn btn-primary btn-lg p-3 ${style.btnBlue}`}>
-				<i className={'fas fa-angle-left'}></i>
-                        </span>
+                    <button className={`btn btn-primary btn-lg p-3 ${style.btnBlue}`}>
+				<i className={`material-icons ${style.icons}`}>chevron_left</i>
+                        </button>
 
 
 
@@ -83,9 +83,9 @@ const Calendar = () => {
 
                         </table>
 
-                    <span className={`btn btn-primary btn-lg p-3 ${style.btnBlue}`}>
-				<i className='fas fa-angle-left'></i>
-			</span>
+                    <button className={`btn btn-primary btn-lg p-3 ${style.btnBlue}`}>
+				<i className={`material-icons ${style.icons}`}>chevron_right</i>
+			</button>
                 </div>
                 </div>
 

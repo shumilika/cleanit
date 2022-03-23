@@ -55,17 +55,6 @@ table{
     opacity: 1;
 }
 
-/*th{*/
-/*    font-weight: normal;*/
-/*    font-size: 14px;*/
-/*    color: #5b5b5b;*/
-/*}*/
-
-/*td{*/
-/*    font-weight: normal;*/
-/*    font-size: 12px;*/
-/*    text-align: center;*/
-/*}*/
 
 .week{
     text-align: center;
@@ -82,149 +71,20 @@ td > span{
     line-height: 20px;
 }
 
-td > span:hover{
+
+td:hover{
     font-weight: bold;
+    background-color: #FFD836;
+
 }
 
-td > span.active{
-    border: 1px solid #98cd60;
-    border-radius: 30px;
-}
-td > span:active{
-    border: 2px solid #98cd60;
-    border-radius: 30px;
-}
-
-
-.tabs{
-    margin: 0; padding: 0;
-    text-align: justify;
-    line-height: 0px;
-    font-size: 0px;
-    background-color: #6b6b6b;
-}
-.tabs	.tab{
-    display: inline-block;
-    width: 33.3333%;
-    background-color: #6b6b6b;
+.icons{
+    margin: 0 auto;
     text-align: center;
-    color: #333333;
-    margin: 0; padding: 0;
-    border: 0px none;
-    line-height: 38px;
-    font-size: 14px;
-    transition: background 0.2s;
 }
 
-.tab:active{
-    background-color: #999999;
-    color: #ffffff;
-    font-weight: 600;
-}
-
-.tab:active:hover{
-    background-color: #999999;
-}
-
-
-.tabs	.tab:hover{
-    background-color: #777777;
-}
-
-a{
-    color: inherit;
-    text-decoration: none;
-}
-
-.tabs:after{
-    content: '';
-    width: 100%;
-    display: inline-block;
-}
-
-
-
-
-
-.time{
-    display: block;
-    float: left;
-    margin-left: -41px;
-    width: 36px; height: 36px;
-    border: 2px solid #cccccc;
-    background-color: #ffffff;
-    color: #cccccc;
-    border-radius: 40px;
-    text-align: center;
-    padding: 0px;
-    line-height: 25px;
-}
-.time	span{
-    font-size: 12px;
-    height: 10px;
-    margin: auto;
-    display: block;
-}
-
-.description{
-    display: block;
-    float: left;
-    width: 305px;
-    margin-top: 10px;
-    margin-left: 10px;
-    color: #fd9a4a;
-    font-size: 14px;
-    overflow: visible;
-}
-
-.description	.description-content{
-    margin-top: 5px;
-}
-.description	.description-content p {
-    font-size: 12px;
-    margin: 0;
-    color: #c5c5c5;
-}
-
-.description	.description-content	ul.contact-list{
-    margin: 0;
-    margin-top: 10px;
-    padding: 0;
-}
-.description	.description-content	ul.contact-list	li.contact{
-    overflow: hidden;
-    display: block;
-    float: left;
-    margin: 0; padding: 0;
-    border: 2px solid fadeout(#98cd60, 75%);
-    border-radius: 60px;
-    width: 56px; height: 56px;
-    text-decoration: none;
-    text-align: center;
-    margin-right: 10px;
-    transition: all 0.2s;
-}
-.description	.description-content	ul.contact-list	li.contact	img{
-    width: 60px; height: 60px;
-}
-
-.description	.description-content	ul.contact-list	li.contact:hover{
-    border: 2px solid #98cd60;
-}
-
-.description	.description-content	ul.contact-list	li.contact.add-contact{
-    color: #98cd60;
-    font-size: 20px;
-    line-height: 60px;
-}
-.description	.description-content	ul.contact-list	li.contact.add-contact a{
-    color: inherit;
-    text-decoration: none;
-}
-
-.description .description-content	ul.contact-list	li.contact .add-contact a:hover{
-    background-color: fadeout(#98cd60, 75%);
-}
-
-
+/*td > span:active{*/
+/*    border: 2px solid #98cd60;*/
+/*    border-radius: 30px;*/
+/*}*/
 
