@@ -1,5 +1,4 @@
 import React from 'react';
-import bootstrap from 'bootstrap/dist/css/bootstrap.css'
 import style from '../css.modules/footer.module.css';
 import logo from '../images/CleanItLogo.png';
 
@@ -8,7 +7,7 @@ const Footer = () => {
         <div className={`${style.footerBox}`}>
             <div className={`${style.footer} d-flex justify-content-between`}>
             <div className={'p-5'}>
-                <img scr={logo} alt={'Clean it logo'} />
+                <img src={logo} alt={'Clean it logo'} />
             </div>
             <div className={'p-5'}>
                 <p className={style.text}>Plaut, 10<br/>
