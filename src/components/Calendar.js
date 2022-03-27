@@ -37,7 +37,7 @@ const Calendar = () => {
                             <tr>
                                 <td><span>30</span></td>
                                 <td><span>1</span></td>
-                                <td><span className="active">2</span></td>
+                                <td><span>2</span></td>
                                 <td><span>3</span></td>
                                 <td><span>4</span></td>
                                 <td><span>5</span></td>
@@ -46,18 +46,18 @@ const Calendar = () => {
                             <tr>
                                 <td><span>7</span></td>
                                 <td><span>8</span></td>
-                                <td><span className="active">9</span></td>
+                                <td><span>9</span></td>
                                 <td><span>10</span></td>
                                 <td><span>11</span></td>
                                 <td><span>12</span></td>
                                 <td><span>13</span></td>
                             </tr>
                             <tr>
-                                <td><span className="active">14</span></td>
+                                <td><span>14</span></td>
                                 <td><span>15</span></td>
                                 <td><span>16</span></td>
                                 <td><span>17</span></td>
-                                <td><span className="active">18</span></td>
+                                <td><span>18</span></td>
                                 <td><span>19</span></td>
                                 <td><span>20</span></td>
                             </tr>

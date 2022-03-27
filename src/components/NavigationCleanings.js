@@ -1,21 +1,21 @@
 import React from 'react';
-
+import style from '../css.modules/navigationcleanings.module.css'
 const NavigationCleanings = () => {
     return (
-        <div>
-            <div className={`${style.nav}`}>
-                <ul>
+        <div className={`${style.nav}`}>
+            <div className={`${style.nav_list}`}>
+                <ul className={'justify-content-between'}>
                     <li>
-                        <a>Regularly Cleaning</a>
+                        <a href={`#`}>Regularly Cleaning</a>
                     </li>
                     <li>
-                        <a>Deep Cleaning</a>
+                        <a href={`#`}>Deep Cleaning</a>
                     </li>
                     <li>
-                        <a>Office Cleaning</a>
+                        <a href={`#`}>Office Cleaning</a>
                     </li>
                     <li>
-                        <a>Windows Cleaning</a>
+                        <a href={`#`}>Windows Cleaning</a>
                     </li>
                 </ul>
 

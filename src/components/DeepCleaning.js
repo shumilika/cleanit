@@ -9,7 +9,7 @@ const DeepCleaning = () => {
             <div className={`${style.yellow_line}`}></div>
             <div className={'d-flex container-md'}>
                 <div className={'p-5'}>
-                    <img src={deep_clean} alt={'Deep cleanning'}/>
+                    <img src={deep_clean} alt={'Deep cleaning'}/>
                 </div>
                 <div className={'p-5'}>
                     <h1>Deep</h1>
@@ -24,6 +24,7 @@ const DeepCleaning = () => {
                         <br/>We wash the floor, wipe the baseboards and vacuum the carpet<br/> We take out the garbage</p>
 
                     <button className={`btn btn-primary btn-lg ${style.btn_clean}`}>Check availability</button>
+
                 </div>
             </div>
         </div>
