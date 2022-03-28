@@ -1,37 +1,42 @@
-.nav{
+.navigation{
     height: 148px;
     background: #6882EF 0% 0% no-repeat padding-box;
     opacity: 1;
 }
 .nav_list{
+
     margin: 0 auto;
     padding-top: 40px;
     width: 80%;
 }
-ul{
+.clean_nav {
     margin:0;
+    white-space: nowrap;
 }
-li{
+.clean_nav li{
+
     float: left;
     padding: 20px 60px 0;
     color: #FFFFFF;
+    width: 25%;
 }
 
 
-a{
+.clean_nav a{
+    display: inline-block;
     color: #FFFFFF;
     font-size: 24px;
     letter-spacing: 0px;
-    text-transform: capitalize;
     opacity: 1;
     text-decoration: none;
 }
-a:hover{
+
+.clean_nav a:hover{
     color: #FFD836;
     font-weight: bold;
 }
 
-a:hover:after{
+.clean_nav a:hover:after{
 
     content: "";
     width: 0;
