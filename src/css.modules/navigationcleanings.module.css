@@ -22,7 +22,7 @@
 }
 
 
-.clean_nav a{
+.clean_nav a, .clean_nav button{
     display: inline-block;
     color: #FFFFFF;
     font-size: 24px;
@@ -31,12 +31,12 @@
     text-decoration: none;
 }
 
-.clean_nav a:hover{
+.clean_nav a:hover, .clean_nav button:hover{
     color: #FFD836;
     font-weight: bold;
 }
 
-.clean_nav a:hover:after{
+.clean_nav a:hover:after, .clean_nav button:hover:after{
 
     content: "";
     width: 0;

@@ -5,8 +5,7 @@ import NavigationCleanings from "./NavigationCleanings";
 const Cleanings = () => {
     return (
         <div>
-<NavigationCleanings/>
-
+            <NavigationCleanings/>
             <CleaningType/>
         </div>
     );

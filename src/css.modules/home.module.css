@@ -34,14 +34,14 @@
 }
 
 
-.nav li a{
+.nav li a {
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
     letter-spacing: 0px;
     color: #593D3D;
 }
-.nav li a:hover{
+.nav li a:hover {
     color: #000000;
 }
  #signUp{

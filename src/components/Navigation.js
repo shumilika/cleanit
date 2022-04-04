@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../images/CleanItLogo.png';
 import style from "../css.modules/home.module.css";
+import {Link as Scroll}  from "react-scroll";
+import {Link} from "react-router-dom";
 
 const Navigation = () => {
     return (
@@ -11,10 +13,10 @@ const Navigation = () => {
       </div>
             <div className={''}>
                 <ul className={`${style.nav}`}>
-                    <li><a href={'#'}>Home</a></li>
-                    <li><a href={'#'}>Book</a></li>
-                    <li><a href={'#'} className={'me-5'}>Join our team</a></li>
-                    <li><a href={'#'} id={`${style.signUp}`} className={'ms-4'}>Sign up</a></li>
+                    <li><Link to={'/'}>Home</Link></li>
+                    <li><Scroll to={'book'}><Link to={'/book'}>Book</Link></Scroll></li>
+                    <li><Link to={'/join_or_team'} className={'me-5'}>Join our team</Link></li>
+                    <li><Link to={'/signUp'} id={`${style.signUp}`} className={'ms-4'}>Sign up</Link></li>
                 </ul>
             </div>
         </div>

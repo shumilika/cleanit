@@ -1,26 +1,32 @@
 import React from 'react';
 import style from '../css.modules/navigationcleanings.module.css'
+import {Link} from "react-router-dom";
+import {deepCleaningPage, officeCleaningPage, regularlyCleaningPage, windowsCleaningPage} from "../utils/constants";
+
+
 const NavigationCleanings = () => {
-    return (
+    return (<nav>
         <div className={`${style.navigation}`}>
             <div className={`${style.nav_list}`}>
                 <ul className={`justify-content-between ${style.clean_nav}`}>
                     <li>
-                        <a href={`#`}>Regularly Cleaning</a>
+                        <Link to={regularlyCleaningPage}>Regularly Cleaning</Link>
+                       </li>
+                    <li>
+                        <Link to={deepCleaningPage}>Deep Cleaning</Link>
                     </li>
                     <li>
-                        <a href={`#`}>Deep Cleaning</a>
+                        <Link to={officeCleaningPage}>Office Cleaning</Link>
                     </li>
                     <li>
-                        <a href={`#`}>Office Cleaning</a>
+                        <Link to={windowsCleaningPage}>Windows Cleaning</Link>
                     </li>
-                    <li>
-                        <a href={`#`}>Windows Cleaning</a>
-                    </li>
+
                 </ul>
 
             </div>
         </div>
+        </nav>
     );
 };
 

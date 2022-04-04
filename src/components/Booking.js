@@ -4,7 +4,7 @@ import style from '../css.modules/booking.module.css'
 
 const Booking = () => {
     return (
-        <div className={style.bookingBox}>
+        <div className={style.bookingBox} id={'book'}>
         <div className={style.booking}>
             <h1>Book now</h1>
             <select className={`form-select ${style.typesCleaning}`} aria-label="TypesCleaning">
