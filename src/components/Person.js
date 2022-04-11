@@ -1,22 +1,27 @@
 import React from 'react';
-
+import style from '../css.modules/booking.module.css'
 const Person = (props) => {
     return (
         <div>
+        <div className={'d-flex justify-content-around p-2'}>
             <div>
-                {/*<img src={props.face.img}/>*/}
+                <img src={props.image} alt={'avatar'}/>
             </div>
             <div>
-                <p>
-                    {props.id}
-                {props.name}<br/>
-                {props.date}<br/>
-                Rating 3.5
-                </p>
+                    {/*{props.id}*/}
+               <h2> {props.name}</h2>
+                <p>{props.cleanType}<br/>
+                Rating 3.5</p>
+
             </div>
             <div>
-                {/*{props.date['12.04.2022']}*/}
+               <p> {props.time}<br/>
+                   50dol per service
+               </p>
             </div>
+
+        </div>
+            <div id={style.grey_line}></div>
         </div>
     );
 };
