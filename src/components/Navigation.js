@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import logo from '../images/CleanItLogo.png';
 import style from "../css.modules/home.module.css";
 
-import PhotoDrag from "./joinTeam/PhotoDrag";
+import JoinTeamDialog from "./joinTeam/JoinTeamDialog";
 
 
 
@@ -37,7 +37,7 @@ const Navigation = () => {
             </div>
         </div>
 
-           <PhotoDrag open={open} handleClose={handleClose}/>
+           <JoinTeamDialog open={open} handleClose={handleClose}/>
 
 
         </div>

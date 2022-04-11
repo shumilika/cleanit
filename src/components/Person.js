@@ -8,8 +8,9 @@ const Person = (props) => {
             </div>
             <div>
                 <p>
-                {props.face.name}<br/>
-                {props.face.clean_type}<br/>
+                    {props.id}
+                {props.name}<br/>
+                {props.date}<br/>
                 Rating 3.5
                 </p>
             </div>
