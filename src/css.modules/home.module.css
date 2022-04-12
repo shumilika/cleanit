@@ -1,0 +1,85 @@
+.background{
+    height: 768px;
+    background: transparent url('../images/Path 1/background.png') 0% 0% no-repeat padding-box;
+    background-position: right;
+    opacity: 1;
+}
+.sizing{
+    width: 90%;
+    margin: 0 auto;
+}
+.text_parth{
+    padding: 70px 0 0 120px;
+
+}
+#yellow{
+    color: #FFD836;
+}
+#blue{
+    color: #6882EF;
+    text-transform: uppercase;
+    position: relative;
+    bottom: 20px;
+}
+.nav {
+    margin:0;
+    white-space: nowrap;
+}
+.nav li{
+
+    float: left;
+    padding: 60px 30px 0;
+    color: #FFFFFF;
+    width: 25%;
+}
+
+
+.nav li a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 0px;
+    color: #593D3D;
+}
+.nav li a:hover {
+    color: #000000;
+}
+.link {
+    font-weight: bold !important;
+    font-size: 18px !important;
+    letter-spacing: 0px !important;
+    color: #593D3D !important;
+    text-transform: none !important;
+    padding: 0 !important;
+}
+.link:hover {
+    color: #000000 !important;
+}
+ #signUp{
+     color: #FFFFFF;
+     border: 3px #FFFFFF solid;
+     border-radius: 25px;
+     opacity: 1;
+     padding: 10px 20px;
+ }
+ #signUp:hover{
+     border: 3px #F4F5F7 solid;
+     color: #F4F5F7;
+ }
+ #txt{
+     color: #593D3D;
+ }
+.btn_clean{
+    background: transparent linear-gradient(90deg, #8DA3FF 0%, #6781EF 100%) 0% 0% no-repeat padding-box;
+    border-radius: 30px;
+    width: 220px;
+    height: 60px;
+    border: 0;
+
+    text-align: center;
+    font: normal normal bold 24px/29px Raleway;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    margin-top: 40px;
+}
