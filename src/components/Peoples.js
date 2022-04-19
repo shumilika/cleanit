@@ -7,7 +7,7 @@ const Peoples = () => {
     const person = useSelector(state=>state)
 
     return (
-        <div id={style.people_box}>
+        <div id={`${style.people_box}`}>
             {person.map(({name,date,id, img, clean_type,time})=>(
                 <Person name={name} date={date} id={id} image={img} cleanType={clean_type} time={time}/>
             ))}

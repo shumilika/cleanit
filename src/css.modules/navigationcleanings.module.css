@@ -12,6 +12,7 @@
 .clean_nav {
     margin:0;
     white-space: nowrap;
+    list-style: none;
 }
 .clean_nav li{
 

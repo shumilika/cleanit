@@ -1,6 +1,8 @@
 .bookingBox{
     background: #6882EF 0% 0% no-repeat padding-box;
     opacity: 1;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
 .booking{
     width: 1366px;
@@ -17,32 +19,83 @@
 span{
     color: #FFFFFF;
 }
-.typesCleaning{
+#select_box{
     width: 304px;
     height: 57px;
-
+    overflow: hidden;
     border: 3px solid #F9D859;
-    opacity: 1;
+    position: relative;
+    padding: 10px 0;
+    margin: 20px 0;
+
 }
-.types{
-    text-align: center;
-    font: normal normal bold 20px/24px Raleway;
-    letter-spacing: 0px;
+#select_box:after{
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 20px solid #F9D859;
+    position: absolute;
+    top:40%;
+    right: 20px;
+    content: "";
+    z-index: 98;
+}
+
+#select_box select {
+    width: 314px;
+    border:0;
+
+    /*border: 3px solid #F9D859;*/
+    opacity: 1;
+    background: none;
+    padding: 0 20px;
     color: #F9D859;
-    opacity: 1;
+    font-size: 24px;
+    font-weight: bold;
+    /*display: block;*/
+    position: relative;
+    z-index: 99;
+
 }
+
+
+select > option{
+    padding: 0 20px;
+    color: #F9D859;
+    font-size: 24px;
+    font-weight: bold;
+    /*text-align: center;*/
+}
+
+
 #people_box{
     width: 536px;
-    /*height: 468px;*/
+    min-height: 468px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 16px;
     opacity: 1;
     padding: 20px 10px;
+    max-height: 550px;
+    overflow-y: auto;
 }
 
 #grey_line{
     background: rgba(117, 114, 114, 0.56) 0% 0% no-repeat padding-box;
     height: 2px;
-    /*width: 500px;*/
     margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+    width: 13px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(103, 129, 239, 0.61);
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #FFFFFF;
+    border-bottom-right-radius: 16px;
+        border-top-right-radius: 16px;
 }

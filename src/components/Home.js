@@ -8,7 +8,7 @@ const Home = () => {
         <div className={`${style.background}`}>
         <Navigation/>
             <div className={'d-flex justify-content-between'}>
-                <div className={style.text_parth}>
+                <div className={style.text_path}>
                     <h1 id={style.yellow}>always clean</h1>
                     <h1 id={style.blue}>Home & office</h1>
                     <p id={style.txt}>

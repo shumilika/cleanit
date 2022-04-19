@@ -10,6 +10,9 @@ import JoinTeamDialog from "./joinTeam/JoinTeamDialog";
 
 
 
+
+
+
 const Navigation = () => {
     const [open, setOpen] = useState(false);
 
@@ -31,8 +34,8 @@ const Navigation = () => {
                 <ul className={`${style.nav}`}>
                     <li><Link to={'/'}>Home</Link></li>
                     <li><a href={'#book'}>Book</a></li>
-                    <li><Button className={style.link} onClick={handleClickOpen}>Join our team</Button></li>
-                    <li><Link to={'/signUp'} id={`${style.signUp}`} className={'ms-4'}>Sign up</Link></li>
+                    <li><Button id={style.link} onClick={handleClickOpen}>Join our team</Button></li>
+                    <li><Link to={'/signUp'} id={style.signUp} className={'ms-4'}>Sign up</Link></li>
                 </ul>
             </div>
         </div>
