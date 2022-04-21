@@ -11,7 +11,8 @@ export const regularlyCleaningPage = 'regularly_cleaning';
 export const deepCleaningPage = 'deep_cleaning';
 export const officeCleaningPage = 'office_cleaning';
 export const windowsCleaningPage = 'windows_cleaning';
-export const signUp ='signUp';
+export const myProfilePage = 'my_profile';
+export const homePage = 'home';
 
 export const faces ={albina_avatar, kate_avatar};
 

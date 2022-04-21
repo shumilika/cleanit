@@ -11,14 +11,15 @@ export async function login(email,password){
     }
 }
 
-export function logout(){
+
+
+export function logOut(){
     fb.auth().signOut();
 }
 
 export async function registration(email,password){
     try{
-        const response = await fb.auth().createUserWithEmailAndPassword(email,password);
-        console.log(response)
+        await fb.auth().createUserWithEmailAndPassword(email,password);
     }catch (e){
         console.log(e.message)
     }

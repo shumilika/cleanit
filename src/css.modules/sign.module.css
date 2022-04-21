@@ -1,0 +1,10 @@
+.sign_btn{
+    background-color: #FFFFFF;
+    border:0px;
+    margin: 0 10px;
+    color: #593D3D;
+    font-weight: bold;
+}
+.sign_btn:hover{
+    color: #000000;
+}

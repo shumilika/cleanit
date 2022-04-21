@@ -13,7 +13,7 @@ const CleaningType = () => {
     return (
 
 <Routes>
-    {['/','/book', regularlyCleaningPage].map((path, index) =>
+    {['/', '/home','/book', regularlyCleaningPage].map((path, index) =>
         <Route path={path} key={index} element={<CleaningPage page={cleanings["regularly"]}/>}/>)}
 
     <Route path={deepCleaningPage} element={<CleaningPage page={cleanings["deep"]}/>}/>

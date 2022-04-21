@@ -67,6 +67,17 @@
      border: 3px #F4F5F7 solid;
      color: #F4F5F7;
  }
+#logOut{
+    color: #FFFFFF;
+    border: 3px #FFFFFF solid;
+    border-radius: 25px;
+    opacity: 1;
+    padding: 10px 20px;
+}
+#logOut:hover{
+    border: 3px #F4F5F7 solid;
+    color: #F4F5F7;
+}
  #txt{
      color: #593D3D;
  }

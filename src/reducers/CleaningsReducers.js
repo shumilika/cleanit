@@ -1,35 +1,32 @@
 
-import {faces} from "../utils/constants";
-import {FILL_PEOPLE_TABLE} from "../actions/CleaningsActions";
+import {
+    FILL_CARD_DATA,
+    SET_CURRENT_USER_EMAIL,
+    SET_CURRENT_USER_ROLE,
+    TURN_ON_LOG_OUT_PAGE
+} from "../actions/CleaningsActions";
 
-let a = 1;
 
-const initialState =[
-    {
-        id: a,
-        name: 'Albina',
-        clean_type: 'deep cleaning expert',
-        img: faces.albina_avatar,
-        date: '12.04.2022',
-        time: '16:00'
-    }
-    ]
+const initialState = {
+    login:false,
+    email:'',
+    role:'cleaner',
+    cardData:[],
 
+}
 
 
 export const cleaningsReducer=(state=initialState,action)=>{
     switch (action.type){
-        case FILL_PEOPLE_TABLE:
-            return [...state,
-                {
-                    id:++a,
-                name: action.payload.name,
-            clean_type: action.payload.clean_type,
-            img: faces.albina_avatar,
-            date: action.payload.date,
-            time: action.payload.time
-            }]
 
+        case TURN_ON_LOG_OUT_PAGE:
+            return {...state, login: action.payload}
+        case SET_CURRENT_USER_ROLE:
+            return {...state, role: action.payload}
+        case SET_CURRENT_USER_EMAIL:
+            return {...state, email: action.payload}
+        case FILL_CARD_DATA:
+            return {...state,cardData: action.payload}
         default:
             return state
 
