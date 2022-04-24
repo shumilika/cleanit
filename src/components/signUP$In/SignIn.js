@@ -21,19 +21,34 @@ import {addRole} from "../../services/infoService";
 const SignIn = (props) => {
     const [password, setPassword] = useState('');
     const [regist,setRegist] = useState(false);
-    const {role,email} = useSelector(state=>state);
+    const {role,email} = useSelector(state=>state.clean);
     const dispatch = useDispatch();
+    const [name,setName] = useState('');
+    const {userInfo} = useSelector(state=>state.user);
 
+    // const getRoleFromBase=()=>{
+    //     let baseRole='';
+    //     if(login===true) {
+    //         userInfo.user.map((info)=>{
+    //             baseRole=info.role;
+    //         })
+    //         console.log(baseRole)
+    //
+    //
+    //     }return baseRole;
+    //     }
 
     const handleClickLogin =()=>{
         login(email,password);
         props.handleClose();
+        // console.log(getRoleFromBase)
+        // dispatch(setCurrentUserRoleAction(getRoleFromBase))
        dispatch(turnOnLogOutPageAction(true))
     }
     const handleClickRegistration =()=>{
         registration(email,password);
         console.log(role)
-        addRole(role,email);
+        addRole(role,name,email);
         props.handleClose();
         dispatch(turnOnLogOutPageAction(true))
     }
@@ -50,7 +65,8 @@ const registrationButtonAction=()=>{
     const setRoleAction=(e)=>{
         dispatch(setCurrentUserRoleAction(e.target.value))
     }
-    return (
+
+        return (
         <div className={'d-flex'}>
 
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
@@ -72,11 +88,15 @@ const registrationButtonAction=()=>{
                                onChange={e=>setPassword(e.target.value)}/><br/>
 
                         {regist===true &&
-                            <select onChange={setRoleAction} >
-                                <option>chose</option>
-                            <option value={'employer'}>employer</option>
-                            <option value={'cleaner'}>cleaner</option>
-                        </select>
+                            <div>
+                                <input type={'text'} placeholder={'enter name'} value={name}
+                                       onChange={e=>setName(e.target.value)}/><br/>
+                                <select onChange={setRoleAction} >
+                                    <option>chose</option>
+                                    <option value={'employer'}>employer</option>
+                                    <option value={'cleaner'}>cleaner</option>
+                                </select>
+                            </div>
                         }
                     </div>
                 </DialogContent>
@@ -93,4 +113,4 @@ const registrationButtonAction=()=>{
 };
 
 
-export default SignIn;
+export default SignIn

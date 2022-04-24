@@ -15,7 +15,7 @@ import {useSelector} from "react-redux";
 
 const JoinTeamDialog = (props) => {
 // const dispatch = useDispatch();
-    const {email} = useSelector(state=>state);
+    const {email} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
     const [cleanType, setCleanType] = useState('');
     const [date, setDate] = useState('');

@@ -5,6 +5,7 @@ export const SET_CURRENT_USER_ROLE = 'SET_CURRENT_USER_ROLE';
 export const FILL_CARD_DATA = 'FILL_CARD_DATA';
 
 
+
 export const turnOnLogOutPageAction=loginState=>{
     return{
         type: TURN_ON_LOG_OUT_PAGE,
@@ -29,3 +30,4 @@ export const fillCardDataAction = data=>{
         payload:data
     }
 }
+

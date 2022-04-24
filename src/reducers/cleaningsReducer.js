@@ -11,7 +11,7 @@ const initialState = {
     login:false,
     email:'',
     role:'cleaner',
-    cardData:[],
+    cardData:[]
 
 }
 

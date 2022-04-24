@@ -3,19 +3,24 @@ import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
 import logo from '../images/CleanItLogo.png';
 import style from "../css.modules/home.module.css";
-
 import JoinTeamDialog from "./joinTeam/JoinTeamDialog";
 import SignIn from "./signUP$In/SignIn";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../services/authService";
-import {fillCardDataAction, setCurrentUserRoleAction, turnOnLogOutPageAction} from "../actions/CleaningsActions";
+import {
+    fillCardDataAction,
+    setCurrentUserRoleAction,
+    turnOnLogOutPageAction
+} from "../actions/CleaningsActions";
 import {homePage, myProfilePage} from "../utils/constants";
-// import {getUserInfo} from "../services/infoService";
 import {getCleanCard} from "../services/addCleanCard";
+import {getUserInfo} from "../services/infoService";
+import {fillUserInfoAction} from "../actions/UserActions";
 
 
 const Navigation = () => {
-    const {role,login,email} = useSelector(state=>state);
+    const {role,login,email} = useSelector(state=>state.clean);
+
     const [openTeam, setOpenTeam] = useState(false);
     const [openSign, setOpenSign] = useState(false);
     const dispatch = useDispatch();
@@ -30,9 +35,7 @@ const Navigation = () => {
     };
     const handleClickOpenSign = () => {
         setOpenSign(true);
-
     };
-
     const handleCloseSign = () => {
         setOpenSign(false);
     };
@@ -40,7 +43,6 @@ const Navigation = () => {
         logOut();
         dispatch(setCurrentUserRoleAction('cleaner'))
         dispatch(turnOnLogOutPageAction(false))
-
     }
 
 
@@ -55,6 +57,15 @@ const Navigation = () => {
         })
     }
 
+    const handleFillMyProfilePageAction=()=>{
+        getUserInfo(email).then(data=>{
+             dispatch(fillUserInfoAction(data))
+            console.log(data)
+        }).catch(e=>{
+            console.log(e.message);
+        })
+    }
+
     return (
         <div>
         <div className={`d-flex justify-content-between ${style.sizing}`}>
@@ -63,10 +74,10 @@ const Navigation = () => {
       </div>
             <div className={''}>
                 <ul className={`${style.nav}`}>
-                    <li>
-                        {login===true && <Link to={myProfilePage}>My profile</Link>}
-                        {login===false && <Link to={homePage}>Home</Link>}
-                    </li>
+
+                        {login===true &&<li onClick={handleFillMyProfilePageAction}> <Link to={myProfilePage}>My profile</Link></li>}
+                        {login===false && <li><Link to={homePage}>Home</Link></li>}
+
                     <li onClick={handleFillPeopleAction}><a href={'#book'}>Book</a></li>
                     {role==='cleaner' && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
                     <li>{login===true && <Button id={style.logOut} onClick={handleLogOut}>Log out</Button>}

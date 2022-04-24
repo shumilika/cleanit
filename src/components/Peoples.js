@@ -6,21 +6,23 @@ import style from '../css.modules/booking.module.css';
 
 const Peoples = () => {
 
-    const {login,cardData} = useSelector(state=>state)
+    const {login,cardData} = useSelector(state=>state.clean)
 
-    if(login===true) {
+    if(login!==true) {
     return (
         <div id={`${style.people_box}`}>
-                 {cardData.cleanCards.map((card, i)=>
-                  <Person name={card.name} date={card.date} cleanType={card.cleanType} time={card.time} key={i}/>
-                )}
+            <p>You should login</p>
         </div>
     );
 }
     else {
         return (
             <div id={`${style.people_box}`}>
-                <p>You should login</p>
+
+                {cardData.cleanCards?.map((card, i)=>
+                    <Person name={card.name} date={card.date} cleanType={card.cleanType} time={card.time}
+                                   key={i}/>
+                )}
             </div>
         );
 }

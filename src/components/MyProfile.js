@@ -1,17 +1,29 @@
 import React from 'react';
-import {homePage} from "../utils/constants";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-const MyProfile = (props) => {
+const MyProfile = () => {
+const {userInfo} = useSelector(state=>state.user);
+const {login} = useSelector(state=>state.clean);
 
-    return (
-        <div>
-            Hello,
-            <p>add photo</p>
-            <Link to={'/home'}>Home</Link>
+    if(login===true) {
+        return (
+            <div className={'text-center'}>
+                {userInfo.user?.map((info)=>
+ <div>
+                    Hello,{info.name}!
+                    <p> photo</p><br/>
 
-        </div>
-    );
+                user status: {info.role}<br/>
+
+    <br/>Check my заказы
+</div>
+                    )}
+                <Link to={'/home'}>Home</Link>
+
+            </div>
+        );
+    }
 };
 
 export default MyProfile;
