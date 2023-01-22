@@ -10,12 +10,12 @@ import {
     TextField
 } from "@mui/material";
 import style from "../../css.modules/booking.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {fillPeopleTableAction} from "../../actions/CleaningsActions";
+import {addCard, addCardMainBase} from "../../services/addCleanCard";
+import {useSelector} from "react-redux";
 
 const JoinTeamDialog = (props) => {
-const dispatch = useDispatch();
-    const person = useSelector(state=>state);
+// const dispatch = useDispatch();
+    const {email} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
     const [cleanType, setCleanType] = useState('');
     const [date, setDate] = useState('');
@@ -37,9 +37,11 @@ const dispatch = useDispatch();
     }
 
     const handleClickAction =()=>{
-        dispatch(fillPeopleTableAction(name,date,time, cleanType));
+        // dispatch(fillPeopleTableAction(name,date,time, cleanType));
+        addCard(name,date, time, cleanType,email)
+        addCardMainBase(name,email,date,time,cleanType);
         props.handleClose();
-        console.log(person)
+        // console.log(person)
     }
 
 
@@ -64,6 +66,7 @@ const dispatch = useDispatch();
 
             <span>Choose cleaning type</span><br/>
                 <select className={`form-select ${style.typesCleaning}`} aria-label="TypesCleaning" onChange={handleChangeCleanType}>
+                    <option  className={`${style.types}`} >Choose type cleaning</option>
                     <option  className={`${style.types}`} value="regularly cleaning expert" >Regularly Cleaning</option>
                     <option className={`${style.types}`} value="deep cleaning expert">Deep Cleaning</option>
                     <option className={`${style.types}`} value="office cleaning expert">Office Cleaning</option>

@@ -3,18 +3,29 @@ import {useSelector} from "react-redux";
 import Person from "./Person";
 import style from '../css.modules/booking.module.css';
 
+
 const Peoples = () => {
-    const person = useSelector(state=>state)
 
+    const {login,cardData} = useSelector(state=>state.clean)
+
+    if(login!==true) {
     return (
-        <div id={style.people_box}>
-            {person.map(({name,date,id, img, clean_type,time})=>(
-                <Person name={name} date={date} id={id} image={img} cleanType={clean_type} time={time}/>
-            ))}
-
-
+        <div id={`${style.people_box}`}>
+            <p>You should login</p>
         </div>
     );
+}
+    else {
+        return (
+            <div id={`${style.people_box}`}>
+
+                {cardData.cleanCards?.map((card, i)=>
+                    <Person name={card.name} date={card.date} cleanType={card.cleanType} time={card.time}
+                                   key={i}/>
+                )}
+            </div>
+        );
+}
 };
 
 export default Peoples;

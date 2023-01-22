@@ -1,6 +1,6 @@
-import {cleaningsReducer} from "../reducers/CleaningsReducers";
 import {createStore} from "redux";
+import {rootReducer} from "../reducers/rootReducer";
 
 
 
-export const store = createStore(cleaningsReducer)
+export const store = createStore(rootReducer)

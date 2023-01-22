@@ -5,7 +5,8 @@ import {deepCleaningPage, officeCleaningPage, regularlyCleaningPage, windowsClea
 
 
 const NavigationCleanings = () => {
-    return (<nav>
+    return (
+        <nav>
         <div className={`${style.navigation}`}>
             <div className={`${style.nav_list}`}>
                 <ul className={`justify-content-between ${style.clean_nav}`}>

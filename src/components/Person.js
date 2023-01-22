@@ -8,7 +8,6 @@ const Person = (props) => {
                 <img src={props.image} alt={'avatar'}/>
             </div>
             <div>
-                    {/*{props.id}*/}
                <h2> {props.name}</h2>
                 <p>{props.cleanType}<br/>
                 Rating 3.5</p>

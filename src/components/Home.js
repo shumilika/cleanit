@@ -1,28 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from '../css.modules/home.module.css'
 import Navigation from "./Navigation";
-import picture from '../images/For_homePage/HomePicture.png'
+import HomeContent from "./HomeContent";
+import {
+    deepCleaningPage, homePage, myProfilePage,
+    officeCleaningPage,
+    regularlyCleaningPage,
+    windowsCleaningPage
+} from "../utils/constants";
+import {Route, Routes} from "react-router-dom";
+import MyProfile from "./MyProfile";
+import {useSelector} from "react-redux";
 
 const Home = () => {
+    const state = useSelector(state=>state.login)
+    const [page, setPage] = useState(true);
+
+    const closePageAction =()=>{
+        setPage(false);
+    }
+
     return (
         <div className={`${style.background}`}>
         <Navigation/>
-            <div className={'d-flex justify-content-between'}>
-                <div className={style.text_parth}>
-                    <h1 id={style.yellow}>always clean</h1>
-                    <h1 id={style.blue}>Home & office</h1>
-                    <p id={style.txt}>
-                        It’s hard to find someone who enjoys cleaning. It takes a<br/> lot of energy, time, and you always have to
-                        do it when <br/>there are so many other things to do around you.<br/><br/> Is it possible to make it so that your
-                        surroundings are <br/>clean, but not to create a constant torture of cleaning? Of <br/>course it is!
-                    </p>
-                    <button className={`btn btn-primary ${style.btn_clean}`}>Book now!</button>
-                </div>
-                <div>
-                    <img src={picture} alt={'uborzhitsa'}/>
-                </div>
+            <Routes>
+                { ['/', homePage, regularlyCleaningPage,deepCleaningPage,officeCleaningPage,windowsCleaningPage].map((path, index) =>
+                        <Route path={path} key={index} element={<HomeContent/>}/>)}
+                 <Route path={myProfilePage} element={<MyProfile closePage={closePageAction}/>}/>
 
-            </div>
+
+            </Routes>
+
         </div>
     );
 };
