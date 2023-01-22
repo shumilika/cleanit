@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     Dialog,
@@ -15,42 +15,63 @@ import {
     turnOnLogOutPageAction
 } from "../../actions/CleaningsActions";
 import style from '../../css.modules/sign.module.css';
-import {addRole} from "../../services/infoService";
+import {addAvatar, addRole} from "../../services/infoService";
+import {storage} from "../../config/fireBaseConfig";
+import {getUserPhotoUrlAction} from "../../actions/UserActions";
+
+
 
 
 const SignIn = (props) => {
     const [password, setPassword] = useState('');
     const [regist,setRegist] = useState(false);
     const {role,email} = useSelector(state=>state.clean);
+    const {photoUrl} = useSelector(state=>state.user);
     const dispatch = useDispatch();
     const [name,setName] = useState('');
-    const {userInfo} = useSelector(state=>state.user);
+    const [image, setImage] = useState('');
+    const [isPhotoPicked, setIsPhotoPicked] = useState(false);
 
-    // const getRoleFromBase=()=>{
-    //     let baseRole='';
-    //     if(login===true) {
-    //         userInfo.user.map((info)=>{
-    //             baseRole=info.role;
-    //         })
-    //         console.log(baseRole)
-    //
-    //
-    //     }return baseRole;
-    //     }
+
+    const setPhotoUserAction=(e)=>{
+        setImage(e.target.files[0]);
+        setIsPhotoPicked(true);
+    }
+
+    const handleUpload= ()=>{
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+            'state_changed',
+            snapshot => {},
+            error =>{
+                console.log(error);
+            },
+            ()=>{
+                storage
+                    .ref('images')
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        dispatch(getUserPhotoUrlAction(url))
+                    });
+            }
+        );
+    }
 
     const handleClickLogin =()=>{
         login(email,password);
         props.handleClose();
-        // console.log(getRoleFromBase)
-        // dispatch(setCurrentUserRoleAction(getRoleFromBase))
        dispatch(turnOnLogOutPageAction(true))
     }
-    const handleClickRegistration =()=>{
-        registration(email,password);
+     const handleClickRegistration = () => {
+        registration(email, password);
         console.log(role)
-        addRole(role,name,email);
+         // await handleUpload();
+        addRole(role, name, email);
+         addAvatar(photoUrl,email)
         props.handleClose();
         dispatch(turnOnLogOutPageAction(true))
+
     }
     const handleCloseAction=()=>{
         props.handleClose();
@@ -65,7 +86,9 @@ const registrationButtonAction=()=>{
     const setRoleAction=(e)=>{
         dispatch(setCurrentUserRoleAction(e.target.value))
     }
-
+    useEffect(() => {
+        if (isPhotoPicked) handleUpload();
+    },[]);
         return (
         <div className={'d-flex'}>
 
@@ -88,7 +111,11 @@ const registrationButtonAction=()=>{
                                onChange={e=>setPassword(e.target.value)}/><br/>
 
                         {regist===true &&
-                            <div>
+                            <div>{isPhotoPicked ? (
+                              <p>good choose</p>
+                                ):(
+                                <input type={'file'} name={'avatarImg'} multiple accept={'image/*'} onChange={setPhotoUserAction}/>
+                            )}<br/>
                                 <input type={'text'} placeholder={'enter name'} value={name}
                                        onChange={e=>setName(e.target.value)}/><br/>
                                 <select onChange={setRoleAction} >

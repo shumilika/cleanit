@@ -14,7 +14,7 @@ import {
 } from "../actions/CleaningsActions";
 import {homePage, myProfilePage} from "../utils/constants";
 import {getCleanCard} from "../services/addCleanCard";
-import {getUserInfo} from "../services/infoService";
+import {addInfo, getUserInfo} from "../services/infoService";
 import {fillUserInfoAction} from "../actions/UserActions";
 
 

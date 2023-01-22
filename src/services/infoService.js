@@ -10,31 +10,32 @@ export async function addRole(role,name,email){
         await ref.update({
             user:firebase.firestore.FieldValue.arrayUnion({
                 role,
-                name,
-                status:false
+                name
+
             })
         })
     }else{
-        await ref.set({user: [{role,name,status:false}]})
+        await ref.set({user: [{role,name}]})
     }
 }
 
 
-// export async function addInfo(photo,email){
-//
-//     const ref = await fb.firestore().collection('usersInfo').doc(email);
-//     const doc = await ref.get();
-//     if(doc.exists){
-//         await ref.update({
-//             user:firebase.firestore.FieldValue.arrayUnion({
-//                 photo
-//
-//             })
-//         })
-//     }else{
-//         await ref.set({user: [{photo}]})
-//     }
-// }
+export async function addAvatar(photo,email){
+
+    const ref = await fb.firestore().collection('usersInfo').doc(email);
+    const doc = await ref.get();
+    if(doc.exists){
+
+
+        await ref.update({
+            user:firebase.firestore.FieldValue
+                .arrayUnion({
+                photo
+            })
+        }, {merge: true})
+    }
+
+}
 
 
 export async function getUserInfo(email){

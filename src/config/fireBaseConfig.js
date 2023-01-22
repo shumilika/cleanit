@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import 'firebase/compat/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIMTkbkRpp4kSLznDFUAWiRhR4yq8uh7g",
@@ -9,4 +10,6 @@ const firebaseConfig = {
     appId: "1:454660071618:web:5aee65fbb83934b13b5b5b"
 };
 
+
 export const fb = firebase.initializeApp(firebaseConfig);
+export const storage = fb.storage();

@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css'
 const Calendar = () => {
 
     const [value, onChange] = useState(new Date());
-
+  
     return (
         <div>
            <span> Choose available dates:</span>
