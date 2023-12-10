@@ -7,24 +7,45 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    FormControl,
+    FormLabel,
+    InputLabel,
+    MenuItem,
+    Select,
     TextField
 } from "@mui/material";
 import style from "../../css.modules/booking.module.css";
 import {addCard, addCardMainBase} from "../../services/addCleanCard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { registration} from "../../services/authService";
+import { turnOnLogOutPageAction } from '../../actions/CleaningsActions';
+import { addRole } from '../../services/infoService';
 
 const JoinTeamDialog = (props) => {
-// const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const {email} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [cleanType, setCleanType] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
     const handleChangeName = n=>{
         setName(n);
-
     }
+    
+    const handleChangeEmail = n=>{
+        setNewEmail(n);
+    }
+
+
+    const handleChangePassword = n=>{
+        setPassword(n);
+    }
+
     const handleChangeCleanType = e=>{
         setCleanType(e.target.value);
 
@@ -36,8 +57,16 @@ const JoinTeamDialog = (props) => {
         setTime(time);
     }
 
+    const handleClickRegistration = () => {
+        registration(newEmail, password);
+        addRole('cleaner', name, newEmail);
+        dispatch(turnOnLogOutPageAction(true))
+
+    }
+
     const handleClickAction =()=>{
         // dispatch(fillPeopleTableAction(name,date,time, cleanType));
+        handleClickRegistration()
         addCard(name,date, time, cleanType,email)
         addCardMainBase(name,email,date,time,cleanType);
         props.handleClose();
@@ -50,28 +79,49 @@ const JoinTeamDialog = (props) => {
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
                 <DialogTitle>Join our team</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
+                    {/* <DialogContentText>
                         Fill all fields
-                    </DialogContentText>
+                    </DialogContentText> */}
 
 
-            <Box>
-                <TextField id="name" label="name" variant="standard" onChange={e=>handleChangeName(e.target.value)} />
+            <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px'}}>
+            <FormLabel>Quick registration</FormLabel>
+            <br />
+                <TextField id="name" label="Name" variant="standard" onChange={e=>handleChangeName(e.target.value)} />
+               <br />
+                <TextField id="email" label="Email" variant="standard" onChange={e=>handleChangeEmail(e.target.value)} />
+               <br />
+                <TextField id="password" label="Password" variant="standard" onChange={e=>handleChangePassword(e.target.value)} />
             </Box><br/>
             <div>
-                <span>Choose date</span><br/>
-                <input type={"date"} onChange={e=>handleChangeDate(e.target.value)}/><br/><br/>
-                <span>Pick time</span><br/>
-                <input type={"time"} onChange={e=>handleChangeTime(e.target.value)}/><br/><br/>
+        
+                <DatePicker
+                    label='Pick date'
+                    onChange={e=>handleChangeDate(e)}
+                />
+              <br />
+              <br />
 
-            <span>Choose cleaning type</span><br/>
-                <select className={`form-select ${style.typesCleaning}`} aria-label="TypesCleaning" onChange={handleChangeCleanType}>
-                    <option  className={`${style.types}`} >Choose type cleaning</option>
-                    <option  className={`${style.types}`} value="regularly cleaning expert" >Regularly Cleaning</option>
-                    <option className={`${style.types}`} value="deep cleaning expert">Deep Cleaning</option>
-                    <option className={`${style.types}`} value="office cleaning expert">Office Cleaning</option>
-                    <option className={`${style.types}`} value="windows cleaning expert">Windows Cleaning</option>
-                </select>
+                <TimePicker
+                    label='Pick time'
+                    onChange={e=>handleChangeTime(e)}
+                />
+                <br />
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
+            <InputLabel id="demo-simple-select-label">Choose cleaning type</InputLabel>
+                <Select 
+                 aria-label="TypesCleaning"
+                 label='Choose cleaning type'
+                 value={cleanType}
+                 labelId="demo-simple-select-label"
+                  onChange={handleChangeCleanType}>
+              
+                    <MenuItem  className={`${style.types}`} value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"deep cleaning expert"}>Deep Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"office cleaning expert"}>Office Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
+                </Select>
+                </FormControl>
             </div>
                 </DialogContent>
                 <DialogActions>

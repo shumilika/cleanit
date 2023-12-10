@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import logo from '../images/CleanItLogo.png';
 import style from "../css.modules/home.module.css";
 import JoinTeamDialog from "./joinTeam/JoinTeamDialog";
-import SignIn from "./signUP$In/SignIn";
+import SignUp from "./signUP$In/SignUp";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../services/authService";
 import {
@@ -88,7 +88,7 @@ const Navigation = () => {
         </div>
 
            <JoinTeamDialog open={openTeam} handleClose={handleCloseTeam}/>
-            <SignIn open={openSign} handleClose={handleCloseSign}/>
+            <SignUp open={openSign} handleClose={handleCloseSign}/>
 
 
         </div>
