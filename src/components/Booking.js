@@ -18,7 +18,7 @@ const Booking = () => {
             <h1 id={style.book}>Book now</h1>
                 <div id={style.select_box}>
             <select aria-label="TypesCleaning" >
-                <option>Choose type cleaning</option>
+                <option className=''>Choose type cleaning</option>
                 <option value="regularly cleaning expert" >Regularly Cleaning</option>
                 <option value="deep cleaning expert">Deep Cleaning</option>
                 <option value="office cleaning expert">Office Cleaning</option>
