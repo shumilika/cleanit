@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import style from "../css.modules/home.module.css";
 import picture from "../images/For_homePage/HomePicture.png";
 
-const HomeContent = () => {
+const HomeContent = ({bookRef}) => {
+   
     return (
             <div className={'d-flex justify-content-between'}>
                 <div className={style.text_path}>
@@ -13,7 +14,7 @@ const HomeContent = () => {
                         do it when <br/>there are so many other things to do around you.<br/><br/> Is it possible to make it so that your
                         surroundings are <br/>clean, but not to create a constant torture of cleaning? Of <br/>course it is!
                     </p>
-                    <button className={`btn btn-primary ${style.btn_clean}`}>Book now!</button>
+                    <button onClick={() => bookRef.current.scrollIntoView()} className={`btn btn-primary ${style.btn_clean}`}>Book now!</button>
                 </div>
                 <div>
                     <img src={picture} alt={'uborzhitsa'}/>

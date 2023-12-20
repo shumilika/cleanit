@@ -41,28 +41,23 @@ const Navigation = () => {
     };
     const handleLogOut=()=>{
         logOut();
-        dispatch(setCurrentUserRoleAction('cleaner'))
+        dispatch(setCurrentUserRoleAction(''))
         dispatch(turnOnLogOutPageAction(false))
     }
 
-
-
     const handleFillPeopleAction=()=>{
-        console.log(email)
         getCleanCard().then(data=>{
             dispatch(fillCardDataAction(data))
-            console.log(data)
         }).catch(e=>{
-            console.log(e.message);
+            
         })
     }
 
     const handleFillMyProfilePageAction=()=>{
         getUserInfo(email).then(data=>{
              dispatch(fillUserInfoAction(data))
-            console.log(data)
         }).catch(e=>{
-            console.log(e.message);
+            
         })
     }
 
@@ -79,7 +74,7 @@ const Navigation = () => {
                         {login===false && <li><Link to={homePage}>Home</Link></li>}
 
                     <li onClick={handleFillPeopleAction}><a href={'#book'}>Book</a></li>
-                    {role==='cleaner' && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
+                    {role!=='employer' && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
                     <li>{login===true && <Button id={style.logOut} onClick={handleLogOut}>Log out</Button>}
                      {login===false && <Button id={style.signUp} onClick={handleClickOpenSign}>Sign up</Button>}
                     </li>

@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import RCalendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 const Calendar = () => {
 
-    const [value, onChange] = useState(new Date());
+    const [value, setValue] = useState();
   
     return (
         <div>
            <span> Choose available dates:</span>
-<RCalendar onChange={onChange} value={value}/>
 
+        <DateCalendar style={{backgroundColor:'#fff', borderRadius:'16px'}}
+         value={value} onChange={(newValue) => setValue(newValue)} />
 
         </div>
 

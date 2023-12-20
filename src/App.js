@@ -4,13 +4,15 @@ import Booking from "./components/Booking";
 import Cleanings from "./components/Cleanings";
 import 'bootstrap/dist/css/bootstrap.css';
 import Home from "./components/Home";
+import { useRef } from 'react';
 
 function App() {
+  const bookRef = useRef(null);
   return (
     <div>
-        <Home/>
+        <Home bookRef={bookRef}/>
         <Cleanings/>
-      <Booking/>
+      <Booking bookRef={bookRef}/>
     <Footer/>
     </div>
   );

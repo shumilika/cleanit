@@ -10,7 +10,7 @@ import {
 const initialState = {
     login:false,
     email:'',
-    role:'cleaner',
+    role:'',
     cardData:[]
 
 }

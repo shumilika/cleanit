@@ -70,7 +70,7 @@ const JoinTeamDialog = (props) => {
         addCard(name,date, time, cleanType,email)
         addCardMainBase(name,email,date,time,cleanType);
         props.handleClose();
-        // console.log(person)
+        
     }
 
 

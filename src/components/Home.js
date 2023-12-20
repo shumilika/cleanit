@@ -12,7 +12,7 @@ import {Route, Routes} from "react-router-dom";
 import MyProfile from "./MyProfile";
 import {useSelector} from "react-redux";
 
-const Home = () => {
+const Home = ({bookRef}) => {
     const state = useSelector(state=>state.login)
     const [page, setPage] = useState(true);
 
@@ -25,7 +25,7 @@ const Home = () => {
         <Navigation/>
             <Routes>
                 { ['/', homePage, regularlyCleaningPage,deepCleaningPage,officeCleaningPage,windowsCleaningPage].map((path, index) =>
-                        <Route path={path} key={index} element={<HomeContent/>}/>)}
+                        <Route path={path} key={index} element={<HomeContent bookRef={bookRef}/>}/>)}
                  <Route path={myProfilePage} element={<MyProfile closePage={closePageAction}/>}/>
 
 

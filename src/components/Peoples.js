@@ -20,7 +20,8 @@ const Peoples = () => {
             <div id={`${style.people_box}`}>
 
                 {cardData.cleanCards?.map((card, i)=>
-                    <Person name={card.name} date={card.date} cleanType={card.cleanType} time={card.time}
+                    <Person name={card.name} imageUrl={card.photoUrl} 
+                    date={card.date} cleanType={card.cleanType} time={card.time}
                                    key={i}/>
                 )}
             </div>

@@ -2,7 +2,7 @@ import {fb} from "../config/fireBaseConfig";
 import 'firebase/compat/firestore';
 import firebase from "firebase/compat/app";
 
-export async function addRole(role,name,email){
+export async function addRole(role,name,email,photo){
 
     const ref = await fb.firestore().collection('usersInfo').doc(`${email}`);
     const doc = await ref.get();
@@ -10,32 +10,33 @@ export async function addRole(role,name,email){
         await ref.update({
             user:firebase.firestore.FieldValue.arrayUnion({
                 role,
-                name
+                name,
+                photo
 
             })
         })
     }else{
-        await ref.set({user: [{role,name}]})
+        await ref.set({user: [{role,name,photo}]})
     }
 }
 
 
-export async function addAvatar(photo,email){
+// export async function addAvatar(photo,email){
 
-    const ref = await fb.firestore().collection('usersInfo').doc(email);
-    const doc = await ref.get();
-    if(doc.exists){
+//     const ref = await fb.firestore().collection('usersInfo').doc(email);
+//     const doc = await ref.get();
+//     if(doc.exists){
 
 
-        await ref.update({
-            user:firebase.firestore.FieldValue
-                .arrayUnion({
-                photo
-            })
-        }, {merge: true})
-    }
+//         await ref.update({
+//             user:firebase.firestore.FieldValue
+//                 .arrayUnion({
+//                 photo
+//             })
+//         }, {merge: true})
+//     }
 
-}
+// }
 
 
 export async function getUserInfo(email){

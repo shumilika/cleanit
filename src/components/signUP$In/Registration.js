@@ -1,54 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { registration} from "../../services/authService";
+
 import {useDispatch, useSelector} from "react-redux";
 import { styled } from '@mui/material/styles';
-// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {
     setCurrentUserEmailAction,
     setCurrentUserRoleAction,
     turnOnLogOutPageAction
 } from "../../actions/CleaningsActions";
 
-import {addAvatar, addRole} from "../../services/infoService";
+
 import {storage} from "../../config/fireBaseConfig";
 import {getUserPhotoUrlAction} from "../../actions/UserActions";
 import { Box, Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-const Registration = (props) => {
+const Registration = ({password, setPassword, name, image, setImage,
+    role,setRole, setName}) => {
 
-    const [password, setPassword] = useState('');
-    const {role,email} = useSelector(state=>state.clean);
-    const {photoUrl} = useSelector(state=>state.user);
+    
+    const {email} = useSelector(state=>state.clean);
     const dispatch = useDispatch();
-    const [name,setName] = useState('');
-    const [image, setImage] = useState('');
+    // const [image, setImage] = useState('');
     const [isPhotoPicked, setIsPhotoPicked] = useState(false);
-    const [newRole, setNewRole] = useState('')
+    
 
     const setPhotoUserAction=(e)=>{
         setImage(e.target.files[0]);
         setIsPhotoPicked(true);
     }
 
-    const handleUpload= ()=>{
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        uploadTask.on(
-            'state_changed',
-            snapshot => {},
-            error =>{
-                console.log(error);
-            },
-            ()=>{
-                storage
-                    .ref('images')
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then(url => {
-                        dispatch(getUserPhotoUrlAction(url))
-                    });
-            }
-        );
-    }
+    
 
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -61,26 +42,14 @@ const Registration = (props) => {
         whiteSpace: 'nowrap',
         width: 1,
       });
-
-  
-     const handleClickRegistration = () => {
-        registration(email, password);
-        // console.log(role)
-         // await handleUpload();
-        addRole(role, name, email);
-         addAvatar(photoUrl,email)
-        props.handleClose();
-        dispatch(turnOnLogOutPageAction(true))
-
-    }
  
     const setRoleAction=(e)=>{
-        setNewRole(e.target.value)
+        setRole(e.target.value)
         dispatch(setCurrentUserRoleAction(e.target.value))
     }
-    useEffect(() => {
-        if (isPhotoPicked) handleUpload();
-    },[]);
+    // useEffect(() => {
+    //     if (isPhotoPicked) handleUpload();
+    // },[]);
 
     return (
         <div>
@@ -96,7 +65,7 @@ const Registration = (props) => {
             </Box>  
             <br />     
             <Button style={{marginRight:'10px'}} component="label" variant="contained" onChange={setPhotoUserAction}
-       // startIcon={<CloudUploadIcon />}
+       startIcon={<CloudUploadIcon />}
        >
       Upload photo
       <VisuallyHiddenInput type="file"  />
@@ -109,7 +78,7 @@ const Registration = (props) => {
                 <Select 
                  aria-label="TypesCleaning"
                  label='Choose cleaning type'
-                 value={newRole}
+                 value={role}
                  labelId="demo-simple-select-label"
                  onChange={setRoleAction}>
                     <MenuItem   value={"employer"} >employer</MenuItem>
@@ -117,6 +86,7 @@ const Registration = (props) => {
                 </Select>
                 </FormControl>
            </div>
+           
         </div>
     );
 };
