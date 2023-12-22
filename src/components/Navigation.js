@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../images/CleanItLogo.png';
 import style from "../css.modules/home.module.css";
 import JoinTeamDialog from "./joinTeam/JoinTeamDialog";
@@ -20,7 +20,7 @@ import {fillUserInfoAction} from "../actions/UserActions";
 
 const Navigation = () => {
     const {role,login,email} = useSelector(state=>state.clean);
-
+    const navigate = useNavigate()
     const [openTeam, setOpenTeam] = useState(false);
     const [openSign, setOpenSign] = useState(false);
     const dispatch = useDispatch();
@@ -41,6 +41,7 @@ const Navigation = () => {
     };
     const handleLogOut=()=>{
         logOut();
+        navigate('/')
         dispatch(setCurrentUserRoleAction(''))
         dispatch(turnOnLogOutPageAction(false))
     }

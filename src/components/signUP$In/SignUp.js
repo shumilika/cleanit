@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    Alert,
     Button,
     Dialog,
     DialogActions,
@@ -12,7 +13,7 @@ import Registration from './Registration';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUserRoleAction, turnOnLogOutPageAction } from '../../actions/CleaningsActions';
 import { login, registration} from "../../services/authService";
-import {addAvatar, addRole, getUserInfo} from "../../services/infoService";
+import {addRole, getUserInfo} from "../../services/infoService";
 import SignIn from './SignIn';
 import { storage } from '../../config/fireBaseConfig';
 import { fillUserInfoAction, getUserPhotoUrlAction } from '../../actions/UserActions';
@@ -26,11 +27,10 @@ const SignUp = (props) => {
    const {email} = useSelector(state=>state.clean);
    const [password, setPassword] = useState('');
    const [name,setName] = useState('');
-   const [role, setRole] = useState('')
-   const [isLogIn, setIsLogIn] = useState(false)
+   const [isLogIn, setIsLogIn] = useState(true)
    const [image, setImage] = useState('')
+   const [errorReg, setErrorReg] = useState(null)
   
-
    const handleSetPassword = (value)=>{
     setPassword(value)
    }
@@ -43,27 +43,31 @@ const SignUp = (props) => {
     setImage(value)
    }
 
-   const handleSetRole = (value)=>{
-    dispatch(setCurrentUserRoleAction(value))
-    setRole(value)
-   }
     const handleClickLogin =()=>{
         login(email,password);
         getUserInfo(email).then(data=>{
             dispatch(fillUserInfoAction(data))
             dispatch(setCurrentUserRoleAction(data.user[0].role))
-       }).catch(e=>{
-           
-       })
+        }).catch(error=>{
+           setErrorReg(error)
+        })
         props.handleClose();
-       dispatch(turnOnLogOutPageAction(true))
+        // if(errorReg===null)
+         dispatch(turnOnLogOutPageAction(true))
+        // else{dispatch(turnOnLogOutPageAction(false))}
     }
 
-   
+    // console.log(errorReg)
 
     const handleCloseAction=()=>{
         props.handleClose();
     }
+
+    // const message =(info, severity)=>{
+    //     return (
+    //         <Alert severity={severity}>{info}</Alert>
+    //     )
+    // }
 
     const handleUpload= ()=>{
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -85,30 +89,39 @@ const SignUp = (props) => {
         );
     }
 
-    const handleClickRegistration = () => {
+    const handleClickRegistration = async () => {
+       try{
         if(image) handleUpload()
-        registration(email, password);
+        await registration(email, password)
+       } catch(error){
+        setErrorReg(error)
+        // console.log('error'+error)
+    //    message(error,'error')
+       }finally{
+        addRole('employer', name, email,photoUrl)
+        dispatch(setCurrentUserRoleAction('employer'))
         props.handleClose();
+        // if(errorReg===null)
         dispatch(turnOnLogOutPageAction(true))
+        // else dispatch(turnOnLogOutPageAction(false))
+        // message('registration success', 'success')
+      
+       }
     }
+       
 
-      useEffect(() => {
-        addRole(role, name, email,photoUrl);
-
-    },[photoUrl]);
         return (
         <div className={'d-flex'}>
 
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
-                
                 <DialogContent>
                     {/* <DialogContentText>
                         Fill all fields
                     </DialogContentText> */}
                    
-                    {!isLogIn && <Registration password={password} role={role}
+                    {!isLogIn && <Registration password={password} 
                     setPassword={handleSetPassword} name={name}
-                    setName={handleSetName} setRole={handleSetRole}
+                    setName={handleSetName}
                     image={image} setImage={handleSetImage}
                     />}
 
@@ -125,9 +138,8 @@ const SignUp = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseAction}>Close</Button>
-                   
                     {!isLogIn&& <Button onClick={handleClickRegistration}>Sign Up</Button>}
-                     {isLogIn &&<Button onClick={handleClickLogin}>Log In</Button>}
+                    {isLogIn &&<Button onClick={handleClickLogin}>Log In</Button>}
                 </DialogActions>
             </Dialog>
 

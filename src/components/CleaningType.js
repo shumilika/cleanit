@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import {
     cleanings,
     deepCleaningPage,
+    myProfilePage,
     officeCleaningPage,
     regularlyCleaningPage,
     windowsCleaningPage
@@ -13,7 +14,7 @@ const CleaningType = () => {
     return (
 
 <Routes>
-    {['/', '/home','/book', regularlyCleaningPage].map((path, index) =>
+    {['/', '/home',myProfilePage,`/${myProfilePage}/${regularlyCleaningPage}`,regularlyCleaningPage].map((path, index) =>
         <Route path={path} key={index} element={<CleaningPage page={cleanings["regularly"]}/>}/>)}
 
     <Route path={deepCleaningPage} element={<CleaningPage page={cleanings["deep"]}/>}/>

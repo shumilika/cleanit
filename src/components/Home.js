@@ -13,12 +13,6 @@ import MyProfile from "./MyProfile";
 import {useSelector} from "react-redux";
 
 const Home = ({bookRef}) => {
-    const state = useSelector(state=>state.login)
-    const [page, setPage] = useState(true);
-
-    const closePageAction =()=>{
-        setPage(false);
-    }
 
     return (
         <div className={`${style.background}`}>
@@ -26,7 +20,9 @@ const Home = ({bookRef}) => {
             <Routes>
                 { ['/', homePage, regularlyCleaningPage,deepCleaningPage,officeCleaningPage,windowsCleaningPage].map((path, index) =>
                         <Route path={path} key={index} element={<HomeContent bookRef={bookRef}/>}/>)}
-                 <Route path={myProfilePage} element={<MyProfile closePage={closePageAction}/>}/>
+                 
+                 { [ myProfilePage, regularlyCleaningPage,deepCleaningPage,officeCleaningPage,windowsCleaningPage].map((path, index) =>
+                        <Route path={path} key={index} element={<MyProfile/>}/>)}
 
 
             </Routes>

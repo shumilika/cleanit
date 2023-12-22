@@ -20,7 +20,7 @@ export async function addCard(name,date,time,cleanType,email){
         await ref.set({cleanCards: [{name,date,time,cleanType,status:false}]})
     }
 }
-export async function addCardMainBase(name,email,date,time,cleanType){
+export async function addCardMainBase(name,email,date,time,cleanType, photo){
 
     const ref = await fb.firestore().collection('cleanCardsBase').doc('active');
     const doc = await ref.get();
@@ -32,11 +32,12 @@ export async function addCardMainBase(name,email,date,time,cleanType){
                 date,
                 time,
                 cleanType,
+                photo,
                 status:false
             })
         })
     }else{
-        await ref.set({cleanCards: [{name,email,date,time,cleanType,status:false}]})
+        await ref.set({cleanCards: [{name,email,date,time,cleanType,photo,status:false}]})
     }
 }
 

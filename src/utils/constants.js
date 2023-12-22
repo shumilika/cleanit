@@ -2,10 +2,6 @@ import regular_clean from '../images/cleaning/regular_clean.png';
 import deep_clean from '../images/cleaning/deep_clean.png';
 import office_clean from "../images/cleaning/office_clean.png";
 import window_clean from "../images/cleaning/window_clean.png";
-import albina_avatar from '../images/faces/face_1.png';
-import kate_avatar from '../images/faces/face_2.png';
-
-
 
 export const regularlyCleaningPage = 'regularly_cleaning';
 export const deepCleaningPage = 'deep_cleaning';
@@ -14,7 +10,6 @@ export const windowsCleaningPage = 'windows_cleaning';
 export const myProfilePage = 'my_profile';
 export const homePage = 'home';
 
-export const faces ={albina_avatar, kate_avatar};
 
 export const cleanings =
     {

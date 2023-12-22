@@ -35,15 +35,7 @@ const Booking = ({bookRef}) => {
                     <MenuItem  value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
                 </Select>
                 </FormControl>
-                {/* <div id={style.select_box}>
-            <select aria-label="TypesCleaning" >
-                <option className=''>Choose type cleaning</option>
-                <option value="regularly cleaning expert" >Regularly Cleaning</option>
-                <option value="deep cleaning expert">Deep Cleaning</option>
-                <option value="office cleaning expert">Office Cleaning</option>
-                <option value="windows cleaning expert">Windows Cleaning</option>
-            </select>
-                </div> */}
+               
             <Calendar/>
             </div>
             <div>
