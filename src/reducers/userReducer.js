@@ -2,7 +2,7 @@ import {FILL_USER_INFO, GET_USER_PHOTO_URL} from "../actions/UserActions";
 
 
 const initialState = {
-     userInfo:'',
+     userInfo:{},
     photoUrl:''
 }
 

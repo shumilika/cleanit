@@ -119,7 +119,7 @@ const JoinTeamDialog = (props) => {
             await addRole('cleaner', name, newEmail, photoUrl)
             
         } catch (error){
-            // console.log('error'+error)
+           
         }finally{
             addCard(name,date,time,cleanType,newEmail)
             addCardMainBase(name,newEmail,date,time,cleanType,photoUrl);

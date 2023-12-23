@@ -19,7 +19,7 @@ import {fillUserInfoAction} from "../actions/UserActions";
 
 
 const Navigation = () => {
-    const {role,login,email} = useSelector(state=>state.clean);
+    const {role,login,email,uid} = useSelector(state=>state.clean);
     const navigate = useNavigate()
     const [openTeam, setOpenTeam] = useState(false);
     const [openSign, setOpenSign] = useState(false);
@@ -28,6 +28,7 @@ const Navigation = () => {
 
     const handleClickOpenTeam = () => {
         setOpenTeam(true);
+        
     };
 
     const handleCloseTeam = () => {
@@ -52,15 +53,17 @@ const Navigation = () => {
         }).catch(e=>{
             
         })
+        
     }
 
-    const handleFillMyProfilePageAction=()=>{
-        getUserInfo(email).then(data=>{
-             dispatch(fillUserInfoAction(data))
-        }).catch(e=>{
+    // const handleFillMyProfilePageAction=()=>{
+    //     console.log(uid)
+    //     getUserInfo(uid).then(data=>{
+    //          dispatch(fillUserInfoAction(data))
+    //     }).catch(e=>{
             
-        })
-    }
+    //     })
+    // }
 
     return (
         <div>
@@ -71,7 +74,7 @@ const Navigation = () => {
             <div className={''}>
                 <ul className={`${style.nav}`}>
 
-                        {login===true &&<li onClick={handleFillMyProfilePageAction}> <Link to={myProfilePage}>My profile</Link></li>}
+                        {login===true &&<li> <Link to={myProfilePage}>My profile</Link></li>}
                         {login===false && <li><Link to={homePage}>Home</Link></li>}
 
                     <li onClick={handleFillPeopleAction}><a href={'#book'}>Book</a></li>

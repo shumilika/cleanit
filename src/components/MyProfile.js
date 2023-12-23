@@ -1,33 +1,41 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import { Avatar, Box, Button, Divider, List, Table } from '@mui/material';
 import CardBox from './CardBox';
+import { getUserInfoBooking } from '../services/infoService';
+import { fb } from '../config/fireBaseConfig';
 
 
 
 const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
     const {login} = useSelector(state=>state.clean);
-    console.log(userInfo)
+    // console.log(userInfo)
+    const [dataBooking, setDataBooking] = useState([])
     const cards = userInfo.cleanCards
-    const bookings = userInfo.bookings
+    const booking =()=>{ 
+      const promise = getUserInfoBooking(fb.auth().currentUser.uid)
+      promise.then(dataArray=>
+        setDataBooking(dataArray)  )
+      
+    }
+
     
     if(login===true) {
         return (
             <div className={'text-center'}>
-                {userInfo.user?.map((info)=>
                     <div>
-                        <h4>{info.name}</h4>
+                        <h4>{userInfo.name}</h4>
                         {/* <Avatar alt={info.name} src={info.photo} /> */}
-                        <img src={info.photo} width={'100px'}/><br/>
-                        {info.role==='cleaner'&& <Button>add position</Button>}
+                        <img src={userInfo.photo} width={'100px'}/><br/>
+                        {userInfo.role==='cleaner'&& <Button>add position</Button>}
 
 
 
-<br/>{info.role==='employer'&&<div>
-<p>Check my заказы</p>
-{bookings.map((data=>
+<br/>{userInfo.role==='employer'&&<div>
+<Button onClick={()=>booking()}><p>Check my заказы</p></Button>
+{dataBooking.map((data=>
    <List
      sx={{
        width: '100%',
@@ -43,9 +51,9 @@ const MyProfile = () => {
 </div>}
    
    
-   {info.role==='cleaner'&& <div>
+   {userInfo.role==='cleaner'&& <div>
    <p>My working sheet</p>
-  {cards.map((card=>
+  {/* {cards.map((card=> */}
    <List
      sx={{
        width: '100%',
@@ -53,15 +61,16 @@ const MyProfile = () => {
        bgcolor: 'background.paper',
      }}
    >
-       <CardBox data={card}/>
+       {/* <CardBox data={card}/> */}
        <Divider variant="inset" component="li" />
 
    </List>
-  ))}
+  {/* ))} */}
   </div>  }
 
             
-                   </div> )}
+                   </div>
+                    {/* )} */}
                 <Link to={'/home'}>Home</Link>
 
             </div>

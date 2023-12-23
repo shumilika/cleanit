@@ -11,12 +11,13 @@ import {
 import style from '../../css.modules/sign.module.css';
 import Registration from './Registration';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUserRoleAction, turnOnLogOutPageAction } from '../../actions/CleaningsActions';
-import { login, registration} from "../../services/authService";
+import { setCurrentUserRoleAction, setCurrentUserUID, turnOnLogOutPageAction } from '../../actions/CleaningsActions';
+import { getUser, login, registration} from "../../services/authService";
 import {addRole, getUserInfo} from "../../services/infoService";
 import SignIn from './SignIn';
-import { storage } from '../../config/fireBaseConfig';
+import { fb, storage } from '../../config/fireBaseConfig';
 import { fillUserInfoAction, getUserPhotoUrlAction } from '../../actions/UserActions';
+
 
 
 
@@ -30,7 +31,7 @@ const SignUp = (props) => {
    const [isLogIn, setIsLogIn] = useState(true)
    const [image, setImage] = useState('')
    const [errorReg, setErrorReg] = useState(null)
-  
+   
    const handleSetPassword = (value)=>{
     setPassword(value)
    }
@@ -45,29 +46,32 @@ const SignUp = (props) => {
 
     const handleClickLogin =()=>{
         login(email,password);
-        getUserInfo(email).then(data=>{
+       
+        setTimeout(()=>{
+
+        dispatch(setCurrentUserUID(fb.auth().currentUser.uid))
+        getUserInfo(fb.auth().currentUser.uid).then(data=>{
+            
             dispatch(fillUserInfoAction(data))
-            dispatch(setCurrentUserRoleAction(data.user[0].role))
+            dispatch(setCurrentUserRoleAction(data.role))
         }).catch(error=>{
            setErrorReg(error)
         })
+        },3000)    
+       
         props.handleClose();
         // if(errorReg===null)
          dispatch(turnOnLogOutPageAction(true))
         // else{dispatch(turnOnLogOutPageAction(false))}
     }
 
-    // console.log(errorReg)
+    
 
     const handleCloseAction=()=>{
         props.handleClose();
     }
 
-    // const message =(info, severity)=>{
-    //     return (
-    //         <Alert severity={severity}>{info}</Alert>
-    //     )
-    // }
+ 
 
     const handleUpload= ()=>{
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -95,10 +99,12 @@ const SignUp = (props) => {
         await registration(email, password)
        } catch(error){
         setErrorReg(error)
-        // console.log('error'+error)
+       
     //    message(error,'error')
        }finally{
-        addRole('employer', name, email,photoUrl)
+       
+        addRole('employer', name, email,photoUrl,fb.auth().currentUser.uid)
+        dispatch(setCurrentUserUID(fb.auth().currentUser.uid))
         dispatch(setCurrentUserRoleAction('employer'))
         props.handleClose();
         // if(errorReg===null)
@@ -109,6 +115,7 @@ const SignUp = (props) => {
        }
     }
        
+   
 
         return (
         <div className={'d-flex'}>

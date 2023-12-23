@@ -2,49 +2,49 @@ import {fb} from "../config/fireBaseConfig";
 import 'firebase/compat/firestore';
 import firebase from "firebase/compat/app";
 
-export async function addRole(role,name,email,photo){
+export async function addRole(role,name,email,photo,uid){
 
-    const ref = await fb.firestore().collection('usersInfo').doc(`${email}`);
+    const ref = await fb.firestore().collection('usersInfo').doc(`${uid}`);
     const doc = await ref.get();
     if(doc.exists){
-        await ref.update({
-            user:firebase.firestore.FieldValue.arrayUnion({
+        await ref.update(firebase.firestore.FieldValue.arrayUnion({
                 role,
                 name,
-                photo
+                photo,
+                email
 
             })
-        })
+        )
     }else{
-        await ref.set({user: [{role,name,photo}]})
+        await ref.set({role,name,photo,email})
     }
 }
 
 
-// export async function addAvatar(photo,email){
-
-//     const ref = await fb.firestore().collection('usersInfo').doc(email);
-//     const doc = await ref.get();
-//     if(doc.exists){
 
 
-//         await ref.update({
-//             user:firebase.firestore.FieldValue
-//                 .arrayUnion({
-//                 photo
-//             })
-//         }, {merge: true})
-//     }
-
-// }
-
-
-export async function getUserInfo(email){
-    const ref = fb.firestore().collection('usersInfo').doc(email);
+export async function getUserInfo(uid){
+    const ref = fb.firestore().collection('usersInfo').doc(uid);
     const doc = await ref.get();
     if(doc.exists){
         return doc.data();
     }else{
-        return {user:[]};
+        return {};
     }
+}
+
+export async function getUserInfoBooking(uid){
+    const ref = fb.firestore().collection('usersInfo').doc(uid).collection('booking');
+    const doc = await ref.get();
+    const resultArray = []
+    doc.forEach(doc => {
+        resultArray.push(doc.data());
+    });
+    
+    if(resultArray.length>0){
+        return resultArray
+    }else{
+        return [];
+    }
+      
 }
