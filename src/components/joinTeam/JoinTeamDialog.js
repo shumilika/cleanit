@@ -20,16 +20,17 @@ import {useDispatch, useSelector} from "react-redux";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { registration} from "../../services/authService";
-import { turnOnLogOutPageAction } from '../../actions/CleaningsActions';
+import { setCurrentUserUID, turnOnLogOutPageAction } from '../../actions/CleaningsActions';
 import { addRole } from '../../services/infoService';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
-import { storage } from '../../config/fireBaseConfig';
+import { fb, storage } from '../../config/fireBaseConfig';
 import { getUserPhotoUrlAction } from '../../actions/UserActions';
+
 
 const JoinTeamDialog = (props) => {
     const dispatch = useDispatch();
-    // const {email} = useSelector(state=>state.clean);
+    const {userUid} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -106,28 +107,48 @@ const JoinTeamDialog = (props) => {
     const handleClickRegistration = () => {
         if(image) handleUpload()
         
-        setTimeout(()=>{
+        // setTimeout(()=>{
             registration(newEmail, password);
-        },5000)
+        // },5000)
         dispatch(turnOnLogOutPageAction(true))
     }
 
 
-    const handleClickAction = async ()=>{
-        try{
-            await handleClickRegistration()
-            await addRole('cleaner', name, newEmail, photoUrl)
+    // const handleClickAction = async ()=>{
+    //     try{
+    //         await setTimeout(()=>{handleClickRegistration()},5000)
+    //         await addRole('cleaner', name, newEmail, photoUrl,fb.auth().currentUser.uid)
             
-        } catch (error){
+    //     } catch (error){
            
-        }finally{
-            addCard(name,date,time,cleanType,newEmail)
-            addCardMainBase(name,newEmail,date,time,cleanType,photoUrl);
+    //     }finally{
+    //         addCard(name,date,time,cleanType,newEmail,fb.auth().currentUser.uid)
+    //         addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,fb.auth().currentUser.uid);
+    //         props.handleClose();
+    //     }
+    // }
+
+const handleClickAction = () =>{
+    if(image) handleUpload()
+
+    setTimeout(()=>{
+        fb.auth().createUserWithEmailAndPassword(newEmail,password)
+        .then(userCredits=>
+            { dispatch(setCurrentUserUID(userCredits.user.uid))
+            addCard(name,date,time,cleanType,newEmail,userCredits.user.uid)
+            addRole('cleaner', name, newEmail, photoUrl,userCredits.user.uid)
+            addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,userCredits.user.uid);
+           })
+        .then(()=>{
+            dispatch(turnOnLogOutPageAction(true))
             props.handleClose();
-        }
-    }
+        })
+    },5000)
+    
+    
+}
 
-
+// console.log(userUid)
     return (
         <div>
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
@@ -180,10 +201,10 @@ const JoinTeamDialog = (props) => {
                     onChange={handleChangeCleanType}
                 >
               
-                    <MenuItem  className={`${style.types}`} value={"regular"} >Regularly Cleaning</MenuItem>
-                    <MenuItem className={`${style.types}`} value={"deep"}>Deep Cleaning</MenuItem>
-                    <MenuItem className={`${style.types}`} value={"office"}>Office Cleaning</MenuItem>
-                    <MenuItem className={`${style.types}`} value={"windows"}>Windows Cleaning</MenuItem>
+                    <MenuItem  className={`${style.types}`} value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"deep cleaning expert"}>Deep Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"office cleaning expert"}>Office Cleaning</MenuItem>
+                    <MenuItem className={`${style.types}`} value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
                 </Select>
             </FormControl>
             </div>

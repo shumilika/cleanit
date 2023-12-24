@@ -33,8 +33,8 @@ export async function getUserInfo(uid){
     }
 }
 
-export async function getUserInfoBooking(uid){
-    const ref = fb.firestore().collection('usersInfo').doc(uid).collection('booking');
+export async function getUserInfoBooking(uid,collection){
+    const ref = fb.firestore().collection('usersInfo').doc(uid).collection(collection);
     const doc = await ref.get();
     const resultArray = []
     doc.forEach(doc => {

@@ -1,7 +1,9 @@
 import React from 'react';
 import style from '../css.modules/booking.module.css'
 import { Avatar } from '@mui/material';
+import { dateFormatChanger } from '../services/formatChanger';
 const Person = (props) => {
+    const dateString = dateFormatChanger(props.date.seconds);
     return (
         <div>
         <div className={'d-flex justify-content-around p-2'}>
@@ -16,7 +18,7 @@ const Person = (props) => {
 
             </div>
             <div>
-               <p> {props.time}<br/>
+               <p> {dateString + ' '+props.time}<br/>
                    50dol per service
                </p>
             </div>

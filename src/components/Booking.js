@@ -6,11 +6,22 @@ import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/m
 
 const Booking = ({bookRef}) => {
 
-    // const [choosingCleanType,setChoosingCleanType] = useState('');
+    const [cleanType,setCleanType] = useState('');
+    const [dateValue, setDateValue] = useState()
 
-    // const setCleanTypeAction=(e)=>{
-    //     setChoosingCleanType(e.target.value);
-    // }
+    const setCleanTypeAction=(e)=>{
+        setCleanType(e.target.value);
+    }
+
+    const setDateAction=(date)=>{
+        setDateValue(date);
+        console.log(date)
+    }
+
+    const handleChangeFilter =(e)=>{
+        setCleanType(e.target.value);
+        //filterCardData by cleanType
+    }
 
     return (
         <div className={style.bookingBox} ref={bookRef} id={'book'}>
@@ -20,13 +31,12 @@ const Booking = ({bookRef}) => {
             <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
             <InputLabel style={{color:'#F9D859'}} id="demo-simple-select-label">Choose type cleaning</InputLabel>
                 <Select 
-                input={<OutlinedInput label="Choose type cleaning" />}
-             
-                 aria-label="TypesCleaning"
-                 label='Choose cleaning type'
-                //  value={cleanType}
-                 labelId="demo-simple-select-label"
-                //   onChange={handleChangeCleanType}
+                    input={<OutlinedInput label="Choose type cleaning" />}
+                    aria-label="TypesCleaning"
+                    label='Choose cleaning type'
+                    value={cleanType}
+                    labelId="demo-simple-select-label"
+                    onChange={setCleanTypeAction}
                 >
               
                     <MenuItem   value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
@@ -34,9 +44,9 @@ const Booking = ({bookRef}) => {
                     <MenuItem  value={"office cleaning expert"}>Office Cleaning</MenuItem>
                     <MenuItem  value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
                 </Select>
-                </FormControl>
+            </FormControl>
                
-            <Calendar/>
+            <Calendar value={dateValue} setValue={setDateAction}/>
             </div>
             <div>
                 <span>Choose available expert and time:</span>

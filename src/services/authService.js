@@ -6,7 +6,6 @@ export async function login(email,password){
     try{
         const response = await fb.auth().signInWithEmailAndPassword(email,password);
        
-        
     }
     catch (error){
         
@@ -20,9 +19,11 @@ export function logOut(){
 }
 
 export async function registration(email,password){
-    try{
-        await fb.auth().createUserWithEmailAndPassword(email,password);
-    }catch (e){
+    // try{
+        // await
+         fb.auth().createUserWithEmailAndPassword(email,password)
+         .then(userCredits=>console.log(userCredits.user.uid))
+    // }catch (e){
         
-    }
+    // }
 }

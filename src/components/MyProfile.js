@@ -1,27 +1,29 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import { Avatar, Box, Button, Divider, List, Table } from '@mui/material';
+import { Button, Divider, List } from '@mui/material';
 import CardBox from './CardBox';
 import { getUserInfoBooking } from '../services/infoService';
 import { fb } from '../config/fireBaseConfig';
+import Person from './Person';
+import style from '../css.modules/booking.module.css';
 
 
 
 const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
     const {login} = useSelector(state=>state.clean);
-    // console.log(userInfo)
     const [dataBooking, setDataBooking] = useState([])
-    const cards = userInfo.cleanCards
+
+    const collection =userInfo.role==='employer'?'booking':'cleanCards'
+
     const booking =()=>{ 
-      const promise = getUserInfoBooking(fb.auth().currentUser.uid)
-      promise.then(dataArray=>
-        setDataBooking(dataArray)  )
-      
+      getUserInfoBooking(fb.auth().currentUser.uid,collection)
+      .then(dataArray=>
+        setDataBooking(dataArray))
     }
 
-    
+  
     if(login===true) {
         return (
             <div className={'text-center'}>
@@ -33,9 +35,24 @@ const MyProfile = () => {
 
 
 
-<br/>{userInfo.role==='employer'&&<div>
+<br/><div>
+{userInfo.role==='employer'
+?
+<>
 <Button onClick={()=>booking()}><p>Check my заказы</p></Button>
-{dataBooking.map((data=>
+<div id={`${style.people_box}`}>
+{dataBooking.map((card, i)=>
+                    <Person name={card.name} imageUrl={card.photo} 
+                    date={card.date} cleanType={card.cleanType} time={card.time}
+                                   key={i}/>
+                )}
+                </div>
+</>
+:
+<>
+<Button onClick={()=>booking()}><p>My working sheet</p></Button>
+
+
    <List
      sx={{
        width: '100%',
@@ -43,36 +60,20 @@ const MyProfile = () => {
        bgcolor: 'background.paper',
      }}
    >
-       <CardBox data={data}/>
+   {dataBooking.map((data=>
+       <>
+       <CardBox data={data} collection={collection}/>
        <Divider variant="inset" component="li" />
-
+       </>
+       ))}
    </List>
-  ))}
-</div>}
-   
-   
-   {userInfo.role==='cleaner'&& <div>
-   <p>My working sheet</p>
-  {/* {cards.map((card=> */}
-   <List
-     sx={{
-       width: '100%',
-       maxWidth: 360,
-       bgcolor: 'background.paper',
-     }}
-   >
-       {/* <CardBox data={card}/> */}
-       <Divider variant="inset" component="li" />
 
-   </List>
-  {/* ))} */}
-  </div>  }
+</>
+}
 
-            
+</div>
                    </div>
-                    {/* )} */}
                 <Link to={'/home'}>Home</Link>
-
             </div>
         );
     }

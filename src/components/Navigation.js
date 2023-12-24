@@ -48,11 +48,14 @@ const Navigation = () => {
     }
 
     const handleFillPeopleAction=()=>{
-        getCleanCard().then(data=>{
+        if(login===true)
+        {getCleanCard().then(data=>{
+            // console.log(data)
             dispatch(fillCardDataAction(data))
         }).catch(e=>{
             
         })
+    }else{}
         
     }
 
@@ -88,7 +91,6 @@ const Navigation = () => {
 
            <JoinTeamDialog open={openTeam} handleClose={handleCloseTeam}/>
             <SignUp open={openSign} handleClose={handleCloseSign}/>
-
 
         </div>
     );
