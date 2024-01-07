@@ -9,3 +9,10 @@ export const dateFormatChanger = (dateString) =>{
     const formattedDate = `${day}.${month}.${year}`;
     return formattedDate
 }
+
+export const convertDateToTimestamp = (dateString) => {
+    const parsedDate = new Date(dateString);
+    const timestamp = Math.floor(parsedDate.getTime() / 1000);
+        
+    return timestamp;
+  };

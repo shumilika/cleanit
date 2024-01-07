@@ -2,25 +2,48 @@ import React, {useState} from 'react';
 import Calendar from "./Calendar";
 import style from '../css.modules/booking.module.css'
 import Peoples from "./Peoples";
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilteredData } from '../actions/CleaningsActions';
+import { convertDateToTimestamp } from '../services/formatChanger';
 
 const Booking = ({bookRef}) => {
 
     const [cleanType,setCleanType] = useState('');
     const [dateValue, setDateValue] = useState()
+    const [isFilter, setIsFilter] = useState(false)
+    const {cardData} = useSelector(state=>state.clean)
+    const dispatch = useDispatch()
+  
+    const handleFilterChange = (value) => {
+      const filteredData = cardData.filter(item =>
+        item.cleanType===value ||
+        item.date.seconds===value
+      );
+  
+    dispatch(setFilteredData(filteredData))
+    setIsFilter(true)
+    };
+  
 
     const setCleanTypeAction=(e)=>{
         setCleanType(e.target.value);
+        handleFilterChange(e.target.value)
     }
 
     const setDateAction=(date)=>{
         setDateValue(date);
-        console.log(date)
+        const formatDate = convertDateToTimestamp(date)
+        handleFilterChange(formatDate)
     }
 
-    const handleChangeFilter =(e)=>{
-        setCleanType(e.target.value);
-        //filterCardData by cleanType
+    
+    const clearFiltersHandle = () =>{
+        setIsFilter(false)
+        // setDateValue(new Date())
+        setCleanType('')
+
     }
 
     return (
@@ -38,7 +61,6 @@ const Booking = ({bookRef}) => {
                     labelId="demo-simple-select-label"
                     onChange={setCleanTypeAction}
                 >
-              
                     <MenuItem   value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
                     <MenuItem  value={"deep cleaning expert"}>Deep Cleaning</MenuItem>
                     <MenuItem  value={"office cleaning expert"}>Office Cleaning</MenuItem>
@@ -49,8 +71,13 @@ const Booking = ({bookRef}) => {
             <Calendar value={dateValue} setValue={setDateAction}/>
             </div>
             <div>
+           
                 <span>Choose available expert and time:</span>
-            <Peoples />
+               {isFilter? <IconButton aria-label="clear filters"
+               onClick={clearFiltersHandle}>
+                <ClearIcon />
+                    </IconButton>:<></>}
+            <Peoples isFilter={isFilter} />
             </div>
         </div>
         </div>

@@ -5,9 +5,9 @@ import style from '../css.modules/booking.module.css';
 import { ListItemButton } from '@mui/material';
 
 
-const Peoples = () => {
+const Peoples = ({isFilter}) => {
 
-    const {login,cardData} = useSelector(state=>state.clean)
+    const {login,cardData,filteredData} = useSelector(state=>state.clean)
 
     if(login!==true) {
     return (
@@ -20,7 +20,7 @@ const Peoples = () => {
         return (
             <div id={`${style.people_box}`}>
 
-                {cardData.map((card, i)=>
+                {(isFilter?filteredData:cardData).map((card, i)=>
                    <ListItemButton onClick={()=>console.log(card)}>
                    <Person name={card.name} imageUrl={card.photo} 
                     date={card.date} cleanType={card.cleanType} time={card.time}
