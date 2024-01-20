@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 
 export async function login(email,password){
     try{
-        const response = await fb.auth().signInWithEmailAndPassword(email,password);
+       await fb.auth().signInWithEmailAndPassword(email,password);
        
     }
     catch (error){

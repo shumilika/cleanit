@@ -8,7 +8,6 @@ const Person = (props) => {
         <div>
         <div className={'d-flex justify-content-around p-2'}>
             <div>
-                {/* <img src={props.imageUrl} alt={'avatar'} width={100}/> */}
                 <Avatar alt={props.name} src={props.imageUrl} />
             </div>
             <div>

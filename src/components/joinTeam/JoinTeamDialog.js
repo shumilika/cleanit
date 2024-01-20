@@ -104,29 +104,6 @@ const JoinTeamDialog = (props) => {
         );
     }
 
-    const handleClickRegistration = () => {
-        if(image) handleUpload()
-        
-        // setTimeout(()=>{
-            registration(newEmail, password);
-        // },5000)
-        dispatch(turnOnLogOutPageAction(true))
-    }
-
-
-    // const handleClickAction = async ()=>{
-    //     try{
-    //         await setTimeout(()=>{handleClickRegistration()},5000)
-    //         await addRole('cleaner', name, newEmail, photoUrl,fb.auth().currentUser.uid)
-            
-    //     } catch (error){
-           
-    //     }finally{
-    //         addCard(name,date,time,cleanType,newEmail,fb.auth().currentUser.uid)
-    //         addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,fb.auth().currentUser.uid);
-    //         props.handleClose();
-    //     }
-    // }
 
 const handleClickAction = () =>{
     if(image) handleUpload()
@@ -135,9 +112,10 @@ const handleClickAction = () =>{
         fb.auth().createUserWithEmailAndPassword(newEmail,password)
         .then(userCredits=>
             { dispatch(setCurrentUserUID(userCredits.user.uid))
-            addCard(name,date,time,cleanType,newEmail,userCredits.user.uid)
+            const newId = fb.firestore().collection('usersInfo').doc(userCredits.user.uid).collection('cleanCards').doc()
+            addCard(name,date,time,cleanType,newEmail,userCredits.user.uid,newId.id)
             addRole('cleaner', name, newEmail, photoUrl,userCredits.user.uid)
-            addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,userCredits.user.uid);
+            addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,userCredits.user.uid,newId.id);
            })
         .then(()=>{
             dispatch(turnOnLogOutPageAction(true))
@@ -148,17 +126,13 @@ const handleClickAction = () =>{
     
 }
 
-// console.log(userUid)
+
     return (
         <div>
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
                 <DialogTitle>Join our team</DialogTitle>
                 <DialogContent>
-                    {/* <DialogContentText>
-                        Fill all fields
-                    </DialogContentText> */}
-
-
+    
             <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px'}}>
             <FormLabel>Registration for employees</FormLabel>
             <br />

@@ -1,5 +1,4 @@
 import React, { useState} from 'react';
-import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import { Button, Divider, List } from '@mui/material';
 import CardBox from './CardBox';
@@ -29,8 +28,8 @@ const MyProfile = () => {
             <div className={'text-center'}>
                     <div>
                         <h4>{userInfo.name}</h4>
-                        {/* <Avatar alt={info.name} src={info.photo} /> */}
-                        <img src={userInfo.photo} width={'100px'}/><br/>
+                        {/* <Avatar alt={userInfo.name} src={userInfo.photo} /> */}
+                        <img src={userInfo.photo} alt={userInfo.name} width={'100px'}/><br/>
                         {userInfo.role==='cleaner'&& <Button>add position</Button>}
 
 
@@ -73,7 +72,7 @@ const MyProfile = () => {
 
 </div>
                    </div>
-                <Link to={'/home'}>Home</Link>
+          
             </div>
         );
     }
