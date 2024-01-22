@@ -105,11 +105,11 @@ const JoinTeamDialog = (props) => {
     }
 
 
-const handleClickAction = () =>{
-    if(image) handleUpload()
+const handleClickAction = async () =>{
+    if(image)  await handleUpload()
 
     setTimeout(()=>{
-        fb.auth().createUserWithEmailAndPassword(newEmail,password)
+          fb.auth().createUserWithEmailAndPassword(newEmail,password)
         .then(userCredits=>
             { dispatch(setCurrentUserUID(userCredits.user.uid))
             const newId = fb.firestore().collection('usersInfo').doc(userCredits.user.uid).collection('cleanCards').doc()
@@ -140,8 +140,11 @@ const handleClickAction = () =>{
                <br />
                 <TextField id="email" label="Email" variant="standard" onChange={e=>handleChangeEmail(e.target.value)} />
                <br />
-                <TextField id="password" label="Password" variant="standard" onChange={e=>handleChangePassword(e.target.value)} />
+                <TextField id="outlined-password-input"  label="Password"  type="password"
+          autoComplete="current-password" variant="standard" onChange={e=>handleChangePassword(e.target.value)} />
                 <br />
+                
+
                 <br />
                 <Button style={{marginRight:'10px'}} component="label" variant="contained" onChange={setPhotoUserAction}
                 startIcon={<CloudUploadIcon />}

@@ -71,8 +71,6 @@ const SignUp = (props) => {
         props.handleClose();
     }
 
- 
-
     const handleUpload= ()=>{
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
@@ -94,25 +92,22 @@ const SignUp = (props) => {
     }
 
     const handleClickRegistration = async () => {
-       try{
-        if(image) handleUpload()
-        await registration(email, password)
-       } catch(error){
-        setErrorReg(error)
-       
-    //    message(error,'error')
-       }finally{
-       
-        addRole('employer', name, email,photoUrl,fb.auth().currentUser.uid)
-        dispatch(setCurrentUserUID(fb.auth().currentUser.uid))
-        dispatch(setCurrentUserRoleAction('employer'))
-        props.handleClose();
-        // if(errorReg===null)
-        dispatch(turnOnLogOutPageAction(true))
-        // else dispatch(turnOnLogOutPageAction(false))
-        // message('registration success', 'success')
+    
+        if(image) await handleUpload()
       
-       }
+       setTimeout(()=>{
+         fb.auth().createUserWithEmailAndPassword(email,password)
+        .then(userCredits=>
+            {console.log(userCredits.user)
+                addRole('employer', name, email,photoUrl,userCredits.user.uid)
+                dispatch(setCurrentUserUID(userCredits.user.uid))
+                dispatch(setCurrentUserRoleAction('employer'))
+            })
+            .then(()=>{
+                props.handleClose();
+                dispatch(turnOnLogOutPageAction(true))
+            })
+       },5000)
     }
        
    
@@ -122,9 +117,7 @@ const SignUp = (props) => {
 
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
                 <DialogContent>
-                    {/* <DialogContentText>
-                        Fill all fields
-                    </DialogContentText> */}
+                   
                    
                     {!isLogIn && <Registration password={password} 
                     setPassword={handleSetPassword} name={name}

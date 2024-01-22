@@ -47,7 +47,8 @@ const Registration = ({password, setPassword, name, image, setImage,
                <br />
                 <TextField id="email" label="Email" variant="standard" value={email} onChange={e=>dispatch(setCurrentUserEmailAction(e.target.value))} />
                <br />
-                <TextField id="password" label="Password" variant="standard" value={password} onChange={e=>setPassword(e.target.value)} />
+                <TextField iid="outlined-password-input"  label="Password"  type="password"
+          autoComplete="current-password" variant="standard" value={password} onChange={e=>setPassword(e.target.value)} />
             </Box>  
             <br />     
             <Button style={{marginRight:'10px'}} component="label" variant="contained" onChange={setPhotoUserAction}
