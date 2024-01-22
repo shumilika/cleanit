@@ -9,6 +9,7 @@ export async function addCard(name,date,time,cleanType,email,uid, cardId){
     });
     
 }
+
 export async function addCardMainBase(name,email,date,time,cleanType, photo,uid, cardId){
 
      await fb.firestore().collection('cleanCardsBase').doc(cardId).set({
@@ -41,7 +42,19 @@ export async function getCleanCard(){
     }
 }
 
+export async function changeStatusCardBase(card){
+   await fb.firestore().collection('cleanCardsBase').doc(card.cardId).update({status: true});   
+}
 
-
-    
+export async function changeStatusUserCards(card){
+    await fb.firestore().collection('usersInfo').doc(card.userID).collection('cleanCards').doc(card.cardId).update({status: true});
+       
+}
+ 
+export async function addBooking(userId,card){
+    await fb.firestore().collection('usersInfo').doc(userId).collection('booking').doc(card.cardId).set(
+       {...card, status:true}
+   );
+   
+}
       

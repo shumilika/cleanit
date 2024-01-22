@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredData } from '../actions/CleaningsActions';
 import { convertDateToTimestamp } from '../services/formatChanger';
 
+
 const Booking = ({bookRef}) => {
 
     const [cleanType,setCleanType] = useState('');
@@ -15,6 +16,7 @@ const Booking = ({bookRef}) => {
     const [isFilter, setIsFilter] = useState(false)
     const {cardData} = useSelector(state=>state.clean)
     const dispatch = useDispatch()
+
   
     const handleFilterChange = (value) => {
       const filteredData = cardData.filter(item =>
@@ -37,7 +39,6 @@ const Booking = ({bookRef}) => {
         const formatDate = convertDateToTimestamp(date)
         handleFilterChange(formatDate)
     }
-
     
     const clearFiltersHandle = () =>{
         setIsFilter(false)
@@ -77,7 +78,8 @@ const Booking = ({bookRef}) => {
                onClick={clearFiltersHandle}>
                 <ClearIcon />
                     </IconButton>:<></>}
-            <Peoples isFilter={isFilter} />
+            <Peoples isFilter={isFilter}/>
+            
             </div>
         </div>
         </div>
