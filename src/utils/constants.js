@@ -26,7 +26,8 @@ export const cleanings =
                     'Wipe all accessible surfaces\n'+
                 'Wipe the switches and door handles\n'+
                     'We clean mirrors and glass surfaces\n'+
-                    'We collect and take out the garbage'
+                    'We collect and take out the garbage',
+                forFilter: 'regularly cleaning expert'
             },
         deep:
             {
@@ -42,7 +43,8 @@ export const cleanings =
                     'Wiping the walls\n'+
                     'Washing chandeliers and lamps\n'+
             'We wash the floor, wipe the baseboards and vacuum the carpet\n'+
-                    'We take out the garbage'
+                    'We take out the garbage',
+                    forFilter: 'deep cleaning expert'
             },
         office:
             {
@@ -57,7 +59,8 @@ export const cleanings =
                 'Wiping the walls \n'+
                     'Washing chandeliers and lamps\n'+
                     'We wash the floor, wipe the baseboards and vacuum the carpet\n'+
-                    'We take out the garbage'
+                    'We take out the garbage',
+                    forFilter: 'office cleaning expert'
             },
         windows:
             {
@@ -69,7 +72,8 @@ export const cleanings =
                 dark_text: 'Wash glass on both sides\n'+
                     'We clean the frame inside and out\n'+
                     'Washing mosquito nets\n'+
-                    'Wipe the window sills'
+                    'Wipe the window sills',
+                    forFilter: 'windows cleaning expert'
             },
 
     }

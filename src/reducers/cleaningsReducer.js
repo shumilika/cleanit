@@ -6,6 +6,7 @@ import {
     TURN_ON_LOG_OUT_PAGE,
     SET_CURRENT_USER_UID,
     SET_FILTERED_DATA,
+    SET_IS_FILTER,
 } from "../actions/CleaningsActions";
 
 
@@ -15,7 +16,8 @@ const initialState = {
     role:'',
     cardData:[],
     userUid:'',
-    filteredData:[]
+    filteredData:[],
+    isFilter:false,
 
 }
 
@@ -35,6 +37,8 @@ export const cleaningsReducer=(state=initialState,action)=>{
             return {...state, userUid: action.payload}
         case SET_FILTERED_DATA:
             return {...state, filteredData: action.payload}
+        case SET_IS_FILTER:
+            return {...state, isFilter: action.payload}
         default:
             return state
 

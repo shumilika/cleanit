@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from '../css.modules/cleaningtype.module.css'
 import venic from '../images/cleaning/venic.png'
+import { setFilteredData, setIsFilter } from '../actions/CleaningsActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CleaningPage = (props) => {
+
+    const {cardData} = useSelector(state=>state.clean)
+    const dispatch = useDispatch()
+
+    const handleFilterChange = (value) => {
+        const filteredData = cardData.filter(item =>
+          item.cleanType===value ||
+          item.date.seconds===value
+        );
+    
+      dispatch(setFilteredData(filteredData))
+      dispatch(setIsFilter(true))
+      };
+
     return (
         <div className={`${style.cleaning}`}>
             <div className={`${style.yellow_line}`}></div>
@@ -19,7 +35,7 @@ const CleaningPage = (props) => {
                 </div>
                 <p>{props.page.dark_text}</p>
 
-                <button className={`btn btn-primary btn-lg ${style.btn_clean}`}>Check availability</button>
+                <button onClick={()=>handleFilterChange(props.page.forFilter)} className={`btn btn-primary btn-lg ${style.btn_clean}`}>Check availability</button>
             </div>
             </div>
         </div>

@@ -6,9 +6,9 @@ import { ListItemButton } from '@mui/material';
 import ModalAddCleanCard from './ModalAddCleanCard';
 
 
-const Peoples = ({isFilter }) => {
+const Peoples = () => {
 
-    const {login,cardData,filteredData} = useSelector(state=>state.clean)
+    const {login,cardData,filteredData,isFilter} = useSelector(state=>state.clean)
     const [valueCard, setValueCard] = useState({})
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);

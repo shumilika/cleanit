@@ -47,26 +47,17 @@ const Navigation = () => {
         dispatch(turnOnLogOutPageAction(false))
     }
 
-    const handleFillPeopleAction=()=>{
-        if(login===true)
-        {getCleanCard().then(data=>{
-            // console.log(data)
-            dispatch(fillCardDataAction(data))
+ 
+    if(login===true)
+    {
+        getCleanCard().then(data=>{
+            const filteredData = data.filter(item=>item.status===false)
+            dispatch(fillCardDataAction(filteredData))
         }).catch(e=>{
             
         })
-    }else{}
-        
     }
-
-    // const handleFillMyProfilePageAction=()=>{
-    //     console.log(uid)
-    //     getUserInfo(uid).then(data=>{
-    //          dispatch(fillUserInfoAction(data))
-    //     }).catch(e=>{
-            
-    //     })
-    // }
+        
 
     return (
         <div>
@@ -80,7 +71,7 @@ const Navigation = () => {
                         {login===true &&<li> <Link to={myProfilePage}>My profile</Link></li>}
                         {login===false && <li><Link to={homePage}>Home</Link></li>}
 
-                    <li onClick={handleFillPeopleAction}><a href={'#book'}>Book</a></li>
+                    <li><a href={'#book'}>Book</a></li>
                     {role!=='employer' && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
                     <li>{login===true && <Button id={style.logOut} onClick={handleLogOut}>Log out</Button>}
                      {login===false && <Button id={style.signUp} onClick={handleClickOpenSign}>Sign up</Button>}

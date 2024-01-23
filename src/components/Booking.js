@@ -5,7 +5,7 @@ import Peoples from "./Peoples";
 import { FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredData } from '../actions/CleaningsActions';
+import { setFilteredData, setIsFilter } from '../actions/CleaningsActions';
 import { convertDateToTimestamp } from '../services/formatChanger';
 
 
@@ -13,8 +13,8 @@ const Booking = ({bookRef}) => {
 
     const [cleanType,setCleanType] = useState('');
     const [dateValue, setDateValue] = useState()
-    const [isFilter, setIsFilter] = useState(false)
-    const {cardData} = useSelector(state=>state.clean)
+    // const [isFilter, setIsFilter] = useState(false)
+    const {cardData,isFilter} = useSelector(state=>state.clean)
     const dispatch = useDispatch()
 
   
@@ -25,7 +25,7 @@ const Booking = ({bookRef}) => {
       );
   
     dispatch(setFilteredData(filteredData))
-    setIsFilter(true)
+    dispatch(setIsFilter(true))
     };
   
 
@@ -41,7 +41,7 @@ const Booking = ({bookRef}) => {
     }
     
     const clearFiltersHandle = () =>{
-        setIsFilter(false)
+        dispatch(setIsFilter(false))
         // setDateValue(new Date())
         setCleanType('')
 
@@ -78,7 +78,7 @@ const Booking = ({bookRef}) => {
                onClick={clearFiltersHandle}>
                 <ClearIcon />
                     </IconButton>:<></>}
-            <Peoples isFilter={isFilter}/>
+            <Peoples/>
             
             </div>
         </div>
