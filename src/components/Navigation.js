@@ -63,7 +63,7 @@ const Navigation = () => {
         <div>
         <div className={`d-flex justify-content-between ${style.sizing}`}>
       <div className={'ps-5'}>
-          <img src={logo} alt={'logo'}/>
+          <Link to={homePage}><img src={logo} alt={'logo'}/></Link>
       </div>
             <div className={''}>
                 <ul className={`${style.nav}`}>
