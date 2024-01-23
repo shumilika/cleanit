@@ -131,6 +131,7 @@ const handleClickAction = async () =>{
         <div>
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
                 <DialogTitle>Join our team</DialogTitle>
+                <h6>*only for new employees</h6>
                 <DialogContent>
     
             <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px'}}>

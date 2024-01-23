@@ -72,9 +72,9 @@ const Navigation = () => {
                         {login===false && <li><Link to={homePage}>Home</Link></li>}
 
                     <li><a href={'#book'}>Book</a></li>
-                    {role!=='employer' && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
+                    {login===false && <li><Button id={style.link} onClick={handleClickOpenTeam}>Join our team</Button></li>}
                     <li>{login===true && <Button id={style.logOut} onClick={handleLogOut}>Log out</Button>}
-                     {login===false && <Button id={style.signUp} onClick={handleClickOpenSign}>Sign up</Button>}
+                     {login===false && <Button id={style.signUp} onClick={handleClickOpenSign}>Sign in</Button>}
                     </li>
                 </ul>
             </div>
