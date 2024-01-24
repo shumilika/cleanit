@@ -10,17 +10,17 @@ import {
     windowsCleaningPage
 } from "../utils/constants";
 
-const CleaningType = () => {
+const CleaningType = ({bookRef}) => {
     return (
 
 <Routes>
     {['/', '/home',myProfilePage,`/${myProfilePage}/${regularlyCleaningPage}`,regularlyCleaningPage].map((path, index) =>
-        <Route path={path} key={index} element={<CleaningPage page={cleanings["regularly"]}/>}/>)}
+        <Route path={path} key={index} element={<CleaningPage bookRef={bookRef} page={cleanings["regularly"]}/>}/>)}
 
-    <Route path={deepCleaningPage} element={<CleaningPage page={cleanings["deep"]}/>}/>
+    <Route path={deepCleaningPage} element={<CleaningPage bookRef={bookRef} page={cleanings["deep"]}/>}/>
 
-    <Route path={officeCleaningPage} element={<CleaningPage page={cleanings["office"]}/>}/>
-    <Route path={windowsCleaningPage} element={<CleaningPage page={cleanings["windows"]}/>}/>
+    <Route path={officeCleaningPage} element={<CleaningPage bookRef={bookRef} page={cleanings["office"]}/>}/>
+    <Route path={windowsCleaningPage} element={<CleaningPage bookRef={bookRef} page={cleanings["windows"]}/>}/>
 
 </Routes>
 

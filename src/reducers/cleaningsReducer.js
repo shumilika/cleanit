@@ -7,6 +7,7 @@ import {
     SET_CURRENT_USER_UID,
     SET_FILTERED_DATA,
     SET_IS_FILTER,
+    SET_FILTER_CHOOSED_CLEANNING_TYPE,
 } from "../actions/CleaningsActions";
 
 
@@ -18,6 +19,7 @@ const initialState = {
     userUid:'',
     filteredData:[],
     isFilter:false,
+    cleanningType:'',
 
 }
 
@@ -39,6 +41,8 @@ export const cleaningsReducer=(state=initialState,action)=>{
             return {...state, filteredData: action.payload}
         case SET_IS_FILTER:
             return {...state, isFilter: action.payload}
+        case SET_FILTER_CHOOSED_CLEANNING_TYPE:
+            return {...state, cleanningType: action.payload}
         default:
             return state
 

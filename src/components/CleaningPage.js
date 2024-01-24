@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from '../css.modules/cleaningtype.module.css'
 import venic from '../images/cleaning/venic.png'
-import { setFilteredData, setIsFilter } from '../actions/CleaningsActions';
+import { setFilterChoosedCleanningType, setFilteredData, setIsFilter } from '../actions/CleaningsActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const CleaningPage = (props) => {
@@ -10,13 +10,15 @@ const CleaningPage = (props) => {
     const dispatch = useDispatch()
 
     const handleFilterChange = (value) => {
+        dispatch(setFilterChoosedCleanningType(value))
         const filteredData = cardData.filter(item =>
           item.cleanType===value ||
           item.date.seconds===value
         );
-    
+        
       dispatch(setFilteredData(filteredData))
       dispatch(setIsFilter(true))
+      props.bookRef.current.scrollIntoView()
       };
 
     return (

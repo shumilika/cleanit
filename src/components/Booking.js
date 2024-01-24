@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Calendar from "./Calendar";
 import style from '../css.modules/booking.module.css'
 import Peoples from "./Peoples";
 import { FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredData, setIsFilter } from '../actions/CleaningsActions';
+import { setFilterChoosedCleanningType, setFilteredData, setIsFilter } from '../actions/CleaningsActions';
 import { convertDateToTimestamp } from '../services/formatChanger';
 
 
@@ -13,8 +13,7 @@ const Booking = ({bookRef}) => {
 
     const [cleanType,setCleanType] = useState('');
     const [dateValue, setDateValue] = useState()
-    // const [isFilter, setIsFilter] = useState(false)
-    const {cardData,isFilter} = useSelector(state=>state.clean)
+    const {cardData,isFilter, cleanningType} = useSelector(state=>state.clean)
     const dispatch = useDispatch()
 
   
@@ -30,6 +29,7 @@ const Booking = ({bookRef}) => {
   
 
     const setCleanTypeAction=(e)=>{
+        dispatch(setFilterChoosedCleanningType(''))
         setCleanType(e.target.value);
         handleFilterChange(e.target.value)
     }
@@ -42,7 +42,7 @@ const Booking = ({bookRef}) => {
     
     const clearFiltersHandle = () =>{
         dispatch(setIsFilter(false))
-        // setDateValue(new Date())
+        dispatch(setFilterChoosedCleanningType(''))
         setCleanType('')
 
     }
@@ -58,7 +58,7 @@ const Booking = ({bookRef}) => {
                     input={<OutlinedInput label="Choose type cleaning" />}
                     aria-label="TypesCleaning"
                     label='Choose cleaning type'
-                    value={cleanType}
+                    value={cleanningType||cleanType}
                     labelId="demo-simple-select-label"
                     onChange={setCleanTypeAction}
                 >

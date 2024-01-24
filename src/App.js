@@ -11,7 +11,7 @@ function App() {
   return (
     <div>
         <Home bookRef={bookRef}/>
-        <Cleanings/>
+        <Cleanings bookRef={bookRef} />
       <Booking bookRef={bookRef}/>
     <Footer/>
     </div>

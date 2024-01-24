@@ -2,11 +2,11 @@ import React from 'react';
 import CleaningType from "./CleaningType";
 import NavigationCleanings from "./NavigationCleanings";
 
-const Cleanings = () => {
+const Cleanings = ({bookRef}) => {
     return (
         <div>
             <NavigationCleanings/>
-            <CleaningType/>
+            <CleaningType bookRef={bookRef}/>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import logo from '../images/CleanItLogo.png';
@@ -47,17 +47,15 @@ const Navigation = () => {
         dispatch(turnOnLogOutPageAction(false))
     }
 
- 
-    if(login===true)
-    {
+    useEffect(()=>{
         getCleanCard().then(data=>{
             const filteredData = data.filter(item=>item.status===false)
             dispatch(fillCardDataAction(filteredData))
         }).catch(e=>{
             
         })
-    }
-        
+    },[])
+       
 
     return (
         <div>
