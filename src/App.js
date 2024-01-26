@@ -1,9 +1,9 @@
 import './App.css';
-import Footer from "./components/Footer";
-import Booking from "./components/Booking";
-import Cleanings from "./components/Cleanings";
+import Footer from "./components/pages/Footer";
+import Booking from "./components/pages/Booking";
+import Cleanings from "./components/pages/Cleanings";
 import 'bootstrap/dist/css/bootstrap.css';
-import Home from "./components/Home";
+import Home from "./components/pages/Home";
 import { useRef } from 'react';
 
 function App() {
