@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import {useSelector} from "react-redux";
 import Person from "./Person";
 import style from '../../css.modules/booking.module.css';
-import { Alert, AlertTitle, ListItemButton, Snackbar } from '@mui/material';
+import { ListItemButton } from '@mui/material';
 import ModalAddCleanCard from './ModalAddCleanCard';
+import AlertMessage from '../AlertMessage';
 
 
 const Peoples = () => {
@@ -21,8 +22,6 @@ const Peoples = () => {
     
         setOpenSnack(false);
       };
-    
-
 
     const handleClick = () => {
         setOpenSnack(true);
@@ -33,7 +32,6 @@ const Peoples = () => {
         setValueCard(card)
         handleOpen()
     }
-
 
         return (
             <div id={`${style.people_box}`}>
@@ -49,20 +47,8 @@ const Peoples = () => {
              
               <ModalAddCleanCard  open={open}
         onClose={handleClose} card={valueCard}/>
-      <Snackbar
-        open={openSnack}
-        autoHideDuration={5000} 
-        onClose={handleCloseSnack}
-        anchorOrigin={{  vertical: 'top', horizontal: 'center'  }}
-      >   
-       <Alert
-          onClose={handleCloseSnack}
-          severity="warning"
-        >
-         {/* <AlertTitle>Warning</AlertTitle> */}
-          You need to login first!
-        </Alert>
-        </Snackbar>
+
+        <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={'warning'} info={'You need to login first!'} />
                 
             </div>
         );

@@ -1,37 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {
-    Alert,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
-    DialogTitle,
 } from "@mui/material";
 import style from '../../../css.modules/sign.module.css';
 import Registration from './Registration';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUserRoleAction, setCurrentUserUID, turnOnLogOutPageAction } from '../../../actions/CleaningsActions';
-import { getUser, login, registration} from "../../../services/authService";
+import { setCurrentUserEmailAction, setCurrentUserRoleAction, setCurrentUserUID, turnOnLogOutPageAction } from '../../../actions/CleaningsActions';
+// import { login } from "../../../services/authService";
 import {addRole, getUserInfo} from "../../../services/infoService";
 import SignIn from './SignIn';
 import { fb, storage } from '../../../config/fireBaseConfig';
 import { fillUserInfoAction, getUserPhotoUrlAction } from '../../../actions/UserActions';
-
-
-
+import Spinner from '../../Spinner';
+import AlertMessage from '../../AlertMessage';
 
 
 const SignUp = (props) => {
    const dispatch = useDispatch()
    const {photoUrl} = useSelector(state=>state.user);
-   const {email} = useSelector(state=>state.clean);
+   const {email,userUid} = useSelector(state=>state.clean);
    const [password, setPassword] = useState('');
    const [name,setName] = useState('');
    const [isLogIn, setIsLogIn] = useState(true)
    const [image, setImage] = useState('')
    const [errorReg, setErrorReg] = useState(null)
-   
+   const [isLoad, setIsLoad] = useState(false)
+   const [severity, setSeverity] = useState()
+   const [message, setMessage] = useState('')
+
+   const [openSnack, setOpenSnack] = useState(false);
+    const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenSnack(false);
+      };
+
+
    const handleSetPassword = (value)=>{
     setPassword(value)
    }
@@ -44,31 +53,54 @@ const SignUp = (props) => {
     setImage(value)
    }
 
-    const handleClickLogin =()=>{
-        login(email,password);
+   const  login=()=>{
+    setIsLoad(true)
+    fb.auth().signInWithEmailAndPassword(email,password)
+     .then(()=>{
+        dispatch(turnOnLogOutPageAction(true))
+     })
+    .catch(error=>{
+        setIsLoad(false)
+        setErrorReg(error)
+       setSeverity('error')
+       setMessage('Please try again')
+       setOpenSnack(true)
        
-        setTimeout(()=>{
+    })
 
-        dispatch(setCurrentUserUID(fb.auth().currentUser.uid))
-        getUserInfo(fb.auth().currentUser.uid).then(data=>{
+}
+
+    const handleClickLogin =()=>{
+        login()
+        if(!errorReg)
+            setTimeout(()=>{
+
+                dispatch(setCurrentUserUID(fb.auth().currentUser.uid))
+                getUserInfo(fb.auth().currentUser.uid).then(data=>{
+                    
+                    dispatch(fillUserInfoAction(data))
+                    dispatch(setCurrentUserRoleAction(data.role))
+                    
+                    setIsLoad(false)
+                   handleCloseAction()
             
-            dispatch(fillUserInfoAction(data))
-            dispatch(setCurrentUserRoleAction(data.role))
-        }).catch(error=>{
-           setErrorReg(error)
-        })
-        },3000)    
-       
-        props.handleClose();
-        // if(errorReg===null)
-         dispatch(turnOnLogOutPageAction(true))
-        // else{dispatch(turnOnLogOutPageAction(false))}
+                })
+            },3000)  
+        
     }
 
-    
-
     const handleCloseAction=()=>{
-        props.handleClose();
+        props.handleClose()
+        setPassword('')
+        setName('')
+        setImage('')
+        dispatch(setCurrentUserEmailAction(''))
+        setIsLogIn(true)
+        setTimeout(()=>{
+            handleCloseSnack()
+        },1000)
+        // setSeverity()
+        // setMessage('')
     }
 
     const handleUpload= ()=>{
@@ -92,21 +124,43 @@ const SignUp = (props) => {
     }
 
     const handleClickRegistration =  () => {
-    
+        setIsLoad(true)
         if(image)  handleUpload()
       
         setTimeout(()=>{
             fb.auth().createUserWithEmailAndPassword(email,password)
         .then(userCredits=>
             {
+                setSeverity('success')
+                setMessage('success registration')
                 addRole('employer', name, email,photoUrl,userCredits.user.uid)
                 dispatch(setCurrentUserUID(userCredits.user.uid))
                 dispatch(setCurrentUserRoleAction('employer'))
+                                
+               setOpenSnack(true)
+                // props.handleClose();
+                // dispatch(turnOnLogOutPageAction(true))
             })
             .then(()=>{
-                props.handleClose();
-                dispatch(turnOnLogOutPageAction(true))
+
+                console.log('login')
+                getUserInfo(userUid).then(data=>{
+                    console.log(data)
+                    dispatch(fillUserInfoAction(data))                    
+                    setIsLoad(false)
+                    dispatch(turnOnLogOutPageAction(true))
+                    handleCloseAction()
+            
+                })
             })
+            .catch((error)=>{
+                setIsLoad(false)
+                setErrorReg(error)
+               setSeverity('error')
+               setMessage('Please try again')
+               setOpenSnack(true)
+            })
+           
        },8000)
     }
        
@@ -115,7 +169,8 @@ const SignUp = (props) => {
         return (
         <div className={'d-flex'}>
 
-            <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
+            <Dialog open={props.open}  onClose={handleCloseAction} maxWidth={"lg"}>
+            <div style={isLoad?{backgroundColor: 'rgba(0, 0, 0, 0.1)'}:{}}>
                 <DialogContent>
                    
                    
@@ -141,6 +196,9 @@ const SignUp = (props) => {
                     {!isLogIn&& <Button onClick={handleClickRegistration}>Sign Up</Button>}
                     {isLogIn &&<Button type='submit' onClick={handleClickLogin}>Log In</Button>}
                 </DialogActions>
+                <Spinner visible={isLoad}/>
+                <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={severity} info={message} />
+                </div>
             </Dialog>
 
 

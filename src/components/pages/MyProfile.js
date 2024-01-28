@@ -1,27 +1,29 @@
-import React, { useState} from 'react';
-import {useSelector} from "react-redux";
+import React, {  useState} from 'react';
+import { useSelector} from "react-redux";
 import { Button, Divider, List } from '@mui/material';
 import CardBox from '../CardBox';
 import { getUserInfoBooking } from '../../services/infoService';
-import { fb } from '../../config/fireBaseConfig';
+
 import Person from './Person';
 import style from '../../css.modules/booking.module.css';
 
 
 
+
 const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
-    const {login} = useSelector(state=>state.clean);
+    const {login,userUid} = useSelector(state=>state.clean);
     const [dataBooking, setDataBooking] = useState([])
 
-    const collection =userInfo.role==='employer'?'booking':'cleanCards'
+    const collection = userInfo.role==='employer'?'booking':'cleanCards'
 
     const booking =()=>{ 
-      getUserInfoBooking(fb.auth().currentUser.uid,collection)
+      getUserInfoBooking(userUid,collection)
       .then(dataArray=>
         setDataBooking(dataArray))
     }
 
+  
   
     if(login===true) {
         return (

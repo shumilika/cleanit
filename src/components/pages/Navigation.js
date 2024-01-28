@@ -45,6 +45,7 @@ const Navigation = () => {
         navigate('/')
         dispatch(setCurrentUserRoleAction(''))
         dispatch(turnOnLogOutPageAction(false))
+        dispatch(fillUserInfoAction({}))
     }
 
     useEffect(()=>{

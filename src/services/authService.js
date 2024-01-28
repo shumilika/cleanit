@@ -2,16 +2,7 @@ import {fb} from "../config/fireBaseConfig";
 import 'firebase/compat/auth';
 
 
-export async function login(email,password){
-    try{
-       await fb.auth().signInWithEmailAndPassword(email,password);
-       
-    }
-    catch (error){
-        
-        alert('wrong.Try one more time')
-    }
-}
+
 
 
 export function logOut(){

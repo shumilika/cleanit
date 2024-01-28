@@ -1,7 +1,9 @@
 import { Box, Button, Modal } from '@mui/material';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { addBooking, changeStatusCardBase, changeStatusUserCards } from '../../services/addCleanCard';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBooking, changeStatusCardBase, changeStatusUserCards, getCleanCard } from '../../services/addCleanCard';
+import AlertMessage from '../AlertMessage';
+import { fillCardDataAction } from '../../actions/CleaningsActions';
 
 const style = {
     position: 'absolute',
@@ -19,16 +21,34 @@ const style = {
 const ModalAddCleanCard = ({open, onClose, card}) => {
 
     const userUid = useSelector(state=>state.clean.userUid)
+    // const [result, setResult] = useState(null)
+    const dispatch = useDispatch()
+    const [openSnack, setOpenSnack] = useState(false)
+    const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+          return
+        }
+    
+        setOpenSnack(false)
+      }
 
     const handleAddCard = () =>{
       addBooking(userUid, card)
       changeStatusCardBase(card)
       changeStatusUserCards(card)
+      // setResult()
+      getCleanCard().then(data=>{
+        const filteredData = data.filter(item=>item.status===false)
+        dispatch(fillCardDataAction(filteredData))
+    })
+      setOpenSnack(true)
       onClose()
+
     }
   
     return (
         <div>
+
          <Modal
         open={open}
         onClose={onClose}
@@ -38,9 +58,12 @@ const ModalAddCleanCard = ({open, onClose, card}) => {
             <Button onClick={handleAddCard}>Yes</Button>
             <Button onClick={onClose}>No</Button>
         </Box>
+        
       </Modal>
-                
+      <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={'success'} info={'Now you have the cleaner:)'} />
         </div>
+                
+        
     );
 };
 

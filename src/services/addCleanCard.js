@@ -54,7 +54,7 @@ export async function changeStatusUserCards(card){
 export async function addBooking(userId,card){
     await fb.firestore().collection('usersInfo').doc(userId).collection('booking').doc(card.cardId).set(
        {...card, status:true}
-   );
+   )
    
 }
       

@@ -17,6 +17,7 @@ const Registration = ({password, setPassword, name, image, setImage,
     const {email} = useSelector(state=>state.clean);
     const dispatch = useDispatch();
     const [isPhotoPicked, setIsPhotoPicked] = useState(false);
+   
     
 
     const setPhotoUserAction=(e)=>{
@@ -58,7 +59,7 @@ const Registration = ({password, setPassword, name, image, setImage,
             <VisuallyHiddenInput type="file"  />
             </Button>
             {isPhotoPicked && <FormLabel>{image.name}</FormLabel>}
-
+           
            </div>
            
         </div>
