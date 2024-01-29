@@ -27,21 +27,23 @@ const Navigation = () => {
 
 
     const handleClickOpenTeam = () => {
-        setOpenTeam(true);
-        
-    };
+        setOpenTeam(true); 
+    }
 
     const handleCloseTeam = () => {
         setOpenTeam(false);
-    };
+    }
+
     const handleClickOpenSign = () => {
         setOpenSign(true);
-    };
+    }
+
     const handleCloseSign = () => {
         setOpenSign(false);
-    };
+    }
+
     const handleLogOut=()=>{
-        logOut();
+        logOut()
         navigate('/')
         dispatch(setCurrentUserRoleAction(''))
         dispatch(turnOnLogOutPageAction(false))

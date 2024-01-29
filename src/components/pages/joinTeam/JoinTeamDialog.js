@@ -26,6 +26,8 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { fb, storage } from '../../../config/fireBaseConfig';
 import { getUserPhotoUrlAction } from '../../../actions/UserActions';
+import AlertMessage from '../../AlertMessage';
+import Spinner from '../../Spinner';
 
 
 const JoinTeamDialog = (props) => {
@@ -39,12 +41,24 @@ const JoinTeamDialog = (props) => {
     const [time, setTime] = useState(null);
     const [isPhotoPicked, setIsPhotoPicked] = useState(false);
     const [image, setImage] = useState('');
-    const {photoUrl} = useSelector(state=>state.user);
+    const {photoUrl} = useSelector(state=>state.user)
+    const [isLoad, setIsLoad] = useState(false)
+    const [severity, setSeverity] = useState()
+    const [message, setMessage] = useState('')
 
     const setPhotoUserAction=(e)=>{
         setImage(e.target.files[0]);
         setIsPhotoPicked(true);
     }
+
+    const [openSnack, setOpenSnack] = useState(false);
+    const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenSnack(false);
+      };
 
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -106,6 +120,7 @@ const JoinTeamDialog = (props) => {
 
 
 const handleClickAction =  () =>{
+    setIsLoad(true)
     if(image)  handleUpload()
 
     setTimeout(()=>{
@@ -118,14 +133,21 @@ const handleClickAction =  () =>{
             addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,userCredits.user.uid,newId.id);
            })
         .then(()=>{
+            setMessage('Welcome to the team!')
+            setSeverity('success')
+            setIsLoad(false)
             dispatch(turnOnLogOutPageAction(true))
             props.handleClose();
+            setOpenSnack(true)
         })
-    },8000)
-    
-    
+        .catch(()=>{
+            setMessage('Please try again')
+            setSeverity('error')
+            setIsLoad(false)
+            setOpenSnack(true)
+        })
+    },8000)   
 }
-
 
     return (
         <div>
@@ -191,7 +213,10 @@ const handleClickAction =  () =>{
                     <Button onClick={props.handleClose}>Close</Button>
                     <Button onClick={handleClickAction}>Join</Button>
                 </DialogActions>
+                <Spinner visible={isLoad}/>
             </Dialog>
+            
+                <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={severity} info={message} />
         </div>
     );
 };

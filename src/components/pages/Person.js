@@ -13,12 +13,12 @@ const Person = (props) => {
             <div>
                <h2> {props.name}</h2>
                 <p>{props.cleanType}<br/>
-                Rating 3.5</p>
+                </p>
 
             </div>
             <div>
                <p> {dateString + ' '+props.time}<br/>
-                   50dol per service
+                   
                </p>
             </div>
 
