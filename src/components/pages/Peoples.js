@@ -38,11 +38,12 @@ const Peoples = () => {
 
                 {(isFilter?filteredData:cardData).map((card, i)=>
                    <ListItemButton onClick={()=>login?handleClickPerson(card):handleClick()} key={i}>
-                   <Person name={card.name} imageUrl={card.photo} 
+                    <Person name={card.name} imageUrl={card.photo} 
                     date={card.date} cleanType={card.cleanType} time={card.time}
                                    key={i}/>
                    </ListItemButton>
                 )}
+                {(isFilter&&filteredData.length<=0)&& <p>No matches</p>}
                 
              
               <ModalAddCleanCard  open={open}

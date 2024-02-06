@@ -34,8 +34,8 @@ const ModalAddCleanCard = ({open, onClose, card}) => {
 
     const handleAddCard = () =>{
       addBooking(userUid, card)
-      changeStatusCardBase(card)
-      changeStatusUserCards(card)
+      changeStatusCardBase(card, true)
+      changeStatusUserCards(card, true)
       // setResult()
       getCleanCard().then(data=>{
         const filteredData = data.filter(item=>item.status===false)

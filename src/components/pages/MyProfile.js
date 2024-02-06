@@ -3,9 +3,9 @@ import { useSelector} from "react-redux";
 import { Button, Divider, List } from '@mui/material';
 import CardBox from '../CardBox';
 import { getUserInfoBooking } from '../../services/infoService';
-
-import Person from './Person';
 import style from '../../css.modules/booking.module.css';
+import BookingCleaners from './BookingCleaners';
+import AddPositionCleaner from './AddPositionCleaner';
 
 
 
@@ -14,6 +14,10 @@ const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
     const {login,userUid} = useSelector(state=>state.clean);
     const [dataBooking, setDataBooking] = useState([])
+    const [openPosition, setOpenPosition] = useState(false)
+    const handleClosePosition = () =>{
+      setOpenPosition(false)
+    }
 
     const collection = userInfo.role==='employer'?'booking':'cleanCards'
 
@@ -32,8 +36,8 @@ const MyProfile = () => {
                         <h4>{userInfo.name}</h4>
                         {/* <Avatar alt={userInfo.name} src={userInfo.photo} /> */}
                         <img src={userInfo.photo} alt={userInfo.name} width={'100px'}/><br/>
-                        {userInfo.role==='cleaner'&& <Button>add position</Button>}
-
+                        {userInfo.role==='cleaner'&& <Button onClick={()=>setOpenPosition(true)}>add position</Button>}
+<AddPositionCleaner open={openPosition} handleClose={handleClosePosition}/>
 
 
 <br/><div>
@@ -43,9 +47,12 @@ const MyProfile = () => {
 <Button onClick={()=>booking()}><p>Check my заказы</p></Button>
 <div id={`${style.people_box}`}>
 {dataBooking.map((card, i)=>
-                    <Person name={card.name} imageUrl={card.photo} 
+                   <>
+                   <BookingCleaners card={card} name={card.name} imageUrl={card.photo} 
                     date={card.date} cleanType={card.cleanType} time={card.time}
-                                   key={i}/>
+                                   key={i}/> 
+                                  
+                   </>
                 )}
                 </div>
 </>
@@ -61,12 +68,12 @@ const MyProfile = () => {
        bgcolor: 'background.paper',
      }}
    >
-   {dataBooking.map((data=>
+   {dataBooking.map((data,i)=>
        <>
-       <CardBox data={data} collection={collection}/>
+       <CardBox data={data} key={i}/>
        <Divider variant="inset" component="li" />
        </>
-       ))}
+       )}
    </List>
 
 </>

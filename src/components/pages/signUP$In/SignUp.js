@@ -143,9 +143,9 @@ const SignUp = (props) => {
             })
             .then(()=>{
 
-                console.log('login')
+                // console.log('login')
                 getUserInfo(userUid).then(data=>{
-                    console.log(data)
+                    // console.log(data)
                     dispatch(fillUserInfoAction(data))                    
                     setIsLoad(false)
                     dispatch(turnOnLogOutPageAction(true))
