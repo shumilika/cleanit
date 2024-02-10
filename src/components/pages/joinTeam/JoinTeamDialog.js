@@ -93,9 +93,14 @@ const JoinTeamDialog = (props) => {
     }
     
     const handleChangeTime = time=>{
-        const dayTime= new Date(time.$d)
-        const extractedTime =dayTime.getHours() + ":" + dayTime.getMinutes();
-        setTime(extractedTime);
+        const dateString = time.$d;
+        const date = new Date(dateString);
+        const options = {
+          hour: '2-digit',
+          minute: '2-digit'
+        };
+        const formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+        setTime(formattedTime)
     }
    
     const handleUpload= ()=>{
@@ -157,8 +162,8 @@ const handleClickAction =  () =>{
                 <DialogContent>
     
             <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px'}}>
-            <FormLabel>Registration for employees</FormLabel>
-            <br />
+            {/* <FormLabel>Registration for employees</FormLabel> */}
+            {/* <br /> */}
                 <TextField id="name" label="Name" variant="standard" onChange={e=>handleChangeName(e.target.value)} />
                <br />
                 <TextField id="email" label="Email" variant="standard" onChange={e=>handleChangeEmail(e.target.value)} />

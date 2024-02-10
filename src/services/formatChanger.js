@@ -6,7 +6,7 @@ export const dateFormatChanger = (dateString) =>{
     const month = String(date.getMonth() + 1).padStart(2, '0'); 
     const year = date.getFullYear();
   
-    const formattedDate = `${day}.${month}.${year}`;
+    const formattedDate = `${month}.${day}.${year}`;
     return formattedDate
 }
 
