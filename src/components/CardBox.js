@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete'
 import ModalDeleteCleanСard from "./pages/ModalDeleteCleanСard";
 import { useState } from "react";
+import UpdatePositionCleaner from "./pages/UpdatePositionCleaner";
 
 
 const CardBox = ({data}) => {
@@ -13,6 +14,10 @@ const CardBox = ({data}) => {
     const [open, setOpen] = useState(false)
     const handleClose = () =>{
         setOpen(false)
+    }
+    const [openUpdateModal, setOpenUpdateModal] = useState(false)
+    const handleCloseUpdateModal = () => {
+        setOpenUpdateModal(false)
     }
     
     const tooltipTitle = ()=>{
@@ -36,7 +41,7 @@ const CardBox = ({data}) => {
        
         <ListItemText primary={data.cleanType} secondary={dateString+' '+data.time} />
         {!data.status && <ButtonGroup>
-            <IconButton aria-label="edit">
+            <IconButton aria-label="edit" onClick={()=>setOpenUpdateModal(true)}>
                 <EditIcon fontSize="small" />
             </IconButton>
             <IconButton aria-label="delete" onClick={()=>setOpen(true)}>
@@ -44,6 +49,7 @@ const CardBox = ({data}) => {
             </IconButton>
         </ButtonGroup>}
         <ModalDeleteCleanСard open={open} onClose={handleClose} card={data} />
+        <UpdatePositionCleaner open={openUpdateModal} handleClose={handleCloseUpdateModal} card={data}/>
       </ListItem>
      
      

@@ -19,15 +19,15 @@ import { styled } from '@mui/material/styles';
 import { fb } from '../../config/fireBaseConfig';
 import AlertMessage from '../AlertMessage';
 import Spinner from '../Spinner';
+import dayjs from 'dayjs';
+import { dateFormatChanger } from '../../services/formatChanger';
 
-
-const AddPositionCleaner = (props) => {
+const UpdatePositionCleaner = (props) => {
     const {userInfo} = useSelector(state=>state.user);
-    const dispatch = useDispatch();
     const {userUid} = useSelector(state=>state.clean);
-    const [cleanType, setCleanType] = useState('');
+    const [cleanType, setCleanType] = useState(props.card.cleanType);
     const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState(null);
+    const [time, setTime] = useState(props.card.time);
     const [isLoad, setIsLoad] = useState(false)
     const [severity, setSeverity] = useState()
     const [message, setMessage] = useState('')
@@ -39,8 +39,8 @@ const AddPositionCleaner = (props) => {
     
         setOpenSnack(false);
       };
-
-      
+    
+      console.log(props.card.time)
 
     const handleChangeCleanType = e=>{
         setCleanType(e.target.value);
@@ -60,10 +60,10 @@ const AddPositionCleaner = (props) => {
         const formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
         setTime(formattedTime)
     }
- 
+ console.log(props.card.time)
 
-const handleClickAction =  () =>{
-    setIsLoad(true)
+    const handleClickAction =  () =>{
+        setIsLoad(true)
     
     const newId = fb.firestore().collection('usersInfo').doc(userUid).collection('cleanCards').doc()
     addCard(userInfo.name,date,time,cleanType,userInfo.email,userUid,newId.id)
@@ -97,7 +97,7 @@ const handleClickAction =  () =>{
     return (
         <div>
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
-                <DialogTitle>Add one more card</DialogTitle>
+                <DialogTitle>Change card</DialogTitle>
                 
                 <DialogContent>
     
@@ -106,6 +106,7 @@ const handleClickAction =  () =>{
         
                 <DatePicker
                     label='Pick date'
+                    value={dayjs(dateFormatChanger(props.card.date.seconds))}
                     onChange={e=>handleChangeDate(e)}
                 />
               <br />
@@ -146,4 +147,4 @@ const handleClickAction =  () =>{
     );
 };
 
-export default AddPositionCleaner;
+export default UpdatePositionCleaner;
