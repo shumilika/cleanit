@@ -4,6 +4,7 @@
     padding-top: 20px;
     box-sizing: border-box;
 }
+
 .booking{
     width: 1366px;
     height: 630px;
@@ -16,57 +17,12 @@
     color: #FFFFFF !important;
     opacity: 1;
 }
-span{
+.white_span{
     color: #FFFFFF;
 }
-#select_box{
-    /* width: 304px; */
-    /* height: 57px; */
-    overflow: hidden;
-    border: 3px solid #F9D859;
-    position: relative;
-    padding: 10px 0;
-    margin: 20px 0;
-
-}
-#select_box:after{
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 20px solid #F9D859;
-    position: absolute;
-    top:40%;
-    right: 20px;
-    content: "";
-    z-index: 98;
-}
-
-#select_box select {
-    width: 314px;
-    border:0;
-
-    /*border: 3px solid #F9D859;*/
-    opacity: 1;
-    background: none;
-    padding: 0 20px;
-    color: #F9D859;
-    font-size: 24px;
-    font-weight: bold;
-    /*display: block;*/
-    position: relative;
-    z-index: 99;
-
-}
 
 
-select > option{
-    padding: 0 20px;
-    color: #F9D859;
-    font-size: 24px;
-    font-weight: bold;
-    /*text-align: center;*/
-}
+
 
 
 #people_box{
@@ -99,3 +55,4 @@ select > option{
     border-bottom-right-radius: 16px;
         border-top-right-radius: 16px;
 }
+

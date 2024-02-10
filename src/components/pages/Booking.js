@@ -7,7 +7,10 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilterChoosedCleanningType, setFilteredData, setIsFilter } from '../../actions/CleaningsActions';
 import { convertDateToTimestamp } from '../../services/formatChanger';
-
+ const itemStyle = {
+    color: '#F9D859',
+    fontWeight:'600'
+ }
 
 const Booking = ({bookRef}) => {
 
@@ -15,7 +18,6 @@ const Booking = ({bookRef}) => {
     const [dateValue, setDateValue] = useState()
     const {cardData,isFilter, cleanningType} = useSelector(state=>state.clean)
     const dispatch = useDispatch()
-
   
     const handleFilterChange = (value) => {
       const filteredData = cardData.filter(item =>
@@ -26,7 +28,6 @@ const Booking = ({bookRef}) => {
     dispatch(setFilteredData(filteredData))
     dispatch(setIsFilter(true))
     };
-  
 
     const setCleanTypeAction=(e)=>{
         dispatch(setFilterChoosedCleanningType(''))
@@ -52,20 +53,42 @@ const Booking = ({bookRef}) => {
         <div className={`d-flex justify-content-around ${style.booking}`}>
             <div>
             <h1 id={style.book}>Book now</h1>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-            <InputLabel style={{color:'#F9D859'}} id="demo-simple-select-label">Choose type cleaning</InputLabel>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }} >
+            <InputLabel style={{color:'#F9D859', paddingLeft:'15px'}}
+             id="demo-simple-select-label">Choose type cleaning</InputLabel>
                 <Select 
-                    input={<OutlinedInput label="Choose type cleaning" />}
+                sx={{
+                    border: "3px solid #F9D859",
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    "& .MuiSvgIcon-root": {
+                            color: "#F9D859",
+                        },
+                        '& .MuiSelect-select': {
+                            color: '#F9D859',
+                            fontWeight:'600'
+                        },
+                        // '&.MuiButtonBase-root-MuiMenuItem-root': { color: "#F9D859", }
+                }}
+              
+                    input={<OutlinedInput label="Choose type cleaning"  />}
                     aria-label="TypesCleaning"
                     label='Choose cleaning type'
                     value={cleanningType||cleanType}
                     labelId="demo-simple-select-label"
                     onChange={setCleanTypeAction}
                 >
-                    <MenuItem   value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
-                    <MenuItem  value={"deep cleaning expert"}>Deep Cleaning</MenuItem>
-                    <MenuItem  value={"office cleaning expert"}>Office Cleaning</MenuItem>
-                    <MenuItem  value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
+                    <MenuItem sx={itemStyle}   value={"regularly cleaning expert"} >Regularly Cleaning</MenuItem>
+                    <MenuItem sx={itemStyle} value={"deep cleaning expert"}>Deep Cleaning</MenuItem>
+                    <MenuItem sx={itemStyle}  value={"office cleaning expert"}>Office Cleaning</MenuItem>
+                    <MenuItem  sx={itemStyle} value={"windows cleaning expert"}>Windows Cleaning</MenuItem>
                 </Select>
             </FormControl>
                
@@ -73,7 +96,7 @@ const Booking = ({bookRef}) => {
             </div>
             <div>
            
-                <span>Choose available expert and time:</span>
+                <span className={style.white_span}>Choose available expert and time:</span>
                {isFilter? <IconButton aria-label="clear filters"
                onClick={clearFiltersHandle}>
                 <ClearIcon />
