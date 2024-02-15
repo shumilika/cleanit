@@ -7,9 +7,3 @@ export const fillUserInfoAction = userData=>{
         payload:userData
     }
 }
-export const getUserPhotoUrlAction =photoUrl=>{
-    return {
-        type: GET_USER_PHOTO_URL,
-        payload:photoUrl
-    }
-}

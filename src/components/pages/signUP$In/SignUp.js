@@ -13,14 +13,13 @@ import { setCurrentUserEmailAction, setCurrentUserRoleAction, setCurrentUserUID,
 import {addRole, getUserInfo} from "../../../services/infoService";
 import SignIn from './SignIn';
 import { fb, storage } from '../../../config/fireBaseConfig';
-import { fillUserInfoAction, getUserPhotoUrlAction } from '../../../actions/UserActions';
+import { fillUserInfoAction } from '../../../actions/UserActions';
 import Spinner from '../../Spinner';
 import AlertMessage from '../../AlertMessage';
 
 
 const SignUp = (props) => {
    const dispatch = useDispatch()
-   const {photoUrl} = useSelector(state=>state.user);
    const {email,userUid} = useSelector(state=>state.clean);
    const [password, setPassword] = useState('');
    const [name,setName] = useState('');
@@ -30,7 +29,7 @@ const SignUp = (props) => {
    const [isLoad, setIsLoad] = useState(false)
    const [severity, setSeverity] = useState()
    const [message, setMessage] = useState('')
-
+   let photoURL;
    const [openSnack, setOpenSnack] = useState(false);
     const handleCloseSnack = (event, reason) => {
         if (reason === 'clickaway') {
@@ -117,7 +116,7 @@ const SignUp = (props) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        dispatch(getUserPhotoUrlAction(url))
+                        photoURL=url
                     });
             }
         );
@@ -133,25 +132,19 @@ const SignUp = (props) => {
             {
                 setSeverity('success')
                 setMessage('success registration')
-                addRole('employer', name, email,photoUrl,userCredits.user.uid)
+                addRole('employer', name, email,photoURL,userCredits.user.uid)
                 dispatch(setCurrentUserUID(userCredits.user.uid))
-                dispatch(setCurrentUserRoleAction('employer'))
-                                
-               setOpenSnack(true)
-                // props.handleClose();
-                // dispatch(turnOnLogOutPageAction(true))
-            })
-            .then(()=>{
+                dispatch(setCurrentUserRoleAction('employer'))    
+                setOpenSnack(true)
 
-                // console.log('login')
-                getUserInfo(userUid).then(data=>{
-                    // console.log(data)
-                    dispatch(fillUserInfoAction(data))                    
+            })
+            .finally(()=>{
+                               
                     setIsLoad(false)
                     dispatch(turnOnLogOutPageAction(true))
                     handleCloseAction()
             
-                })
+              
             })
             .catch((error)=>{
                 setIsLoad(false)

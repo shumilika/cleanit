@@ -25,14 +25,13 @@ import { addRole } from '../../../services/infoService';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { fb, storage } from '../../../config/fireBaseConfig';
-import { getUserPhotoUrlAction } from '../../../actions/UserActions';
 import AlertMessage from '../../AlertMessage';
 import Spinner from '../../Spinner';
 
 
 const JoinTeamDialog = (props) => {
     const dispatch = useDispatch();
-    const {userUid} = useSelector(state=>state.clean);
+    // const {userUid} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,10 +40,11 @@ const JoinTeamDialog = (props) => {
     const [time, setTime] = useState(null);
     const [isPhotoPicked, setIsPhotoPicked] = useState(false);
     const [image, setImage] = useState('');
-    const {photoUrl} = useSelector(state=>state.user)
+
     const [isLoad, setIsLoad] = useState(false)
     const [severity, setSeverity] = useState()
     const [message, setMessage] = useState('')
+    let photoURL;
 
     const setPhotoUserAction=(e)=>{
         setImage(e.target.files[0]);
@@ -117,7 +117,7 @@ const JoinTeamDialog = (props) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        dispatch(getUserPhotoUrlAction(url))
+                        photoURL=url
                     });
             }
         );
@@ -134,8 +134,8 @@ const handleClickAction =  () =>{
             { dispatch(setCurrentUserUID(userCredits.user.uid))
             const newId = fb.firestore().collection('usersInfo').doc(userCredits.user.uid).collection('cleanCards').doc()
             addCard(name,date,time,cleanType,newEmail,userCredits.user.uid,newId.id)
-            addRole('cleaner', name, newEmail, photoUrl,userCredits.user.uid)
-            addCardMainBase(name,newEmail,date,time,cleanType,photoUrl,userCredits.user.uid,newId.id);
+            addRole('cleaner', name, newEmail, photoURL,userCredits.user.uid)
+            addCardMainBase(name,newEmail,date,time,cleanType,photoURL,userCredits.user.uid,newId.id);
            })
         .then(()=>{
             setMessage('Welcome to the team!')
@@ -158,12 +158,12 @@ const handleClickAction =  () =>{
         <div>
             <Dialog open={props.open} onClose={props.handleClose} maxWidth={"lg"}>
                 <DialogTitle>Join our team</DialogTitle>
-                <h6>*only for new employees</h6>
                 <DialogContent>
     
-            <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px'}}>
-            {/* <FormLabel>Registration for employees</FormLabel> */}
-            {/* <br /> */}
+           <>
+           <p>*only for new employees</p>
+           <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px', paddingTop:'0'}}>
+          
                 <TextField id="name" label="Name" variant="standard" onChange={e=>handleChangeName(e.target.value)} />
                <br />
                 <TextField id="email" label="Email" variant="standard" onChange={e=>handleChangeEmail(e.target.value)} />
@@ -182,6 +182,7 @@ const handleClickAction =  () =>{
                 </Button>
                 {isPhotoPicked && <FormLabel>{image.name}</FormLabel>}
             </Box><br/>
+           </>
             <div>
         
                 <DatePicker

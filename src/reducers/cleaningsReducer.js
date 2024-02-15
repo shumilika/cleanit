@@ -43,8 +43,12 @@ export const cleaningsReducer=(state=initialState,action)=>{
             return {...state, isFilter: action.payload}
         case SET_FILTER_CHOOSED_CLEANNING_TYPE:
             return {...state, cleanningType: action.payload}
+        case 'RESET_STATE':
+            return initialState;
         default:
             return state
 
     }
 }
+
+
