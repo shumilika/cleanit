@@ -59,7 +59,7 @@ const BookingCleaners = (props) => {
                                   </IconButton>}
        
       
-            <ModalDeleteCleanBooking open={open} onClose={handleClose} card={props.card}/>
+            <ModalDeleteCleanBooking open={open} onClose={handleClose} card={props.card} handleUpdatePeopleCards={props.handleUpdatePeopleCards}/>
         </ListItem>
     );
 };

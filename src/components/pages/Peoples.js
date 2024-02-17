@@ -9,7 +9,7 @@ import AlertMessage from '../AlertMessage';
 
 const Peoples = () => {
     
-    const {login,cardData,filteredData,isFilter} = useSelector(state=>state.clean)
+    const {login,cardData,filteredData,isFilter,role} = useSelector(state=>state.clean)
     const [valueCard, setValueCard] = useState({})
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -39,7 +39,7 @@ const Peoples = () => {
 
 {(isFilter?filteredData:cardData).map((card, i)=>
                    <>
-                   <ListItemButton onClick={()=>login?handleClickPerson(card):handleClick()} key={i}>
+                   <ListItemButton onClick={()=>(login&&role==='employer')?handleClickPerson(card):handleClick()} key={i}>
                     <Person name={card.name} imageUrl={card.photo} 
                     date={card.date} cleanType={card.cleanType} time={card.time}
                                    key={i}/>
@@ -54,7 +54,7 @@ const Peoples = () => {
               <ModalAddCleanCard  open={open}
         onClose={handleClose} card={valueCard}/>
 
-        <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={'warning'} info={'You need to login first!'} />
+        <AlertMessage open={openSnack} handleClose={handleCloseSnack} severity={'warning'} info={'You need to login as employer!'} />
                 
             </div>
         );

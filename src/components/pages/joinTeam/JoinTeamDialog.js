@@ -15,12 +15,12 @@ import {
     TextField
 } from "@mui/material";
 import style from "../../../css.modules/booking.module.css";
-import {addCard, addCardMainBase} from "../../../services/addCleanCard";
+import {addCard, addCardMainBase, getCleanCard} from "../../../services/addCleanCard";
 import {useDispatch, useSelector} from "react-redux";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { registration} from "../../../services/authService";
-import { setCurrentUserUID, turnOnLogOutPageAction } from '../../../actions/CleaningsActions';
+import { fillCardDataAction, setCurrentUserUID, turnOnLogOutPageAction } from '../../../actions/CleaningsActions';
 import { addRole } from '../../../services/infoService';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
@@ -144,6 +144,10 @@ const handleClickAction =  () =>{
             dispatch(turnOnLogOutPageAction(true))
             props.handleClose();
             setOpenSnack(true)
+            getCleanCard().then(data=>{
+                const filteredData = data.filter(item=>item.status===false)
+                dispatch(fillCardDataAction(filteredData))
+            })
         })
         .catch(()=>{
             setMessage('Please try again')

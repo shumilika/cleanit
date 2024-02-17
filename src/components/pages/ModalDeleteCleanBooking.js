@@ -18,7 +18,7 @@ const style = {
     p: 4,
   };
 
-const ModalDeleteCleanBooking = ({open, onClose, card}) => {
+const ModalDeleteCleanBooking = ({open, onClose, card, handleUpdatePeopleCards}) => {
 
     const userUid = useSelector(state=>state.clean.userUid)
     const [openSnack, setOpenSnack] = useState(false)
@@ -36,6 +36,7 @@ const ModalDeleteCleanBooking = ({open, onClose, card}) => {
       changeStatusUserCards(card, false)
       setOpenSnack(true)
       onClose()
+      handleUpdatePeopleCards()
 
     }
  

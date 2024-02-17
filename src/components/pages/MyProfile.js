@@ -9,6 +9,8 @@ import AddPositionCleaner from './AddPositionCleaner';
 import { fillUserInfoAction } from '../../actions/UserActions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddIcon from '@mui/icons-material/Add';
+import { getCleanCard } from '../../services/addCleanCard';
+import { fillCardDataAction } from '../../actions/CleaningsActions';
 
 const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
@@ -29,6 +31,14 @@ const MyProfile = () => {
     }
 
     const collection = userInfo.role==='employer'?'booking':'cleanCards'
+
+
+    const handleUpdatePeopleCards = () =>{
+      getCleanCard().then(data=>{
+        const filteredData = data.filter(item=>item.status===false)
+        dispatch(fillCardDataAction(filteredData))
+    })
+    }
 
     const booking =()=>{ 
      
@@ -97,12 +107,12 @@ const MyProfile = () => {
                 dataBooking.map((card, i)=>
                   <BookingCleaners card={card} name={card.name} imageUrl={card.photo} 
                       date={card.date} cleanType={card.cleanType} time={card.time}
-                                    key={i}
+                                    key={i} handleUpdatePeopleCards={handleUpdatePeopleCards}
                   />                  
                 )
               :
                 dataBooking.map((data,i)=>
-                  <CardBox data={data} key={i}/>
+                  <CardBox data={data} key={i} handleUpdatePeopleCards={handleUpdatePeopleCards}/>
                 )
             }
    
