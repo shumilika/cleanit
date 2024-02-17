@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../css.modules/booking.module.css'
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tooltip, Typography } from '@mui/material';
 import { dateFormatChanger } from '../../services/formatChanger';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModalDeleteCleanBooking from './ModalDeleteCleanBooking';
@@ -27,29 +27,40 @@ const BookingCleaners = (props) => {
 
 
     return (
-        <div>
-        <div className={'d-flex justify-content-around p-2'}>
-            <div>
-                <Avatar alt={props.name} src={props.imageUrl} />
-            </div>
-            <div>
-               <h2> {props.name}</h2>
-                <p>{props.cleanType}<br/>
-                </p>
-
-            </div>
-            <div>
-               <p> {dateString + ' '+props.time}<br/>
-                   
-               </p>
-            </div>
-           {isDateValid && <IconButton aria-label="delete" onClick={()=>setOpen(true)}>
+        <ListItem>
+         <ListItemAvatar>
+          <Avatar alt={props.name} src={props.imageUrl}  
+            sx={{ width: 56, height: 56 }}
+          />
+        </ListItemAvatar>
+        <ListItemText
+        sx={{paddingLeft:'30px', paddingTop:'10px'}}
+          primary={props.name}
+          secondary={
+            <>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {dateString + ' '+props.time}
+              </Typography>
+             <p> {props.cleanType}</p>
+            </>
+          }
+        />
+      
+       
+          {isDateValid && <IconButton aria-label="delete" onClick={()=>setOpen(true)}>
+          <Tooltip title='delete'>
                                     <DeleteIcon fontSize='small' />
+                                    </Tooltip>
                                   </IconButton>}
-        </div>
-                    <div id={style.grey_line}></div>
+       
+      
             <ModalDeleteCleanBooking open={open} onClose={handleClose} card={props.card}/>
-        </div>
+        </ListItem>
     );
 };
 

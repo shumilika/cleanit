@@ -1,90 +1,124 @@
-import React, {  useState} from 'react';
-import { useSelector} from "react-redux";
-import { Button, Divider, List } from '@mui/material';
+import React, {  useEffect, useState} from 'react';
+import { useDispatch, useSelector} from "react-redux";
+import { Box, Button, IconButton, ImageListItem, ImageListItemBar, Paper, Tooltip } from '@mui/material';
 import CardBox from '../CardBox';
-import { getUserInfoBooking } from '../../services/infoService';
+import { getUserInfo, getUserInfoBooking } from '../../services/infoService';
 import style from '../../css.modules/booking.module.css';
 import BookingCleaners from './BookingCleaners';
 import AddPositionCleaner from './AddPositionCleaner';
-
-
-
+import { fillUserInfoAction } from '../../actions/UserActions';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AddIcon from '@mui/icons-material/Add';
 
 const MyProfile = () => {
     const {userInfo} = useSelector(state=>state.user);
-    const {login,userUid} = useSelector(state=>state.clean);
+    const dispatch = useDispatch() 
+    const {userUid} = useSelector(state=>state.clean);
     const [dataBooking, setDataBooking] = useState([])
     const [openPosition, setOpenPosition] = useState(false)
+    const [isClick, setIsClick] = useState(false)
     const handleClosePosition = () =>{
       setOpenPosition(false)
+    }
+
+    const buttonStyle = {
+      backgroundColor:'#a2b2f5','&:hover': {
+       
+        backgroundColor: '#778ff5',
+      },
     }
 
     const collection = userInfo.role==='employer'?'booking':'cleanCards'
 
     const booking =()=>{ 
+     
       getUserInfoBooking(userUid,collection)
       .then(dataArray=>
         setDataBooking(dataArray))
+        setIsClick(true)
     }
 
+    useEffect(()=>{
+      getUserInfo(userUid)
+      .then(data=>{
+        dispatch(fillUserInfoAction(data)) 
+      })
+    },[])
   
-  
-    if(login===true) {
-        return (
-            <div className={'text-center'}>
-                    <div>
-                        <h4>{userInfo.name}</h4>
-                        {/* <Avatar alt={userInfo.name} src={userInfo.photo} /> */}
-                        <img src={userInfo.photo} alt={userInfo.name} width={'100px'}/><br/>
-                        {userInfo.role==='cleaner'&& <Button onClick={()=>setOpenPosition(true)}>add position</Button>}
-<AddPositionCleaner open={openPosition} handleClose={handleClosePosition}/>
+   
+    return (
+      <div>
+                    
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap', 
+          }}
+        >
+          <Paper elevation={6} sx={{width: '20%',margin:'50px', padding:'10px'}} id={style.my_box}>
+                    
+            <ImageListItem key={userInfo.photo} sx={{ width:'150px',  margin:'0 20%'}}>
+              <img
+                src={`${userInfo.photo}`}
+                alt={userInfo.name}
+                loading="lazy"
+                style={{borderRadius:'6px'}}
+              />
+              
+              <ImageListItemBar
+                title={userInfo.name}
+                subtitle={userInfo.email}
+                position="below"
+              />
+            </ImageListItem>
+           
+            {userInfo.role==='cleaner'&& 
+            <IconButton  sx={{margin:'0 40%', position:'relative', top:'90px',backgroundColor:'#a2b2f5','&:hover': {
+       
+       backgroundColor: '#778ff5',
+     },}} onClick={()=>setOpenPosition(true)}>
+            <Tooltip title='Add position'>
 
-
-<br/><div>
-{userInfo.role==='employer'
-?
-<>
-<Button onClick={()=>booking()}><p>Check my заказы</p></Button>
-<div id={`${style.people_box}`}>
-{dataBooking.map((card, i)=>
-                   <>
-                   <BookingCleaners card={card} name={card.name} imageUrl={card.photo} 
-                    date={card.date} cleanType={card.cleanType} time={card.time}
-                                   key={i}/> 
-                                  
-                   </>
-                )}
-                </div>
-</>
-:
-<>
-<Button onClick={()=>booking()}><p>My working sheet</p></Button>
-
-
-   <List
-     sx={{
-       width: '100%',
-       maxWidth: 360,
-       bgcolor: 'background.paper',
-     }}
-   >
-   {dataBooking.map((data,i)=>
-       <>
-       <CardBox data={data} key={i}/>
-       <Divider variant="inset" component="li" />
-       </>
-       )}
-   </List>
-
-</>
-}
-
-</div>
-                   </div>
+            <AddIcon />
+            </Tooltip>
+              </IconButton>}
+        
+          </Paper>
+        
+          <Paper elevation={6} sx={{width: '40%',margin:'50px', padding:'10px'}} id={style.booking_box}>
           
-            </div>
-        );
-    }
+             {!isClick && <Button onClick={()=>booking()} endIcon={<KeyboardArrowDownIcon/>} sx={buttonStyle} variant='contained'>
+              {userInfo.role==='employer'? 'My bookings':'My cards'} 
+              </Button>}
+            
+
+            {userInfo.role==='employer'
+              ?
+                dataBooking.map((card, i)=>
+                  <BookingCleaners card={card} name={card.name} imageUrl={card.photo} 
+                      date={card.date} cleanType={card.cleanType} time={card.time}
+                                    key={i}
+                  />                  
+                )
+              :
+                dataBooking.map((data,i)=>
+                  <CardBox data={data} key={i}/>
+                )
+            }
+   
+              
+       
+           
+        
+          </Paper>
+         
+                     
+         
+        </Box>
+                  
+        <AddPositionCleaner open={openPosition} handleClose={handleClosePosition}/>
+      </div>
+    ); 
 };
 
 export default MyProfile;

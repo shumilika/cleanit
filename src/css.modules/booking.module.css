@@ -21,9 +21,20 @@
     color: #FFFFFF;
 }
 
+#booking_box{
+    width: 500px;
+    min-height: 288px;
+    border-radius: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+}
 
-
-
+#my_box{
+    width: 288px;
+    border-radius: 16px;
+    padding: 20px 10px;
+    height: 400px;
+}
 
 #people_box{
     width: 536px;
@@ -34,12 +45,6 @@
     padding: 20px 10px;
     max-height: 550px;
     overflow-y: auto;
-}
-
-#grey_line{
-    background: rgba(117, 114, 114, 0.56) 0% 0% no-repeat padding-box;
-    height: 2px;
-    margin: 0 auto;
 }
 
 ::-webkit-scrollbar {
