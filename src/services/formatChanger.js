@@ -16,3 +16,19 @@ export const convertDateToTimestamp = (dateString) => {
         
     return timestamp;
   };
+
+  export const convertStringTimeToDateTime = (value) => {
+    const inputTime = value;
+    const [time, period] = inputTime.split(' ');
+    let [hours, minutes] = time.split(':');
+    hours = parseInt(hours, 10);
+    minutes = parseInt(minutes, 10);
+    if (period === 'PM' && hours !== 12) {
+      hours += 12;
+    }
+    const date = new Date();
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    const convertedTime = date.toString();
+    return convertedTime
+  }

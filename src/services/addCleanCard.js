@@ -54,6 +54,14 @@ export async function changeStatusUserCards(card, status){
     await fb.firestore().collection('usersInfo').doc(card.userID).collection('cleanCards').doc(card.cardId).update({status: status})
        
 }
+
+export async function updateCardInUserCards(userID, cardId, date, time, cleanType){
+    await fb.firestore().collection('usersInfo').doc(userID).collection('cleanCards').doc(cardId).update({date, time, cleanType})
+}
+
+export async function updateCardInCardBase(cardId, date, time, cleanType){
+    await fb.firestore().collection('cleanCardsBase').doc(cardId).update({date, time, cleanType});  
+}
  
 export async function addBooking(userId,card){
     await fb.firestore().collection('usersInfo').doc(userId).collection('booking').doc(card.cardId).set(

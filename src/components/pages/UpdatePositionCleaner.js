@@ -11,7 +11,7 @@ import {
     Select,
 } from "@mui/material";
 import style from "../../css.modules/booking.module.css";
-import {addCard, addCardMainBase} from "../../services/addCleanCard";
+import {addCard, addCardMainBase, updateCardInCardBase, updateCardInUserCards} from "../../services/addCleanCard";
 import {useDispatch, useSelector} from "react-redux";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -20,7 +20,7 @@ import { fb } from '../../config/fireBaseConfig';
 import AlertMessage from '../AlertMessage';
 import Spinner from '../Spinner';
 import dayjs from 'dayjs';
-import { dateFormatChanger } from '../../services/formatChanger';
+import { convertStringTimeToDateTime, dateFormatChanger } from '../../services/formatChanger';
 
 const UpdatePositionCleaner = (props) => {
     const {userInfo} = useSelector(state=>state.user);
@@ -40,7 +40,6 @@ const UpdatePositionCleaner = (props) => {
         setOpenSnack(false);
       };
     
-      console.log(props.card.time)
 
     const handleChangeCleanType = e=>{
         setCleanType(e.target.value);
@@ -60,23 +59,21 @@ const UpdatePositionCleaner = (props) => {
         const formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
         setTime(formattedTime)
     }
- console.log(props.card.time)
 
-    const handleClickAction =  () =>{
+    const handleClickAction = () =>{
         setIsLoad(true)
-    
-    const newId = fb.firestore().collection('usersInfo').doc(userUid).collection('cleanCards').doc()
-    addCard(userInfo.name,date,time,cleanType,userInfo.email,userUid,newId.id)
-    // .then(()=>{
-        
-        addCardMainBase(userInfo.name,userInfo.email,date,time,cleanType,userInfo.photo,userUid,newId.id)
+  
+        updateCardInUserCards(userUid,props.card.cardId,date,time,cleanType)
+        updateCardInCardBase(props.card.cardId,date, time, cleanType)
         .then(()=>{
            
-            setMessage('Position added successfuly!')
+            setMessage('Position updated successfuly!')
             setSeverity('success')
             setIsLoad(false)
             props.handleClose();
             setOpenSnack(true)
+            props.handleUpdatePeopleCards()
+            props.booking()
         })
         .catch(()=>{
             setMessage('Please try again')
@@ -84,13 +81,7 @@ const UpdatePositionCleaner = (props) => {
             setIsLoad(false)
             setOpenSnack(true)
         })
-    // })
-    //     .catch(()=>{
-    //         setMessage('Please try again')
-    //         setSeverity('error')
-    //         setIsLoad(false)
-    //         setOpenSnack(true)
-    //     })
+
    
 }
 
@@ -114,6 +105,7 @@ const UpdatePositionCleaner = (props) => {
 
                 <TimePicker
                     label='Pick time'
+                    value={dayjs(convertStringTimeToDateTime(props.card.time))}
                     onChange={e=>handleChangeTime(e)}
                 />
                 <br />
@@ -137,7 +129,7 @@ const UpdatePositionCleaner = (props) => {
             </DialogContent>
                 <DialogActions>
                     <Button onClick={props.handleClose}>Close</Button>
-                    <Button onClick={handleClickAction}>Add</Button>
+                    <Button onClick={handleClickAction}>Update</Button>
                 </DialogActions>
                 <Spinner visible={isLoad}/>
             </Dialog>
