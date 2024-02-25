@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBooking, changeStatusCardBase, changeStatusUserCards, getCleanCard } from '../../services/addCleanCard';
 import AlertMessage from '../AlertMessage';
 import { fillCardDataAction } from '../../actions/CleaningsActions';
+import { setIsUpdateCardsAction } from '../../actions/UserActions';
 
 const style = {
     position: 'absolute',
@@ -21,7 +22,6 @@ const style = {
 const ModalAddCleanCard = ({open, onClose, card}) => {
 
     const userUid = useSelector(state=>state.clean.userUid)
-    // const [result, setResult] = useState(null)
     const dispatch = useDispatch()
     const [openSnack, setOpenSnack] = useState(false)
     const handleCloseSnack = (event, reason) => {
@@ -36,13 +36,15 @@ const ModalAddCleanCard = ({open, onClose, card}) => {
       addBooking(userUid, card)
       changeStatusCardBase(card, true)
       changeStatusUserCards(card, true)
-      // setResult()
+  
       getCleanCard().then(data=>{
         const filteredData = data.filter(item=>item.status===false)
         dispatch(fillCardDataAction(filteredData))
     })
+    dispatch(setIsUpdateCardsAction(true))
       setOpenSnack(true)
       onClose()
+     
 
     }
   

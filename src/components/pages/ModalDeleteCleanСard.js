@@ -2,6 +2,8 @@ import { Box, Button, Modal } from '@mui/material';
 import React, { useState } from 'react';
 import AlertMessage from '../AlertMessage';
 import { deleteCleanCardUsersBase, deleteCleanCardCleanningBase } from '../../services/addCleanCard';
+import { useDispatch } from 'react-redux';
+import { setIsUpdateCardsAction } from '../../actions/UserActions';
 
 const style = {
     position: 'absolute',
@@ -19,6 +21,7 @@ const style = {
 const ModalDeleteCleanСard = ({open, onClose, card}) => {
 
     const [openSnack, setOpenSnack] = useState(false)
+    const dispatch = useDispatch()
     const handleCloseSnack = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -30,9 +33,9 @@ const ModalDeleteCleanСard = ({open, onClose, card}) => {
     const handleDeleteCard = () =>{
       deleteCleanCardUsersBase(card.userID, card.cardId)
       deleteCleanCardCleanningBase(card.cardId)
+      dispatch(setIsUpdateCardsAction(true))
       setOpenSnack(true)
-      onClose()
-
+      onClose()    
     }
  
   

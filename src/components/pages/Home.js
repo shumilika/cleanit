@@ -22,7 +22,7 @@ const Home = ({bookRef}) => {
                         <Route path={path} key={index} element={<HomeContent bookRef={bookRef}/>}/>)}
                  
                  { [ myProfilePage, regularlyCleaningPage,deepCleaningPage,officeCleaningPage,windowsCleaningPage].map((path, index) =>
-                        <Route path={path} key={index} element={<MyProfile/>}/>)}
+                        <Route path={path} key={index} element={<MyProfile bookRef={bookRef}/>}/>)}
 
 
             </Routes>

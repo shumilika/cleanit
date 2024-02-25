@@ -21,9 +21,9 @@ import AlertMessage from '../AlertMessage';
 import Spinner from '../Spinner';
 import dayjs from 'dayjs';
 import { convertStringTimeToDateTime, dateFormatChanger } from '../../services/formatChanger';
+import { setIsUpdateCardsAction } from '../../actions/UserActions';
 
 const UpdatePositionCleaner = (props) => {
-    const {userInfo} = useSelector(state=>state.user);
     const {userUid} = useSelector(state=>state.clean);
     const [cleanType, setCleanType] = useState(props.card.cleanType);
     const [date, setDate] = useState(new Date());
@@ -31,6 +31,7 @@ const UpdatePositionCleaner = (props) => {
     const [isLoad, setIsLoad] = useState(false)
     const [severity, setSeverity] = useState()
     const [message, setMessage] = useState('')
+    const dispatch = useDispatch()
     const [openSnack, setOpenSnack] = useState(false);
     const handleCloseSnack = (event, reason) => {
         if (reason === 'clickaway') {
@@ -72,8 +73,7 @@ const UpdatePositionCleaner = (props) => {
             setIsLoad(false)
             props.handleClose();
             setOpenSnack(true)
-            props.handleUpdatePeopleCards()
-            props.booking()
+            dispatch(setIsUpdateCardsAction(true))
         })
         .catch(()=>{
             setMessage('Please try again')

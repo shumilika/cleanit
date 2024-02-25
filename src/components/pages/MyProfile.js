@@ -6,19 +6,23 @@ import { getUserInfo, getUserInfoBooking } from '../../services/infoService';
 import style from '../../css.modules/booking.module.css';
 import BookingCleaners from './BookingCleaners';
 import AddPositionCleaner from './AddPositionCleaner';
-import { fillUserInfoAction } from '../../actions/UserActions';
+import { fillUserInfoAction, setIsUpdateCardsAction } from '../../actions/UserActions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddIcon from '@mui/icons-material/Add';
 import { getCleanCard } from '../../services/addCleanCard';
 import { fillCardDataAction } from '../../actions/CleaningsActions';
 
-const MyProfile = () => {
-    const {userInfo} = useSelector(state=>state.user);
+const MyProfile = ({bookRef}) => {
+    const {userInfo,isUpdateCards} = useSelector(state=>state.user);
     const dispatch = useDispatch() 
     const {userUid} = useSelector(state=>state.clean);
     const [dataBooking, setDataBooking] = useState([])
+    const [isDataBookingEmpthy, setIsDataBookingEmpthy] = useState(false)
     const [openPosition, setOpenPosition] = useState(false)
     const [isClick, setIsClick] = useState(false)
+  
+
+
     const handleClosePosition = () =>{
       setOpenPosition(false)
     }
@@ -41,10 +45,14 @@ const MyProfile = () => {
     }
 
     const booking =()=>{ 
-     
       getUserInfoBooking(userUid,collection)
-      .then(dataArray=>
-        setDataBooking(dataArray))
+      .then(dataArray=>{
+        if(dataArray.length<=0){setIsDataBookingEmpthy(true)}
+        else{setIsDataBookingEmpthy(false)}
+        setDataBooking(dataArray)
+        
+      })
+       
         setIsClick(true)
     }
 
@@ -54,8 +62,21 @@ const MyProfile = () => {
         dispatch(fillUserInfoAction(data)) 
       })
     },[])
+
+    useEffect(()=>{
+      if(isUpdateCards){
+
+        booking()
+        handleUpdatePeopleCards()
+        dispatch(setIsUpdateCardsAction(false))
+
+      }
+    },[isUpdateCards])
   
-   
+   const handleLinktoBook =()=>{
+    bookRef.current.scrollIntoView()
+   }
+
     return (
       <div>
                     
@@ -83,10 +104,10 @@ const MyProfile = () => {
             </ImageListItem>
            
             {userInfo.role==='cleaner'&& 
-            <IconButton  sx={{margin:'0 40%', position:'relative', top:'90px',backgroundColor:'#a2b2f5','&:hover': {
-       
-       backgroundColor: '#778ff5',
-     },}} onClick={()=>setOpenPosition(true)}>
+            <IconButton  sx={{margin:'0 40%', position:'relative',
+             top:'90px',backgroundColor:'#a2b2f5','&:hover': {
+              backgroundColor: '#778ff5',
+            },}} onClick={()=>setOpenPosition(true)}>
             <Tooltip title='Add position'>
 
             <AddIcon />
@@ -95,9 +116,11 @@ const MyProfile = () => {
         
           </Paper>
         
-          <Paper elevation={6} sx={{width: '40%',margin:'50px', padding:'10px'}} id={style.booking_box}>
+          <Paper elevation={6} sx={{width: '40%',margin:'50px', padding:'10px'}}
+           id={style.booking_box}>
           
-             {!isClick && <Button onClick={()=>booking()} endIcon={<KeyboardArrowDownIcon/>} sx={buttonStyle} variant='contained'>
+             {!isClick && <Button onClick={()=>booking()} 
+             endIcon={<KeyboardArrowDownIcon/>} sx={buttonStyle} variant='contained'>
               {userInfo.role==='employer'? 'My bookings':'My cards'} 
               </Button>}
             
@@ -105,18 +128,19 @@ const MyProfile = () => {
             {userInfo.role==='employer'
               ?
                 dataBooking.map((card, i)=>
-                  <BookingCleaners card={card} name={card.name} imageUrl={card.photo} 
-                      date={card.date} cleanType={card.cleanType} time={card.time}
-                                    key={i} handleUpdatePeopleCards={handleUpdatePeopleCards}
-                  />                  
+                  <BookingCleaners card={card} key={i}/>                  
                 )
               :
                 dataBooking.map((data,i)=>
-                  <CardBox data={data} key={i} handleUpdatePeopleCards={handleUpdatePeopleCards}/>
+                  <CardBox data={data} key={i}/>
                 )
             }
+            {(isDataBookingEmpthy&&userInfo.role==='employer') && <p>You have no booking yet.
+            You can hire new cleaner <Button onClick={handleLinktoBook}>here</Button></p>}
    
-              
+            {(isDataBookingEmpthy&&userInfo.role==='cleaner') && <p>You have no cards yet.
+            You add new card <Button onClick={()=>setOpenPosition(true)}>here</Button></p>}
+   
        
            
         
@@ -126,7 +150,9 @@ const MyProfile = () => {
          
         </Box>
                   
-        <AddPositionCleaner open={openPosition} handleClose={handleClosePosition}/>
+        <AddPositionCleaner open={openPosition} handleClose={handleClosePosition}  
+          handleUpdatePeopleCards={handleUpdatePeopleCards} booking={booking}
+        />
       </div>
     ); 
 };

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../css.modules/booking.module.css'
-import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemButton, ListItemText, Tooltip, Typography } from '@mui/material';
+import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography } from '@mui/material';
 import { dateFormatChanger } from '../../services/formatChanger';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModalDeleteCleanBooking from './ModalDeleteCleanBooking';
 
-const BookingCleaners = (props) => {
+const BookingCleaners = ({card}) => {
     
-    const dateString = dateFormatChanger(props.date.seconds)
+    const dateString = dateFormatChanger(card.date.seconds)
     const [isDateValid, setIsDateValid] = useState(false)
     const [open, setOpen] = useState(false)
     const handleClose = ()=>{
@@ -15,27 +15,27 @@ const BookingCleaners = (props) => {
     }
 
   useEffect(()=>{
-    const cardDate = new Date(props.date.seconds * 1000)
+    const cardDate = new Date(card.date.seconds * 1000)
     const currentDate = new Date()
         if(cardDate > currentDate){
         setIsDateValid(true)
     }else{
         setIsDateValid(false)
     }
-  },[])
+  },[card])
  
 
 
     return (
         <ListItem>
          <ListItemAvatar>
-          <Avatar alt={props.name} src={props.imageUrl}  
+          <Avatar alt={card.name} src={card.photo}  
             sx={{ width: 56, height: 56 }}
           />
         </ListItemAvatar>
         <ListItemText
         sx={{paddingLeft:'30px', paddingTop:'10px'}}
-          primary={props.name}
+          primary={card.name}
           secondary={
             <>
               <Typography
@@ -44,9 +44,9 @@ const BookingCleaners = (props) => {
                 variant="body2"
                 color="text.primary"
               >
-                {dateString + ' '+props.time}
+                {dateString + ' '+card.time}
               </Typography>
-             <p> {props.cleanType}</p>
+             <p> {card.cleanType}</p>
             </>
           }
         />
@@ -59,7 +59,9 @@ const BookingCleaners = (props) => {
                                   </IconButton>}
        
       
-            <ModalDeleteCleanBooking open={open} onClose={handleClose} card={props.card} handleUpdatePeopleCards={props.handleUpdatePeopleCards}/>
+            <ModalDeleteCleanBooking open={open} onClose={handleClose} 
+            card={card}
+             />
         </ListItem>
     );
 };

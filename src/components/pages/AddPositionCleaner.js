@@ -22,8 +22,7 @@ import Spinner from '../Spinner';
 
 
 const AddPositionCleaner = (props) => {
-    const {userInfo} = useSelector(state=>state.user);
-    const dispatch = useDispatch();
+    const {userInfo} = useSelector(state=>state.user)
     const {userUid} = useSelector(state=>state.clean);
     const [cleanType, setCleanType] = useState('');
     const [date, setDate] = useState(new Date());
@@ -67,16 +66,18 @@ const handleClickAction =  () =>{
     
     const newId = fb.firestore().collection('usersInfo').doc(userUid).collection('cleanCards').doc()
     addCard(userInfo.name,date,time,cleanType,userInfo.email,userUid,newId.id)
-    // .then(()=>{
+    
         
         addCardMainBase(userInfo.name,userInfo.email,date,time,cleanType,userInfo.photo,userUid,newId.id)
         .then(()=>{
-           
             setMessage('Position added successfuly!')
             setSeverity('success')
             setIsLoad(false)
             props.handleClose();
             setOpenSnack(true)
+            props.handleUpdatePeopleCards()
+            props.booking()
+            
         })
         .catch(()=>{
             setMessage('Please try again')

@@ -1,4 +1,4 @@
-import { Avatar,  ButtonGroup,  Divider,  IconButton,  ListItem, ListItemAvatar, ListItemText, Tooltip } from "@mui/material";
+import { Avatar,  ButtonGroup, IconButton,  ListItem, ListItemAvatar, ListItemText, Tooltip } from "@mui/material";
 import { deepOrange, green } from "@mui/material/colors";
 import { dateFormatChanger } from "../services/formatChanger";
 import EditIcon from '@mui/icons-material/Edit';
@@ -53,8 +53,11 @@ const CardBox = ({data}) => {
                 </Tooltip>
                 </IconButton>
             </ButtonGroup>}
-            <ModalDeleteCleanСard open={open} onClose={handleClose} card={data} />
-            <UpdatePositionCleaner open={openUpdateModal} handleClose={handleCloseUpdateModal} card={data}/>
+            <ModalDeleteCleanСard open={open} onClose={handleClose} card={data}
+             />
+            <UpdatePositionCleaner open={openUpdateModal} 
+            handleClose={handleCloseUpdateModal} card={data} 
+            />
     
        </ListItem>
      
