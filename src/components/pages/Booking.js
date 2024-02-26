@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Calendar from "../Calendar";
 import style from '../../css.modules/booking.module.css'
 import Peoples from "./Peoples";
@@ -19,32 +19,53 @@ const Booking = ({bookRef}) => {
     const {cardData,isFilter, cleanningType} = useSelector(state=>state.clean)
     const dispatch = useDispatch()
   
-    const handleFilterChange = (value) => {
-      const filteredData = cardData.filter(item =>
-        item.cleanType===value ||
-        item.date.seconds===value
-      );
+    // const handleFilterChange = (value) => {
+    //   const filteredData = cardData.filter(item =>
+    //     item.cleanType===value ||
+    //     item.date.seconds===value
+    //   );
   
-    dispatch(setFilteredData(filteredData))
-    dispatch(setIsFilter(true))
-    };
+    // dispatch(setFilteredData(filteredData))
+    // dispatch(setIsFilter(true))
+    // };
+
+    const handleFilterChange = (cleanTypeValue, dateValue) => {
+        const filteredData = cardData.filter(item => {
+          let matchCleanType = true;
+          let matchDate = true;
+      
+          if (cleanTypeValue) {
+            matchCleanType = item.cleanType === cleanTypeValue;
+          }
+      
+          if (dateValue) {
+            matchDate = item.date.seconds === dateValue;
+          }
+      
+          return matchCleanType && matchDate;
+        });
+      
+        dispatch(setFilteredData(filteredData));
+        dispatch(setIsFilter(true));
+      };
 
     const setCleanTypeAction=(e)=>{
         dispatch(setFilterChoosedCleanningType(''))
         setCleanType(e.target.value);
-        handleFilterChange(e.target.value)
+        handleFilterChange(e.target.value,dateValue)
     }
 
     const setDateAction=(date)=>{
         setDateValue(date);
         const formatDate = convertDateToTimestamp(date)
-        handleFilterChange(formatDate)
+        handleFilterChange(cleanType,formatDate)
     }
     
     const clearFiltersHandle = () =>{
         dispatch(setIsFilter(false))
         dispatch(setFilterChoosedCleanningType(''))
         setCleanType('')
+        setDateValue()
 
     }
 
