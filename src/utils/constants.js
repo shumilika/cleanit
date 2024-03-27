@@ -2,10 +2,6 @@ import regular_clean from '../images/cleaning/regular_clean.png';
 import deep_clean from '../images/cleaning/deep_clean.png';
 import office_clean from "../images/cleaning/office_clean.png";
 import window_clean from "../images/cleaning/window_clean.png";
-import albina_avatar from '../images/faces/face_1.png';
-import kate_avatar from '../images/faces/face_2.png';
-
-
 
 export const regularlyCleaningPage = 'regularly_cleaning';
 export const deepCleaningPage = 'deep_cleaning';
@@ -14,7 +10,6 @@ export const windowsCleaningPage = 'windows_cleaning';
 export const myProfilePage = 'my_profile';
 export const homePage = 'home';
 
-export const faces ={albina_avatar, kate_avatar};
 
 export const cleanings =
     {
@@ -31,7 +26,8 @@ export const cleanings =
                     'Wipe all accessible surfaces\n'+
                 'Wipe the switches and door handles\n'+
                     'We clean mirrors and glass surfaces\n'+
-                    'We collect and take out the garbage'
+                    'We collect and take out the garbage',
+                forFilter: 'regularly cleaning expert'
             },
         deep:
             {
@@ -47,7 +43,8 @@ export const cleanings =
                     'Wiping the walls\n'+
                     'Washing chandeliers and lamps\n'+
             'We wash the floor, wipe the baseboards and vacuum the carpet\n'+
-                    'We take out the garbage'
+                    'We take out the garbage',
+                    forFilter: 'deep cleaning expert'
             },
         office:
             {
@@ -62,7 +59,8 @@ export const cleanings =
                 'Wiping the walls \n'+
                     'Washing chandeliers and lamps\n'+
                     'We wash the floor, wipe the baseboards and vacuum the carpet\n'+
-                    'We take out the garbage'
+                    'We take out the garbage',
+                    forFilter: 'office cleaning expert'
             },
         windows:
             {
@@ -74,7 +72,8 @@ export const cleanings =
                 dark_text: 'Wash glass on both sides\n'+
                     'We clean the frame inside and out\n'+
                     'Washing mosquito nets\n'+
-                    'Wipe the window sills'
+                    'Wipe the window sills',
+                    forFilter: 'windows cleaning expert'
             },
 
     }

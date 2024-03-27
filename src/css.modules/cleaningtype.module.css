@@ -38,3 +38,57 @@ h1{
     opacity: 1;
 }
 
+@media screen and (max-width: 1122px) {
+    .yellow_line{
+        background:'';
+        height: 0;
+    }
+    
+}
+
+@media screen and (max-width: 990px) {
+
+   .cleanBox{
+    max-width:100% !important;
+   }
+}
+
+@media screen  and (max-width: 910px) {
+    #cleanTypeImg{
+        width:200px;
+    }
+    .btn_clean{
+        width: 240px;
+        height: 50px; 
+        font-size:20px !important;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .cleanImgBox{
+        display: none;
+    }
+   .h1Clean{
+    font-size: 25px;
+   }
+   .cleaning{
+    height: auto;
+   }
+}
+
+@media screen and (max-width: 440px) {
+    #img_venik{
+        display: none;
+    }
+    .h1Clean{
+        font-size: 22px;
+    }
+    .btn_clean{
+        width: 200px;
+        height: 40px; 
+        font-size: 18px !important;
+    }
+    #delPadding{
+        padding: 20px 10px !important;
+    }
+}

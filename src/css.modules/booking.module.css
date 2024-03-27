@@ -4,8 +4,13 @@
     padding-top: 20px;
     box-sizing: border-box;
 }
-.booking{
-    width: 1366px;
+
+.pickDateMinSize{
+    display: none !important;
+}
+
+#booking{
+    width: 100%;
     height: 630px;
     margin: 0 auto;
 }
@@ -16,57 +21,12 @@
     color: #FFFFFF !important;
     opacity: 1;
 }
-span{
+
+.white_span{
     color: #FFFFFF;
 }
-#select_box{
-    width: 304px;
-    height: 57px;
-    overflow: hidden;
-    border: 3px solid #F9D859;
-    position: relative;
-    padding: 10px 0;
-    margin: 20px 0;
-
-}
-#select_box:after{
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 20px solid #F9D859;
-    position: absolute;
-    top:40%;
-    right: 20px;
-    content: "";
-    z-index: 98;
-}
-
-#select_box select {
-    width: 314px;
-    border:0;
-
-    /*border: 3px solid #F9D859;*/
-    opacity: 1;
-    background: none;
-    padding: 0 20px;
-    color: #F9D859;
-    font-size: 24px;
-    font-weight: bold;
-    /*display: block;*/
-    position: relative;
-    z-index: 99;
-
-}
 
 
-select > option{
-    padding: 0 20px;
-    color: #F9D859;
-    font-size: 24px;
-    font-weight: bold;
-    /*text-align: center;*/
-}
 
 
 #people_box{
@@ -80,11 +40,6 @@ select > option{
     overflow-y: auto;
 }
 
-#grey_line{
-    background: rgba(117, 114, 114, 0.56) 0% 0% no-repeat padding-box;
-    height: 2px;
-    margin: 0 auto;
-}
 
 ::-webkit-scrollbar {
     width: 13px;
@@ -98,4 +53,56 @@ select > option{
     background-color: #FFFFFF;
     border-bottom-right-radius: 16px;
         border-top-right-radius: 16px;
+}
+
+@media screen and (max-width: 990px) {
+
+    #people_box{
+        width: 400px;
+        height: 480px;
+    }
+    #booking{
+        height: auto;
+        padding-bottom: 30px;
+    }
+    #book{
+        font-size: 35px;  
+    }
+ }
+
+ @media screen and (max-width: 760px) {
+    .pickDate{
+        display: none !important;
+    }
+
+    .pickDateMinSize{
+        display: inline-flex !important;
+        
+    }
+   
+    .calendarBox{
+        padding-left: 10px;
+    }
+
+    #booking{
+        display: block !important;
+        padding-bottom: 40px;
+        padding-left: 30px;
+    }
+   
+ }
+
+ @media screen and (max-width: 440px) {
+    #booking{
+       padding-left: 10px;
+       padding-bottom: 15px;
+    }
+    #book{
+        font-size: 30px;  
+    }
+    #people_box{
+        width: auto;
+        margin: 10px 10px 10px 0;
+       min-width: 250px;
+    }
 }

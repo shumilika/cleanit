@@ -3,15 +3,23 @@ import {
     FILL_CARD_DATA,
     SET_CURRENT_USER_EMAIL,
     SET_CURRENT_USER_ROLE,
-    TURN_ON_LOG_OUT_PAGE
+    TURN_ON_LOG_OUT_PAGE,
+    SET_CURRENT_USER_UID,
+    SET_FILTERED_DATA,
+    SET_IS_FILTER,
+    SET_FILTER_CHOOSED_CLEANNING_TYPE,
 } from "../actions/CleaningsActions";
 
 
 const initialState = {
     login:false,
     email:'',
-    role:'cleaner',
-    cardData:[]
+    role:'',
+    cardData:[],
+    userUid:'',
+    filteredData:[],
+    isFilter:false,
+    cleanningType:'',
 
 }
 
@@ -27,8 +35,20 @@ export const cleaningsReducer=(state=initialState,action)=>{
             return {...state, email: action.payload}
         case FILL_CARD_DATA:
             return {...state,cardData: action.payload}
+        case SET_CURRENT_USER_UID:
+            return {...state, userUid: action.payload}
+        case SET_FILTERED_DATA:
+            return {...state, filteredData: action.payload}
+        case SET_IS_FILTER:
+            return {...state, isFilter: action.payload}
+        case SET_FILTER_CHOOSED_CLEANNING_TYPE:
+            return {...state, cleanningType: action.payload}
+        case 'RESET_STATE':
+            return initialState;
         default:
             return state
 
     }
 }
+
+
