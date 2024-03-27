@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from '../../css.modules/home.module.css'
 import Navigation from "./Navigation";
 import HomeContent from "./HomeContent";
@@ -10,7 +10,7 @@ import {
 } from "../../utils/constants";
 import {Route, Routes} from "react-router-dom";
 import MyProfile from "./MyProfile";
-import {useSelector} from "react-redux";
+
 
 const Home = ({bookRef}) => {
 

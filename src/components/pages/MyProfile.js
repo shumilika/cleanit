@@ -3,7 +3,7 @@ import { useDispatch, useSelector} from "react-redux";
 import { Box, Button, IconButton, ImageListItem, ImageListItemBar, Paper, Tooltip } from '@mui/material';
 import CardBox from '../CardBox';
 import { getUserInfo, getUserInfoBooking } from '../../services/infoService';
-import style from '../../css.modules/booking.module.css';
+import style from '../../css.modules/myProfile.module.css'
 import BookingCleaners from './BookingCleaners';
 import AddPositionCleaner from './AddPositionCleaner';
 import { fillUserInfoAction, setIsUpdateCardsAction } from '../../actions/UserActions';
@@ -20,9 +20,6 @@ const MyProfile = ({bookRef}) => {
     const [isDataBookingEmpthy, setIsDataBookingEmpthy] = useState(false)
     const [openPosition, setOpenPosition] = useState(false)
     const [isClick, setIsClick] = useState(false)
-  
-
-
     const handleClosePosition = () =>{
       setOpenPosition(false)
     }
@@ -85,6 +82,7 @@ const MyProfile = ({bookRef}) => {
             display: 'flex',
             flexWrap: 'wrap', 
           }}
+          id={style.minSizeBox}
         >
           <Paper elevation={6} sx={{width: '20%',margin:'50px', padding:'10px'}} id={style.my_box}>
                     
@@ -104,7 +102,9 @@ const MyProfile = ({bookRef}) => {
             </ImageListItem>
            
             {userInfo.role==='cleaner'&& 
-            <IconButton  sx={{margin:'0 40%', position:'relative',
+            <IconButton
+            id={style.btnAddCard} 
+             sx={{margin:'0 40%', position:'relative',
              top:'90px',backgroundColor:'#a2b2f5','&:hover': {
               backgroundColor: '#778ff5',
             },}} onClick={()=>setOpenPosition(true)}>
@@ -135,10 +135,10 @@ const MyProfile = ({bookRef}) => {
                   <CardBox data={data} key={i}/>
                 )
             }
-            {(isDataBookingEmpthy&&userInfo.role==='employer') && <p>You have no booking yet.
+            {(isDataBookingEmpthy&&userInfo.role==='employer') && <p>You have no booking yet. <br className={style.minSize}/>
             You can hire new cleaner <Button onClick={handleLinktoBook}>here</Button></p>}
    
-            {(isDataBookingEmpthy&&userInfo.role==='cleaner') && <p>You have no cards yet.
+            {(isDataBookingEmpthy&&userInfo.role==='cleaner') && <p>You have no cards yet. <br className={style.minSize}/>
             You add new card <Button onClick={()=>setOpenPosition(true)}>here</Button></p>}
    
        

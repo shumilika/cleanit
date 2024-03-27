@@ -10,7 +10,6 @@
 }
 .text_path{
     padding: 70px 0 0 120px;
-
 }
 #yellow{
     color: #FFD836;
@@ -32,6 +31,9 @@
     padding: 60px 30px 0;
     color: #FFFFFF;
     width: 25%;
+}
+.navLogin li{
+    width: auto !important;
 }
 
 
@@ -84,6 +86,8 @@
 }
  #txt{
      color: #593D3D;
+     width: 380px;
+
  }
 .btn_clean{
     background: transparent linear-gradient(90deg, #8DA3FF 0%, #6781EF 100%) 0% 0% no-repeat padding-box;
@@ -98,4 +102,144 @@
     color: #FFFFFF;
     opacity: 1;
     margin-top: 40px;
+}
+
+#cleanerImg{
+    width: 100%;
+   }
+
+.navBoxMinSize {
+    display: none;
+}
+
+@media screen and (max-width: 1280px) {
+    .background{
+        height: auto;
+    }
+   .text_path{
+    padding: 20px 0 0 60px;
+    }
+    #logoImg{
+        margin-top: 20px;
+        width: 60%;
+    }
+    .sizing{
+        width: 100%;
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 1066px) {
+    .background{
+        padding-bottom: 15px;
+    }
+    .sizing{
+        justify-content: center !important;
+    }
+    .nav {
+        padding: 0  0 0 50px;
+    }
+    .nav li {
+        padding: 60px 10px 0 10px;
+    }
+    #signUp{
+        margin-left: 30px;
+        color: #FFFFFF;
+        border: 2px #FFFFFF solid;
+        border-radius: 20px;
+        opacity: 1;
+        padding: 5px 10px;
+        position: relative;
+        top:0px;
+        font-size: smaller;
+    }
+    #signUp:hover{
+        border: 2px #F4F5F7 solid;
+        color: #F4F5F7;
+    }
+   #logOut{
+        margin-left: 30px;
+       color: #FFFFFF;
+       border: 2px #FFFFFF solid;
+       border-radius: 20px;
+       opacity: 1;
+       padding: 5px 10px;
+       position: relative;
+       top:0px;
+       font-size: smaller;
+   }
+   #logOut:hover{
+       border: 2px #F4F5F7 solid;
+       color: #F4F5F7;
+   }
+   .btn_clean{
+    border-radius: 25px;
+    width: 200px;
+    height: 50px;
+    font-size: 22px;
+    margin-top: 20px;
+    }
+    #cleanerImg{
+    width: 90%;
+   }
+
+}
+
+@media screen and (max-width: 960px) {
+    .boxLogo{
+        width: 40%;
+    }
+    .nav li{
+        padding: 40px 30px 0;
+    }
+    .navBox{
+        padding-right: 30px;
+    }
+    .boxCleanerImg{
+        padding-top: 30px;
+    }
+    #yellow, #blue{
+        font-size:22px;
+        padding-bottom: 6px;
+    }
+}
+
+@media screen and (max-width:849px) {
+    .boxLogo{
+        width: 290px;
+    }
+    .boxCleanerImg{
+        display: none;
+    }
+    #yellow, #blue{
+        font-size:18px;
+    }
+   
+    .btn_clean{
+        border-radius: 25px;
+        width: 100px;
+        height: 35px;
+        font-size: 14px;
+        margin: 0;
+    }
+    .navBoxMinSize{
+        display: inline;
+    }
+    .navBox{
+        display: none;
+    }
+    .sizing{
+        justify-content: space-between !important;
+    }
+    
+}
+
+@media screen and (max-width: 440px) {
+    .text_path{
+        padding: 0 0 0 10px;
+    }
+    #txt{
+        width: auto;
+   
+    }
 }

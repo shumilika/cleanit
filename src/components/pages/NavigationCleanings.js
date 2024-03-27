@@ -11,16 +11,16 @@ const NavigationCleanings = () => {
             <div className={`${style.nav_list}`}>
                 <ul className={`justify-content-between ${style.clean_nav}`}>
                     <li>
-                        <Link to={regularlyCleaningPage}>Regularly Cleaning</Link>
+                        <Link to={regularlyCleaningPage} >Regularly <span className={style.cleaningLink}>Cleaning</span></Link>
                        </li>
                     <li>
-                        <Link to={deepCleaningPage}>Deep Cleaning</Link>
+                        <Link to={deepCleaningPage}>Deep <span className={style.cleaningLink}>Cleaning</span></Link>
                     </li>
                     <li>
-                        <Link to={officeCleaningPage}>Office Cleaning</Link>
+                        <Link to={officeCleaningPage}>Office <span className={style.cleaningLink}>Cleaning</span></Link>
                     </li>
                     <li>
-                        <Link to={windowsCleaningPage}>Windows Cleaning</Link>
+                        <Link to={windowsCleaningPage}>Windows <span className={style.cleaningLink}>Cleaning</span></Link>
                     </li>
 
                 </ul>

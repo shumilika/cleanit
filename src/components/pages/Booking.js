@@ -71,7 +71,7 @@ const Booking = ({bookRef}) => {
 
     return (
         <div className={style.bookingBox} ref={bookRef} id={'book'}>
-        <div className={`d-flex justify-content-around ${style.booking}`}>
+        <div className={`d-flex justify-content-around ${style.booking}`} id={style.booking}>
             <div>
             <h1 id={style.book}>Book now</h1>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }} >

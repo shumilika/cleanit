@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import style from '../../css.modules/cleaningtype.module.css'
 import venic from '../../images/cleaning/venic.png'
 import { setFilterChoosedCleanningType, setFilteredData, setIsFilter } from '../../actions/CleaningsActions';
@@ -24,15 +24,16 @@ const CleaningPage = (props) => {
     return (
         <div className={`${style.cleaning}`}>
             <div className={`${style.yellow_line}`}></div>
-            <div className={'d-flex container-md'}>
-            <div className={'p-5'}>
-                <img src={props.page.img} alt={props.page.alt}/>
+            <div className={`d-flex container-md ${style.cleanBox}`}>
+            <div className={`p-5 ${style.cleanImgBox}`}>
+                <img src={props.page.img} alt={props.page.alt} 
+                id={style.cleanTypeImg}/>
 
             </div>
-            <div className={'p-5'}>
-                <h1>{props.page.name}</h1>
+            <div className={'p-5'} id={style.delPadding}>
+                <h1 className={style.h1Clean}>{props.page.name}</h1>
                 <div className={`py-4 ${style.blue_text}`}>
-               <img src={venic} className={'float-start'} alt={'venik'} />
+               <img id={style.img_venik} src={venic} className={'float-start'} alt={'venik'} />
                 <p>{props.page.blue_text}</p>
                 </div>
                 <p>{props.page.dark_text}</p>

@@ -1,6 +1,5 @@
 import React from 'react';
-import style from '../../css.modules/booking.module.css'
-import { Avatar, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material';
+import { Avatar, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import { dateFormatChanger } from '../../services/formatChanger';
 const Person = (props) => {
     const dateString = dateFormatChanger(props.date.seconds);
@@ -25,7 +24,11 @@ const Person = (props) => {
               >
                 {dateString + ' '+props.time}
               </Typography>
-             <p> {props.cleanType}</p>
+             <Typography
+                sx={{ display:'block' }}
+                component="span"
+                
+              > {props.cleanType}</Typography>
             </>
           }
         />

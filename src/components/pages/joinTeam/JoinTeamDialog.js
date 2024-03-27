@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     Box,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     FormControl,
     FormLabel,
@@ -16,10 +15,10 @@ import {
 } from "@mui/material";
 import style from "../../../css.modules/booking.module.css";
 import {addCard, addCardMainBase, getCleanCard} from "../../../services/addCleanCard";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { registration} from "../../../services/authService";
+
 import { fillCardDataAction, setCurrentUserUID, turnOnLogOutPageAction } from '../../../actions/CleaningsActions';
 import { addRole } from '../../../services/infoService';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -31,7 +30,6 @@ import Spinner from '../../Spinner';
 
 const JoinTeamDialog = (props) => {
     const dispatch = useDispatch();
-    // const {userUid} = useSelector(state=>state.clean);
     const [name, setName] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,7 +38,6 @@ const JoinTeamDialog = (props) => {
     const [time, setTime] = useState(null);
     const [isPhotoPicked, setIsPhotoPicked] = useState(false);
     const [image, setImage] = useState('');
-
     const [isLoad, setIsLoad] = useState(false)
     const [severity, setSeverity] = useState()
     const [message, setMessage] = useState('')
@@ -166,7 +163,8 @@ const handleClickAction =  () =>{
     
            <>
            <p>*only for new employees</p>
-           <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px', paddingTop:'0'}}>
+           <Box style={{border:'1px solid #6c85f1', borderRadius:'5px', padding:'15px',
+            paddingTop:'0', marginBottom:'20px' }}>
           
                 <TextField id="name" label="Name" variant="standard" onChange={e=>handleChangeName(e.target.value)} />
                <br />
@@ -185,7 +183,7 @@ const handleClickAction =  () =>{
                     <VisuallyHiddenInput type="file"  />
                 </Button>
                 {isPhotoPicked && <FormLabel>{image.name}</FormLabel>}
-            </Box><br/>
+            </Box>
            </>
             <div>
         

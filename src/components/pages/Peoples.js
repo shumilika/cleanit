@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useSelector} from "react-redux";
 import Person from "./Person";
 import style from '../../css.modules/booking.module.css';
-import { Divider, List, ListItemButton } from '@mui/material';
+import { Divider, ListItemButton } from '@mui/material';
 import ModalAddCleanCard from './ModalAddCleanCard';
 import AlertMessage from '../AlertMessage';
 
@@ -38,14 +38,16 @@ const Peoples = () => {
 
 
 {(isFilter?filteredData:cardData).map((card, i)=>
-                   <>
-                   <ListItemButton onClick={()=>(login&&role==='employer')?handleClickPerson(card):handleClick()} key={i}>
+                   <div key={i}>
+                   <ListItemButton
+                    onClick={()=>(login&&role==='employer')?handleClickPerson(card):handleClick()}
+                    >
                     <Person name={card.name} imageUrl={card.photo} 
                     date={card.date} cleanType={card.cleanType} time={card.time}
-                                   key={i}/>
+                    />
                    </ListItemButton>
                    <Divider variant='middle'/>
-                   </>
+                   </div>
                 )}
 
                 {(isFilter&&filteredData.length<=0)&& <p>No matches</p>}
